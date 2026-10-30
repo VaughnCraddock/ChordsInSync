@@ -148,6 +148,26 @@ fun BrowseActionsMenu(
      * over the page, so the row hands the job to the host, which raises a
      * sheet holding only the form — this, composed again with [startRenaming].
      */
+    /**
+     * Deletes a device folder's files from the phone — set only when the
+     * target is one of Local Music's folder groups. Unlike the two deletes
+     * above this is NOT confirmed by a second tap inside the sheet: the
+     * confirmation has to name the folder and count its songs, the count is
+     * only known once the caller resolves them, so the caller owns the
+     * dialog (see LocalDeleteHost) and this row only ever asks.
+     */
+    onDeleteLocalFolder: (() -> Unit)? = null,
+    /**
+     * [SongActionsPresentation.Menu] draws only the rows, compact, for the
+     * popup a held card lifts into — [HeldContextMenu] shows the card itself,
+     * so the header here would only say the same thing twice.
+     */
+    presentation: SongActionsPresentation = SongActionsPresentation.Sheet,
+    /**
+     * Rename in the popup: a text field and its keyboard have no place on a
+     * menu floating over the page, so the popup hands the job to the sheet,
+     * which then opens straight on the form via [startRenaming].
+     */
     onRenameInSheet: (() -> Unit)? = null,
     startRenaming: Boolean = false,
 ) {
@@ -280,6 +300,14 @@ fun BrowseActionsMenu(
                     }
                 }
             }
+            if (onDeleteLocalFolder != null) {
+                ActionRow(
+                    icon = Icons.Rounded.Delete,
+                    label = stringResource(R.string.delete_folder),
+                    onClick = onDeleteLocalFolder,
+                )
+            }
+            if (!menu) Spacer(Modifier.height(24.dp))
         }
     }
 }

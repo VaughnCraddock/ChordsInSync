@@ -22,6 +22,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.DeleteSweep
+import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.DownloadDone
+import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.ErrorOutline
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -132,6 +138,14 @@ fun SongActionsMenu(
      * row — the History screen passes one only when the menu is opened there.
      */
     onRemoveFromHistory: (() -> Unit)? = null,
+    /**
+     * Deletes this track's file from the device. Null hides the row — the
+     * caller passes one only for a local file that is not a saved download:
+     * a saved download's own row already offers its delete, and duplicating
+     * it here would give one file two doors. The confirmation is the
+     * caller's, not this sheet's — see LocalDeleteHost.
+     */
+    onDeleteLocalFile: (() -> Unit)? = null,
     showSleepTimer: Boolean = false,
     /**
      * Sends the playing track back to YouTube's own upload, and keeps it there.
@@ -328,6 +342,14 @@ fun SongActionsMenu(
             ActionRow(
                 icon = SfIcons.Trash,
                 label = stringResource(R.string.remove_from_cache),
+                accent = palette.accent,
+                onClick = it,
+            )
+        }
+        onDeleteLocalFile?.let {
+            ActionRow(
+                icon = Icons.Rounded.Delete,
+                label = stringResource(R.string.delete_from_device),
                 accent = palette.accent,
                 onClick = it,
             )

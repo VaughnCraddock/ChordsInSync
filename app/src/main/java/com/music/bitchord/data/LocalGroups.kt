@@ -254,6 +254,10 @@ object LocalGroups {
     fun folderPathOf(group: LocalGroup): String? =
         parse(group.browseId)?.takeIf { it.kind == FOLDER }?.name
 
+    /** The same read-back as [folderPathOf], straight from a page id — for callers holding an id rather than a group. */
+    fun folderPathOf(browseId: String?): String? =
+        parse(browseId)?.takeIf { it.kind == FOLDER }?.name
+
     /**
      * Upstream's Folders order, with the fork's starred folders first. Each
      * tier keeps upstream's title and location order; a stale favorite is
@@ -269,6 +273,16 @@ object LocalGroups {
         )
     }
 }
+
+/**
+ * The directory holding this track's file, off the path the media scan
+ * recorded — null where the track never said, or said nothing with a
+ * directory in it.
+ */
+internal fun Song.folderPath(): String? =
+    localPath?.takeIf { it.isNotBlank() }
+        ?.substringBeforeLast('/', missingDelimiterValue = "")
+        ?.takeIf { it.isNotEmpty() }
 
 /**
  * Whether this track is a hit for a query typed into a page's filter box — or
