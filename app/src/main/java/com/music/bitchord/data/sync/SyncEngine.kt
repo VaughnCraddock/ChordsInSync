@@ -3,7 +3,6 @@ package com.music.bitchord.data.sync
 import android.content.Context
 import com.music.bitchord.data.DebugLog as Log
 import com.music.bitchord.data.settings.AppSettings
-import com.music.bitchord.data.sync.drive.DriveProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -69,14 +68,6 @@ class SyncEngine(
                 val saf = SafTreeProvider(appContext, pair.remoteLocator)
                 remote = saf
                 remoteWritable = saf.canWrite()
-            }
-            SyncEngines.GOOGLE_DRIVE -> {
-                remote = DriveProvider(appContext, pair.remoteLocator)
-                // A connected Drive account can always write inside the
-                // app's folders. Whether it is connected is the provider's
-                // first call finding out — as needs-sign-in, not as a gate
-                // answer, because the gate cannot fix it either.
-                remoteWritable = true
             }
             else -> {
                 // Registered but not wired: no pair can exist for one yet,

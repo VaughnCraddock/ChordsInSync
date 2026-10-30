@@ -250,11 +250,13 @@ object AppSettings {
 
     /**
      * Keep ordinary downloads in Music/BitChord where other music apps can see
-     * them. Off (the default) keeps downloads in this app's private storage.
-     * HLS downloads always stay private because they are a playlist package,
-     * not one portable audio file.
+     * them. On (the default since the Syncthing pivot, 2026-10-30) downloads
+     * land in the shared Music/BitChord folder — the folder Syncthing carries
+     * for this device. Turning it off keeps downloads in this app's private
+     * storage instead. HLS downloads always stay private because they are a
+     * playlist package, not one portable audio file.
      */
-    val exportDownloads = MutableStateFlow(false)
+    val exportDownloads = MutableStateFlow(true)
 
     /**
      * Check the playlists downloaded whole for newly added songs and download
@@ -966,7 +968,7 @@ object AppSettings {
         migrateDownloadQuality()
         downloadQuality.value = readDownloadQuality()
         wifiOnlyDownloads.value = prefs.getBoolean(KEY_WIFI_ONLY_DOWNLOADS, true)
-        exportDownloads.value = prefs.getBoolean(KEY_EXPORT_DOWNLOADS, false)
+        exportDownloads.value = prefs.getBoolean(KEY_EXPORT_DOWNLOADS, true)
         syncDownloadedPlaylists.value = prefs.getBoolean(KEY_SYNC_DOWNLOADED_PLAYLISTS, false)
         crossfadeSeconds.value = prefs.getInt(KEY_CROSSFADE, 0)
         smartFadeEnabled.value = prefs.getBoolean(KEY_SMART_FADE, false)
