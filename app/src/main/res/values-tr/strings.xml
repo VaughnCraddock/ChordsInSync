@@ -1388,4 +1388,28 @@
     <string name="deleted_one_song">Şarkı bu telefondan silindi</string>
     <string name="deleted_songs_result">%1$d şarkı bu telefondan silindi</string>
     <string name="delete_failed_some">%1$d şarkı silinemedi</string>
+    <string name="sync_status_needs_sign_in">Oturum açmak gerekiyor - yukarıdaki hesabı yeniden bağlayın</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">Google Drive kurulumu</string>
+    <string name="sync_drive_setup_steps">Senkronizasyon kendi Google Cloud projenizi kullanır. console.cloud.google.com adresinde: bir proje oluşturun ve Drive API\'yi etkinleştirin. OAuth izin ekranını kurun (Harici - Test durumu uygundur) ve tam Google Drive kapsamını ekleyin: https://www.googleapis.com/auth/drive. Ardından aşağıdaki paket adı ve SHA-1 parmak iziyle bir Android OAuth istemcisi oluşturun. Uygulamaya hiçbir şey kurulmaz - Google Play hizmetleri bağlandığınızda bu derlemeyi o istemciyle eşleştirir. İlk bağlantıda Google, bu kapsam kısıtlı ve proje doğrulanmamış olduğu için doğrulanmamış uygulama uyarısı gösterir: devam etmek için Gelişmiş\'i, ardından Chords In Sync uygulamasına git\'i seçin. Kendi projenizde bu uyarı beklenen bir durumdur.</string>
+    <string name="sync_drive_package_label">Paket adı</string>
+    <string name="sync_drive_sha1_label">SHA-1 parmak izi</string>
+    <string name="sync_drive_copy">Kopyala</string>
+    <string name="sync_drive_scope_note">Bu derleme Drive\'ınıza tam erişim ister, böylece bir çift içindeki herhangi bir klasörü kullanabilir. Uygulama yalnızca çiftlerinizin gösterdiği klasörleri açar - başka hiçbir şeyi taramaz veya değiştirmez.</string>
+    <string name="sync_drive_not_connected">Bağlı değil</string>
+    <string name="sync_drive_connect">Google Drive’ı bağla</string>
+    <string name="sync_drive_connected_as">%1$s olarak bağlandı</string>
+    <string name="sync_drive_connect_failed">Google Drive bağlanamadı. Aşağıdaki kurulum adımlarını kontrol edip tekrar deneyin.</string>
+    <string name="sync_drive_disconnect_message">Google Drive bağlantısı kesilsin mi? Çiftleri kalır, ancak yeniden bağlanana kadar senkronize edilemezler.</string>
+    <string name="sync_drive_add_pair">Drive çifti ekle</string>
+    <string name="sync_drive_folder_label">Drive klasörü</string>
+    <string name="sync_drive_my_drive">Drive\'ım</string>
+    <string name="sync_drive_remote_folder">Çift klasörü: %1$s</string>
+    <string name="sync_drive_up">Bir düzey yukarı</string>
+    <string name="sync_drive_empty_folder">Burada alt klasör yok</string>
+    <string name="sync_drive_create_folder">Klasör oluştur</string>
+    <string name="sync_drive_new_folder_label">Burada yeni klasör oluştur</string>
+    <string name="sync_drive_loading_folders">Klasörler yükleniyor…</string>
+    <string name="sync_drive_load_failed">Klasörler yüklenemedi. Google Drive’ı bağlayıp tekrar deneyin.</string>
+    <string name="sync_drive_create_folder_failed">Bu klasör Drive’da oluşturulamadı.</string>
 </resources>

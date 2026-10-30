@@ -1436,4 +1436,28 @@
     <string name="deleted_one_song">השיר נמחק מהטלפון</string>
     <string name="deleted_songs_result">%1$d שירים נמחקו מהטלפון</string>
     <string name="delete_failed_some">%1$d שירים לא נמחקו</string>
+    <string name="sync_status_needs_sign_in">נדרשת התחברות - חברו מחדש את החשבון למעלה</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">הגדרת Google Drive</string>
+    <string name="sync_drive_setup_steps">הסנכרון משתמש בפרויקט Google Cloud משלך. בכתובת console.cloud.google.com: צור פרויקט והפעל את Drive API. הגדר את מסך ההסכמה של OAuth (חיצוני - סטטוס בדיקה תקין) והוסף לו את היקף הגישה המלא של Google Drive: https://www.googleapis.com/auth/drive. לאחר מכן צור לקוח OAuth ל-Android עם שם החבילה וטביעת ה-SHA-1 שלמטה. שום דבר לא מותקן באפליקציה - שירותי Google Play מתאימים את הגרסה הזו ללקוח הזה בעת החיבור. בחיבור הראשון Google מציג אזהרת אפליקציה לא מאומתת, כי ההיקף הזה מוגבל והפרויקט לא אומת: בחר מתקדם, ולאחר מכן מעבר אל Chords In Sync, כדי להמשיך. האזהרה הזו צפויה בפרויקט שלך.</string>
+    <string name="sync_drive_package_label">שם החבילה</string>
+    <string name="sync_drive_sha1_label">טביעת אצבע SHA-1</string>
+    <string name="sync_drive_copy">העתקה</string>
+    <string name="sync_drive_scope_note">הגרסה הזו מבקשת גישה מלאה ל-Drive שלך, כדי שזוג יוכל להשתמש בכל תיקייה בו. האפליקציה פותחת רק את התיקיות שהזוגות שלך מצביעים עליהן - היא אף פעם לא סורקת או משנה שום דבר אחר.</string>
+    <string name="sync_drive_not_connected">לא מחובר</string>
+    <string name="sync_drive_connect">חיבור Google Drive</string>
+    <string name="sync_drive_connected_as">מחובר כ-%1$s</string>
+    <string name="sync_drive_connect_failed">לא ניתן להתחבר ל-Google Drive. בדקו את שלבי ההגדרה שלהלן ונסו שוב.</string>
+    <string name="sync_drive_disconnect_message">לנתק את Google Drive? הזוגות נשארים, אך לא יוכלו להסתנכרן עד להתחברות מחדש.</string>
+    <string name="sync_drive_add_pair">הוספת זוג Drive</string>
+    <string name="sync_drive_folder_label">תיקיית Drive</string>
+    <string name="sync_drive_my_drive">האחסון שלי</string>
+    <string name="sync_drive_remote_folder">תיקיית הזוג: %1$s</string>
+    <string name="sync_drive_up">רמה אחת למעלה</string>
+    <string name="sync_drive_empty_folder">אין כאן תיקיות משנה</string>
+    <string name="sync_drive_create_folder">צור תיקייה</string>
+    <string name="sync_drive_new_folder_label">צור תיקייה חדשה כאן</string>
+    <string name="sync_drive_loading_folders">טוען תיקיות…</string>
+    <string name="sync_drive_load_failed">לא ניתן לטעון את התיקיות. התחברו ל-Google Drive ונסו שוב.</string>
+    <string name="sync_drive_create_folder_failed">לא ניתן ליצור את התיקייה הזו ב-Drive.</string>
 </resources>

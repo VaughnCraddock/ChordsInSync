@@ -40,6 +40,16 @@ interface SyncProvider {
 }
 
 /**
+ * The provider cannot get a usable credential without its owner in the
+ * room — a cloud grant that needs a consent screen, an account picker, or
+ * a fresh sign-in. Background runs cannot show any of that, so this is not
+ * a failure of the run: [SyncEngine] records it as the pair's
+ * needs-sign-in status and the Sync page offers the interactive fix.
+ * Providers throw it instead of returning a listing they do not have.
+ */
+class SyncNeedsSignInException(message: String? = null) : Exception(message)
+
+/**
  * Characters a folder name on shared storage cannot hold, and the whitespace
  * runs a name reads better without — the same treatment [com.music.bitchord.download.DownloadStore]
  * gives the files it names.

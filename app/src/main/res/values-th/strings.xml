@@ -1414,4 +1414,28 @@
     <string name="deleted_one_song">ลบเพลงออกจากโทรศัพท์เครื่องนี้แล้ว</string>
     <string name="deleted_songs_result">ลบ %1$d เพลงออกจากโทรศัพท์เครื่องนี้แล้ว</string>
     <string name="delete_failed_some">ลบ %1$d เพลงไม่ได้</string>
+    <string name="sync_status_needs_sign_in">ต้องลงชื่อเข้าใช้ - เชื่อมต่อบัญชีด้านบนอีกครั้ง</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">ตั้งค่า Google Drive</string>
+    <string name="sync_drive_setup_steps">การซิงค์ใช้โปรเจ็กต์ Google Cloud ของคุณเอง ที่ console.cloud.google.com: สร้างโปรเจ็กต์และเปิดใช้ Drive API ตั้งค่าหน้าจอยินยอม OAuth (ภายนอก - สถานะทดสอบใช้ได้) และเพิ่มขอบเขต Google Drive แบบเต็มลงไป: https://www.googleapis.com/auth/drive จากนั้นสร้างไคลเอนต์ OAuth สำหรับ Android ด้วยชื่อแพ็กเกจและลายนิ้วมือ SHA-1 ด้านล่าง ไม่มีอะไรติดตั้งลงในแอป - บริการ Google Play จะจับคู่บิลด์นี้กับไคลเอนต์นั้นเมื่อคุณเชื่อมต่อ ในการเชื่อมต่อครั้งแรก Google จะแสดงคำเตือนแอปที่ยังไม่ได้รับการยืนยัน เนื่องจากขอบเขตนี้ถูกจำกัดและโปรเจ็กต์ยังไม่ได้รับการยืนยัน: เลือก ขั้นสูง แล้ว ไปที่ Chords In Sync เพื่อดำเนินการต่อ คำเตือนนั้นเป็นเรื่องปกติสำหรับโปรเจ็กต์ของคุณเอง</string>
+    <string name="sync_drive_package_label">ชื่อแพ็กเกจ</string>
+    <string name="sync_drive_sha1_label">ลายนิ้วมือ SHA-1</string>
+    <string name="sync_drive_copy">คัดลอก</string>
+    <string name="sync_drive_scope_note">บิลด์นี้ขอสิทธิ์เข้าถึง Drive ของคุณแบบเต็ม เพื่อให้คู่ซิงค์ใช้โฟลเดอร์ใดก็ได้ในนั้น แอปจะเปิดเฉพาะโฟลเดอร์ที่คู่ซิงค์ของคุณชี้ไปเท่านั้น - แอปจะไม่สแกนหรือเปลี่ยนแปลงสิ่งอื่นใดเลย</string>
+    <string name="sync_drive_not_connected">ไม่ได้เชื่อมต่อ</string>
+    <string name="sync_drive_connect">เชื่อมต่อ Google Drive</string>
+    <string name="sync_drive_connected_as">เชื่อมต่อในชื่อ %1$s</string>
+    <string name="sync_drive_connect_failed">เชื่อมต่อ Google Drive ไม่ได้ โปรดตรวจสอบขั้นตอนการตั้งค่าด้านล่างแล้วลองอีกครั้ง</string>
+    <string name="sync_drive_disconnect_message">ตัดการเชื่อมต่อ Google Drive หรือไม่ คู่ของโฟลเดอร์จะยังอยู่ แต่จะซิงค์ไม่ได้จนกว่าคุณจะเชื่อมต่ออีกครั้ง</string>
+    <string name="sync_drive_add_pair">เพิ่มคู่ของ Drive</string>
+    <string name="sync_drive_folder_label">โฟลเดอร์ Drive</string>
+    <string name="sync_drive_my_drive">ไดรฟ์ของฉัน</string>
+    <string name="sync_drive_remote_folder">โฟลเดอร์ของคู่ซิงค์: %1$s</string>
+    <string name="sync_drive_up">ขึ้นหนึ่งระดับ</string>
+    <string name="sync_drive_empty_folder">ไม่มีโฟลเดอร์ย่อยที่นี่</string>
+    <string name="sync_drive_create_folder">สร้างโฟลเดอร์</string>
+    <string name="sync_drive_new_folder_label">สร้างโฟลเดอร์ใหม่ที่นี่</string>
+    <string name="sync_drive_loading_folders">กำลังโหลดโฟลเดอร์…</string>
+    <string name="sync_drive_load_failed">โหลดโฟลเดอร์ไม่ได้ เชื่อมต่อ Google Drive แล้วลองอีกครั้ง</string>
+    <string name="sync_drive_create_folder_failed">สร้างโฟลเดอร์นั้นใน Drive ไม่ได้</string>
 </resources>

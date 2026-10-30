@@ -1408,4 +1408,28 @@
     <string name="deleted_one_song">已从这部手机删除歌曲</string>
     <string name="deleted_songs_result">已从这部手机删除 %1$d 首歌曲</string>
     <string name="delete_failed_some">%1$d 首歌曲无法删除</string>
+    <string name="sync_status_needs_sign_in">需要登录 - 请重新连接上方的账号</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">设置 Google 云端硬盘</string>
+    <string name="sync_drive_setup_steps">同步使用你自己的 Google Cloud 项目。在 console.cloud.google.com：创建项目并启用 Drive API。设置 OAuth 授权同意屏幕（外部 - 测试状态即可），并将完整的 Google Drive 权限范围添加到其中：https://www.googleapis.com/auth/drive。然后使用下方的软件包名称和 SHA-1 指纹创建 Android OAuth 客户端。应用内不会安装任何东西 - 连接时 Google Play 服务会将此版本与该客户端进行匹配。首次连接时，由于此权限范围受限且项目未经验证，Google 会显示未经验证的应用警告：选择高级，然后选择转到 Chords In Sync 以继续。对于你自己的项目，此警告属正常现象。</string>
+    <string name="sync_drive_package_label">软件包名称</string>
+    <string name="sync_drive_sha1_label">SHA-1 指纹</string>
+    <string name="sync_drive_copy">复制</string>
+    <string name="sync_drive_scope_note">此版本请求对云端硬盘的完全访问权限，以便同步对可以使用其中的任何文件夹。应用仅打开你的同步对所指向的文件夹，从不扫描或更改其他任何内容。</string>
+    <string name="sync_drive_not_connected">未连接</string>
+    <string name="sync_drive_connect">连接 Google 云端硬盘</string>
+    <string name="sync_drive_connected_as">已连接为 %1$s</string>
+    <string name="sync_drive_connect_failed">无法连接 Google 云端硬盘。请检查下方的设置步骤，然后重试。</string>
+    <string name="sync_drive_disconnect_message">断开 Google 云端硬盘？其配对会保留，但在您重新连接之前无法同步。</string>
+    <string name="sync_drive_add_pair">添加云端硬盘配对</string>
+    <string name="sync_drive_folder_label">云端硬盘文件夹</string>
+    <string name="sync_drive_my_drive">我的云端硬盘</string>
+    <string name="sync_drive_remote_folder">同步对文件夹：%1$s</string>
+    <string name="sync_drive_up">向上一级</string>
+    <string name="sync_drive_empty_folder">此处没有子文件夹</string>
+    <string name="sync_drive_create_folder">创建文件夹</string>
+    <string name="sync_drive_new_folder_label">在此创建新文件夹</string>
+    <string name="sync_drive_loading_folders">正在加载文件夹…</string>
+    <string name="sync_drive_load_failed">无法加载文件夹。请连接 Google 云端硬盘，然后重试。</string>
+    <string name="sync_drive_create_folder_failed">无法在云端硬盘中创建该文件夹。</string>
 </resources>

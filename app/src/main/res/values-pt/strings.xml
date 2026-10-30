@@ -1436,4 +1436,28 @@
     <string name="deleted_one_song">Música eliminada deste telemóvel</string>
     <string name="deleted_songs_result">%1$d músicas eliminadas deste telemóvel</string>
     <string name="delete_failed_some">%1$d músicas não puderam ser eliminadas</string>
+    <string name="sync_status_needs_sign_in">É necessário iniciar sessão - volte a ligar a conta acima</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">Configurar o Google Drive</string>
+    <string name="sync_drive_setup_steps">A sincronização utiliza o seu próprio projeto Google Cloud. Em console.cloud.google.com: crie um projeto e ative a API do Drive. Configure o ecrã de consentimento OAuth (Externo - o estado Teste é suficiente) e adicione-lhe o âmbito completo do Google Drive: https://www.googleapis.com/auth/drive. Depois crie um cliente OAuth Android com o nome do pacote e a impressão digital SHA-1 abaixo. Nada é instalado na app - os serviços Google Play associam esta compilação a esse cliente quando se liga. Na primeira ligação, a Google mostra um aviso de app não verificada, porque este âmbito é restrito e o projeto não está verificado: escolha Avançadas e depois Ir para Chords In Sync para continuar. Esse aviso é esperado no seu próprio projeto.</string>
+    <string name="sync_drive_package_label">Nome do pacote</string>
+    <string name="sync_drive_sha1_label">Impressão digital SHA-1</string>
+    <string name="sync_drive_copy">Copiar</string>
+    <string name="sync_drive_scope_note">Esta compilação pede acesso total ao seu Drive, para que um par possa usar qualquer pasta. A app só abre as pastas indicadas pelos seus pares - nunca analisa nem altera mais nada.</string>
+    <string name="sync_drive_not_connected">Não ligado</string>
+    <string name="sync_drive_connect">Ligar o Google Drive</string>
+    <string name="sync_drive_connected_as">Ligado como %1$s</string>
+    <string name="sync_drive_connect_failed">Não foi possível ligar o Google Drive. Verifique os passos de configuração abaixo e tente novamente.</string>
+    <string name="sync_drive_disconnect_message">Desligar o Google Drive? Os pares ficam, mas não poderão sincronizar até se ligar novamente.</string>
+    <string name="sync_drive_add_pair">Adicionar um par do Drive</string>
+    <string name="sync_drive_folder_label">Pasta do Drive</string>
+    <string name="sync_drive_my_drive">O meu Drive</string>
+    <string name="sync_drive_remote_folder">Pasta do par: %1$s</string>
+    <string name="sync_drive_up">Um nível acima</string>
+    <string name="sync_drive_empty_folder">Sem subpastas aqui</string>
+    <string name="sync_drive_create_folder">Criar pasta</string>
+    <string name="sync_drive_new_folder_label">Criar uma nova pasta aqui</string>
+    <string name="sync_drive_loading_folders">A carregar pastas…</string>
+    <string name="sync_drive_load_failed">Não foi possível carregar as pastas. Ligue o Google Drive e tente novamente.</string>
+    <string name="sync_drive_create_folder_failed">Não foi possível criar essa pasta no Drive.</string>
 </resources>

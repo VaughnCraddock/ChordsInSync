@@ -1348,4 +1348,28 @@
     <string name="deleted_one_song">Đã xóa bài hát khỏi điện thoại này</string>
     <string name="deleted_songs_result">Đã xóa %1$d bài hát khỏi điện thoại này</string>
     <string name="delete_failed_some">Không xóa được %1$d bài hát</string>
+    <string name="sync_status_needs_sign_in">Cần đăng nhập - hãy kết nối lại tài khoản ở trên</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">Thiết lập Google Drive</string>
+    <string name="sync_drive_setup_steps">Đồng bộ hóa dùng dự án Google Cloud của riêng bạn. Tại console.cloud.google.com: tạo một dự án và bật Drive API. Thiết lập màn hình đồng ý OAuth (Bên ngoài - trạng thái Đang kiểm tra là được) và thêm phạm vi Google Drive đầy đủ vào đó: https://www.googleapis.com/auth/drive. Sau đó tạo ứng dụng khách OAuth Android bằng tên gói và dấu vân tay SHA-1 bên dưới. Không có gì được cài vào ứng dụng - dịch vụ Google Play sẽ đối chiếu bản dựng này với ứng dụng khách đó khi bạn kết nối. Lần kết nối đầu tiên, Google hiển thị cảnh báo ứng dụng chưa được xác minh, vì phạm vi này bị hạn chế và dự án chưa được xác minh: chọn Nâng cao, rồi Đi tới Chords In Sync, để tiếp tục. Cảnh báo đó là bình thường với dự án của chính bạn.</string>
+    <string name="sync_drive_package_label">Tên gói</string>
+    <string name="sync_drive_sha1_label">Dấu vân tay SHA-1</string>
+    <string name="sync_drive_copy">Sao chép</string>
+    <string name="sync_drive_scope_note">Bản dựng này yêu cầu quyền truy cập đầy đủ vào Drive của bạn, để một cặp có thể dùng bất kỳ thư mục nào trong đó. Ứng dụng chỉ mở các thư mục mà các cặp của bạn trỏ tới - ứng dụng không bao giờ quét hay thay đổi bất cứ thứ gì khác.</string>
+    <string name="sync_drive_not_connected">Chưa kết nối</string>
+    <string name="sync_drive_connect">Kết nối Google Drive</string>
+    <string name="sync_drive_connected_as">Đã kết nối với tư cách %1$s</string>
+    <string name="sync_drive_connect_failed">Không thể kết nối Google Drive. Hãy kiểm tra các bước thiết lập bên dưới rồi thử lại.</string>
+    <string name="sync_drive_disconnect_message">Ngắt kết nối Google Drive? Các cặp của nó vẫn còn, nhưng sẽ không thể đồng bộ cho đến khi bạn kết nối lại.</string>
+    <string name="sync_drive_add_pair">Thêm một cặp Drive</string>
+    <string name="sync_drive_folder_label">Thư mục Drive</string>
+    <string name="sync_drive_my_drive">Drive của tôi</string>
+    <string name="sync_drive_remote_folder">Thư mục của cặp: %1$s</string>
+    <string name="sync_drive_up">Lên một cấp</string>
+    <string name="sync_drive_empty_folder">Không có thư mục con ở đây</string>
+    <string name="sync_drive_create_folder">Tạo thư mục</string>
+    <string name="sync_drive_new_folder_label">Tạo thư mục mới tại đây</string>
+    <string name="sync_drive_loading_folders">Đang tải thư mục…</string>
+    <string name="sync_drive_load_failed">Không thể tải các thư mục. Hãy kết nối Google Drive rồi thử lại.</string>
+    <string name="sync_drive_create_folder_failed">Không thể tạo thư mục đó trong Drive.</string>
 </resources>

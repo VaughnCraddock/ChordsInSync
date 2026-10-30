@@ -1432,4 +1432,28 @@
     <string name="deleted_one_song">Titre supprimé de ce téléphone</string>
     <string name="deleted_songs_result">%1$d titres supprimés de ce téléphone</string>
     <string name="delete_failed_some">%1$d titres n\'ont pas pu être supprimés</string>
+    <string name="sync_status_needs_sign_in">Connexion requise - reconnectez le compte ci-dessus</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">Configurer Google Drive</string>
+    <string name="sync_drive_setup_steps">La synchronisation utilise votre propre projet Google Cloud. Sur console.cloud.google.com : créez un projet et activez l\'API Drive. Configurez l\'écran de consentement OAuth (Externe - l\'état Test suffit) et ajoutez-y l\'accès complet à Google Drive : https://www.googleapis.com/auth/drive. Créez ensuite un client OAuth Android avec le nom de package et l\'empreinte SHA-1 ci-dessous. Rien n\'est installé dans l\'application : les services Google Play comparent cette version à ce client lors de la connexion. À la première connexion, Google affiche un avertissement d\'application non vérifiée, car cet accès est restreint et le projet n\'est pas vérifié : choisissez Avancé, puis Accéder à Chords In Sync, pour continuer. Cet avertissement est normal pour votre propre projet.</string>
+    <string name="sync_drive_package_label">Nom du package</string>
+    <string name="sync_drive_sha1_label">Empreinte SHA-1</string>
+    <string name="sync_drive_copy">Copier</string>
+    <string name="sync_drive_scope_note">Cette version demande un accès complet à votre Drive, afin qu\'une paire puisse utiliser n\'importe quel dossier. L\'application n\'ouvre que les dossiers désignés par vos paires : elle ne parcourt ni ne modifie rien d\'autre.</string>
+    <string name="sync_drive_not_connected">Non connecté</string>
+    <string name="sync_drive_connect">Connecter Google Drive</string>
+    <string name="sync_drive_connected_as">Connecté en tant que %1$s</string>
+    <string name="sync_drive_connect_failed">Impossible de connecter Google Drive. Vérifiez les étapes de configuration ci-dessous, puis réessayez.</string>
+    <string name="sync_drive_disconnect_message">Déconnecter Google Drive ? Ses paires restent, mais ne pourront plus se synchroniser tant que vous ne serez pas reconnecté.</string>
+    <string name="sync_drive_add_pair">Ajouter une paire Drive</string>
+    <string name="sync_drive_folder_label">Dossier Drive</string>
+    <string name="sync_drive_my_drive">Mon Drive</string>
+    <string name="sync_drive_remote_folder">Dossier de la paire : %1$s</string>
+    <string name="sync_drive_up">Niveau supérieur</string>
+    <string name="sync_drive_empty_folder">Aucun sous-dossier ici</string>
+    <string name="sync_drive_create_folder">Créer le dossier</string>
+    <string name="sync_drive_new_folder_label">Créer un dossier ici</string>
+    <string name="sync_drive_loading_folders">Chargement des dossiers…</string>
+    <string name="sync_drive_load_failed">Impossible de charger les dossiers. Connectez Google Drive, puis réessayez.</string>
+    <string name="sync_drive_create_folder_failed">Impossible de créer ce dossier dans Drive.</string>
 </resources>

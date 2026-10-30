@@ -96,6 +96,13 @@ enum class SyncRunResult {
 
     /** The pair's engine is switched off, so the run was not attempted. */
     ENGINE_OFF,
+
+    /**
+     * The engine's account needs its owner in the room: a cloud grant that
+     * only an interactive sign-in can mint or renew. A background run cannot
+     * show that UI, so it records this and the Sync page offers the fix.
+     */
+    NEEDS_SIGN_IN,
 }
 
 /** What one side says about one file: how big it is, when it last changed. */
@@ -141,11 +148,11 @@ data class SyncIndexEntry(
 }
 
 /**
- * The engines a pair can belong to. Only [DEVICE_FOLDERS] is wired in this
- * phase; the rest are registered so the settings UI can list them as coming
- * soon and so a pair created later needs no new plumbing here. The order is
- * the build order Vaughn picked: device folders (the reference engine),
- * then Google Drive, OneDrive, Dropbox, then the home servers.
+ * The engines a pair can belong to. [DEVICE_FOLDERS] and [GOOGLE_DRIVE] are
+ * wired so far; the rest are registered so the settings UI can list them as
+ * coming soon and so a pair created later needs no new plumbing here. The
+ * order is the build order Vaughn picked: device folders (the reference
+ * engine), then Google Drive, OneDrive, Dropbox, then the home servers.
  */
 object SyncEngines {
     const val DEVICE_FOLDERS = "DEVICE_FOLDERS"
@@ -159,7 +166,7 @@ object SyncEngines {
     val all: List<String> = listOf(DEVICE_FOLDERS, GOOGLE_DRIVE, ONEDRIVE, DROPBOX, WEBDAV, SMB)
 
     /** Engines with a working provider behind them in this build. */
-    private val available: Set<String> = setOf(DEVICE_FOLDERS)
+    private val available: Set<String> = setOf(DEVICE_FOLDERS, GOOGLE_DRIVE)
 
     fun isAvailable(engineId: String): Boolean = engineId in available
 }

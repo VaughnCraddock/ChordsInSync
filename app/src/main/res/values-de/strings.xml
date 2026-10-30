@@ -1431,4 +1431,28 @@
     <string name="deleted_one_song">Titel vom Telefon gelöscht</string>
     <string name="deleted_songs_result">%1$d Titel vom Telefon gelöscht</string>
     <string name="delete_failed_some">%1$d Titel konnten nicht gelöscht werden</string>
+    <string name="sync_status_needs_sign_in">Anmeldung nötig – Konto oben erneut verbinden</string>
+    <!-- Sync: Google Drive -->
+    <string name="sync_drive_setup_title">Google Drive einrichten</string>
+    <string name="sync_drive_setup_steps">Die Synchronisierung nutzt Ihr eigenes Google Cloud-Projekt. Unter console.cloud.google.com: Erstellen Sie ein Projekt und aktivieren Sie die Drive API. Richten Sie den OAuth-Zustimmungsbildschirm ein (Extern - Teststatus genügt) und fügen Sie den vollständigen Google Drive-Bereich hinzu: https://www.googleapis.com/auth/drive. Erstellen Sie dann einen Android-OAuth-Client mit dem Paketnamen und dem SHA-1-Fingerabdruck unten. Es wird nichts in der App installiert - Google Play-Dienste gleicht diese Version beim Verbinden mit diesem Client ab. Beim ersten Verbinden zeigt Google eine Warnung vor einer nicht verifizierten App, weil dieser Bereich eingeschränkt und das Projekt nicht verifiziert ist: Wählen Sie Erweitert und dann Weiter zu Chords In Sync. Diese Warnung ist bei Ihrem eigenen Projekt normal.</string>
+    <string name="sync_drive_package_label">Paketname</string>
+    <string name="sync_drive_sha1_label">SHA-1-Fingerabdruck</string>
+    <string name="sync_drive_copy">Kopieren</string>
+    <string name="sync_drive_scope_note">Diese Version fordert vollen Zugriff auf Ihre Drive, damit ein Paar jeden Ordner darin nutzen kann. Die App öffnet nur die Ordner, auf die Ihre Paare zeigen - sie durchsucht oder verändert sonst nichts.</string>
+    <string name="sync_drive_not_connected">Nicht verbunden</string>
+    <string name="sync_drive_connect">Google Drive verbinden</string>
+    <string name="sync_drive_connected_as">Verbunden als %1$s</string>
+    <string name="sync_drive_connect_failed">Google Drive konnte nicht verbunden werden. Prüfen Sie die Einrichtungsschritte unten und versuchen Sie es erneut.</string>
+    <string name="sync_drive_disconnect_message">Google Drive trennen? Die Paare bleiben bestehen, können aber erst wieder synchronisieren, wenn Sie sich erneut verbinden.</string>
+    <string name="sync_drive_add_pair">Drive-Paar hinzufügen</string>
+    <string name="sync_drive_folder_label">Drive-Ordner</string>
+    <string name="sync_drive_my_drive">Meine Ablage</string>
+    <string name="sync_drive_remote_folder">Paar-Ordner: %1$s</string>
+    <string name="sync_drive_up">Eine Ebene nach oben</string>
+    <string name="sync_drive_empty_folder">Keine Unterordner hier</string>
+    <string name="sync_drive_create_folder">Ordner erstellen</string>
+    <string name="sync_drive_new_folder_label">Hier einen neuen Ordner erstellen</string>
+    <string name="sync_drive_loading_folders">Ordner werden geladen…</string>
+    <string name="sync_drive_load_failed">Die Ordner konnten nicht geladen werden. Verbinden Sie Google Drive und versuchen Sie es erneut.</string>
+    <string name="sync_drive_create_folder_failed">Dieser Ordner konnte in Drive nicht erstellt werden.</string>
 </resources>

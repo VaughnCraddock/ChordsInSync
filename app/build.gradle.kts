@@ -386,6 +386,15 @@ dependencies {
     // with this project's AndroidX set. Apache-2.0, GPLv3-compatible.
     implementation("androidx.work:work-runtime-ktx:2.10.5")
 
+    // ---- Google Drive sync: the Authorization API ----
+    // Identity's authorize() is how the Drive engine gets its drive.file
+    // access token: Play services matches this build's package + signing
+    // SHA-1 against the Android OAuth client in the owner's own Google
+    // Cloud project (the Sync page shows both values for copying into the
+    // console). No google-services.json, no client id in code. The Drive
+    // REST calls themselves are plain HTTPS on the shared OkHttp client.
+    implementation("com.google.android.gms:play-services-auth:21.4.0")
+
     // ---- JS module execution: QuickJS VM for style source plugins ----
     // Held at InnerTubeX's version; the same VM runs QuickJsExecutor's module sources.
     implementation("io.github.dokar3:quickjs-kt-android:1.0.14")
