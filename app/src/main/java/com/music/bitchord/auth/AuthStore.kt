@@ -122,6 +122,34 @@ class AuthStore(context: Context) {
         set(value) = prefs.edit().putString(KEY_SMB_PASSWORD, value).apply()
 
     /**
+     * The Google Drive sync account: who connected.
+     *
+     * Deliberately NOT here: an access token. The Authorization API mints a
+     * fresh one (about an hour of life) on every run, so there is nothing
+     * durable to store — and nothing durable to leak. What is stored is the
+     * identity alone, kept beside the other credentials because it is
+     * meaningless — and must not outlive the grant — apart from it. Pairs
+     * keep their own folder ids in the sync store, not here. This is a
+     * different sign-in from the YouTube Music cookie above: OAuth scopes,
+     * not a harvested browser session, even when both belong to the same
+     * human Google account.
+     */
+    var driveAccountEmail: String?
+        get() = prefs.getString(KEY_DRIVE_ACCOUNT_EMAIL, null)
+        set(value) = prefs.edit().putString(KEY_DRIVE_ACCOUNT_EMAIL, value).apply()
+
+    /** The Drive account's display name, for the Sync page's connected line. */
+    var driveAccountName: String?
+        get() = prefs.getString(KEY_DRIVE_ACCOUNT_NAME, null)
+        set(value) = prefs.edit().putString(KEY_DRIVE_ACCOUNT_NAME, value).apply()
+
+    /** Forgets the Drive account entirely. Pairs keep their folder ids and simply cannot run. */
+    fun clearDriveAccount() = prefs.edit()
+        .remove(KEY_DRIVE_ACCOUNT_EMAIL)
+        .remove(KEY_DRIVE_ACCOUNT_NAME)
+        .apply()
+
+    /**
      * The channel the listener chose to act as, if they chose one.
      *
      * Stored beside the cookie rather than in the plain settings because it is
@@ -230,5 +258,7 @@ class AuthStore(context: Context) {
         private const val KEY_DISCORD_TOKEN = "discord_token"
         private const val KEY_WEBDAV_PASSWORD = "webdav_password"
         private const val KEY_SMB_PASSWORD = "smb_password"
+        private const val KEY_DRIVE_ACCOUNT_EMAIL = "drive_account_email"
+        private const val KEY_DRIVE_ACCOUNT_NAME = "drive_account_name"
     }
 }
