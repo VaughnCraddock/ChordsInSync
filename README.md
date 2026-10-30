@@ -1,3 +1,17 @@
+# Chords In Sync
+
+**Chords In Sync** is a personal fork of [BitChord](https://github.com/kushagrasinghx/BitChord) by kushagrasinghx, maintained by Vaughn Craddock. It keeps full BitChord feature parity and adds:
+
+- A **Folders tab** in Local Music that groups local songs by their containing folder, with list and grid views and a persisted view choice
+- **Favorite folders** - star a folder to pin it to the top of the Folders list
+- The dev build is branded **Chords In Sync** (package `com.dev.bitchord`, installs side-by-side with stock BitChord)
+
+Coming next: folder sync (cloud drives first, then SMB/WebDAV), with per-pair direction controls (bidirectional / upload only / download only), a home-network gate for uploads, per-engine on/off toggles, and background runs only while charging on Wi-Fi.
+
+Licensed under GPL-3.0, same as upstream. All credit for the original app goes to the BitChord project.
+
+---
+
 <div align="center">
 
 <br/>

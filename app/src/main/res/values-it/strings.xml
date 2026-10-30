@@ -85,6 +85,9 @@
     <string name="songs">Brani</string>
     <string name="artists">Artisti</string>
     <string name="albums">Album</string>
+    <string name="folders">Cartelle</string>
+    <string name="add_folder_to_favorites">Aggiungi cartella ai preferiti</string>
+    <string name="remove_folder_from_favorites">Rimuovi cartella dai preferiti</string>
     <string name="no_album_metadata">Nessuno di questi brani indica da quale album proviene.</string>
     <string name="search_empty">Cerca milioni di brani su YouTube Music.</string>
     <string name="recent_searches">Ricerche recenti</string>

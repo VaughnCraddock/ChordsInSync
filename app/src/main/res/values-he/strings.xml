@@ -65,6 +65,9 @@
     <string name="songs">שירים</string>
     <string name="artists">אמנים</string>
     <string name="albums">אלבומים</string>
+    <string name="folders">תיקיות</string>
+    <string name="add_folder_to_favorites">הוספת תיקייה למועדפים</string>
+    <string name="remove_folder_from_favorites">הסרת תיקייה מהמועדפים</string>
     <string name="no_album_metadata">אף אחת מהרצועות האלה לא מציינת מאיזה אלבום היא.</string>
     <string name="search_empty">חפשו מיליוני שירים ב-YouTube Music.</string>
     <string name="recent_searches">חיפושים אחרונים</string>

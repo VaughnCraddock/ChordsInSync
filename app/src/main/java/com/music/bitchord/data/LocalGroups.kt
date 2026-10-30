@@ -24,7 +24,7 @@ data class LocalGroup(
     /** The credit under the title: an album's artist, or blank. */
     val subtitle: String,
     val thumbnailUrl: String?,
-    /** [BrowseType.ALBUM], [BrowseType.PLAYLIST] for a playlist downloaded whole, [BrowseType.OTHER] for an artist. */
+    /** [BrowseType.ALBUM], [BrowseType.PLAYLIST] for a playlist downloaded whole, [BrowseType.OTHER] for an artist or a folder. */
     val type: BrowseType,
     /** In the release's own order — see [sortedForAlbum]. */
     val songs: List<Song>,
@@ -33,8 +33,8 @@ data class LocalGroup(
 )
 
 /**
- * The albums and artists a device folder's tracks group into, and the page ids
- * those groupings are addressed by.
+ * The albums, artists and containing folders a device folder's tracks group
+ * into, and the page ids those groupings are addressed by.
  *
  * Kept out of the UI because both sides need it: the folder draws the
  * groupings, and the view model has to rebuild one from a fresh listing when
@@ -49,10 +49,13 @@ object LocalGroups {
     const val PREFIX = "local:group:"
     private const val ALBUM = "album"
     private const val ARTIST = "artist"
+    private const val FOLDER = "folder"
 
     fun albumPageId(folderId: String, name: String): String = pageId(ALBUM, folderId, name)
 
     fun artistPageId(folderId: String, name: String): String = pageId(ARTIST, folderId, name)
+
+    fun folderPageId(folderId: String, path: String): String = pageId(FOLDER, folderId, path)
 
     // `local:group:album:downloads:Some: Name` — the folder id is always
     // `local:<word>`, so only its word is stored and the name, which may hold
@@ -65,7 +68,7 @@ object LocalGroups {
     private fun parse(browseId: String?): Parsed? {
         if (browseId == null || !browseId.startsWith(PREFIX)) return null
         val parts = browseId.removePrefix(PREFIX).split(':', limit = 3)
-        if (parts.size != 3 || (parts[0] != ALBUM && parts[0] != ARTIST) || parts[1].isEmpty()) return null
+        if (parts.size != 3 || (parts[0] != ALBUM && parts[0] != ARTIST && parts[0] != FOLDER) || parts[1].isEmpty()) return null
         return Parsed(parts[0], "local:" + parts[1], parts[2])
     }
 
@@ -81,10 +84,10 @@ object LocalGroups {
     /** The rows of [folderSongs] the grouping [browseId] names, in the order its page lists them. */
     fun songsOf(browseId: String, folderSongs: List<Song>): List<Song> {
         val group = parse(browseId) ?: return emptyList()
-        return if (group.kind == ALBUM) {
-            folderSongs.filter { it.albumName == group.name }.sortedForAlbum()
-        } else {
-            folderSongs.filter { it.artist == group.name }.sortedByTitle()
+        return when (group.kind) {
+            ALBUM -> folderSongs.filter { it.albumName == group.name }.sortedForAlbum()
+            FOLDER -> folderSongs.filter { it.folderPath() == group.name }.sortedByTitle()
+            else -> folderSongs.filter { it.artist == group.name }.sortedByTitle()
         }
     }
 
@@ -167,7 +170,72 @@ object LocalGroups {
                 )
             }
             .sortedBy { it.title.lowercase(Locale.ROOT) }
+
+    /**
+     * The Folders tab: one row per directory holding tracks, flat — a track
+     * in a nested subfolder is its own row, not rolled up into its parent,
+     * because the row is a shortcut to a place on disk and rolling up would
+     * name a folder none of its tracks quite sit in.
+     *
+     * The title is the directory's own name and the subtitle its full path,
+     * which is what tells two same-named directories apart. A track whose
+     * scan never said where its file is ([Song.folderPath] null) groups
+     * under no folder: there is no honest row to draw for "somewhere".
+     */
+    fun foldersOf(folderId: String, songs: List<Song>): List<LocalGroup> =
+        songs.groupBy { it.folderPath() }
+            .mapNotNull { (path, group) ->
+                if (path == null) return@mapNotNull null
+                LocalGroup(
+                    browseId = folderPageId(folderId, path),
+                    title = path.substringAfterLast('/').ifEmpty { path },
+                    subtitle = path,
+                    thumbnailUrl = group.firstNotNullOfOrNull { it.thumbnailUrl },
+                    type = BrowseType.OTHER,
+                    songs = group.sortedByTitle(),
+                )
+            }
+            .sortedWith(
+                compareBy<LocalGroup> { it.title.lowercase(Locale.ROOT) }
+                    .thenBy { it.subtitle },
+            )
+
+    /**
+     * The directory path a folder group stands for, read back off its page
+     * id — null for an album or artist group, whose ids name a tag instead.
+     *
+     * This path is a folder's identity everywhere: it is what [foldersOf]
+     * grouped by, and what a favorite is recorded against.
+     */
+    fun folderPathOf(group: LocalGroup): String? =
+        parse(group.browseId)?.takeIf { it.kind == FOLDER }?.name
+
+    /**
+     * The Folders tab's running order once favorites are known: starred
+     * folders first, then the rest, each tier in the same title order
+     * [foldersOf] itself returns. A favorite naming a folder that is not in
+     * [groups] — unscanned since, or on a card that is not mounted — is
+     * simply ignored, and an empty [favorites] leaves the order untouched.
+     */
+    fun orderFolders(groups: List<LocalGroup>, favorites: Set<String>): List<LocalGroup> {
+        if (favorites.isEmpty()) return groups
+        return groups.sortedWith(
+            compareByDescending<LocalGroup> { folderPathOf(it) in favorites }
+                .thenBy { it.title.lowercase(Locale.ROOT) }
+                .thenBy { it.subtitle },
+        )
+    }
 }
+
+/**
+ * The directory holding this track's file, off the path the media scan
+ * recorded — null where the track never said, or said nothing with a
+ * directory in it.
+ */
+private fun Song.folderPath(): String? =
+    localPath?.takeIf { it.isNotBlank() }
+        ?.substringBeforeLast('/', missingDelimiterValue = "")
+        ?.takeIf { it.isNotEmpty() }
 
 /**
  * Whether this track is a hit for a query typed into a page's filter box — or

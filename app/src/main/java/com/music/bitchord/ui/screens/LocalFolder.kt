@@ -31,9 +31,12 @@ import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.DownloadDone
 import androidx.compose.material.icons.rounded.ErrorOutline
 import androidx.compose.material.icons.rounded.FileUpload
+import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -70,7 +73,9 @@ import com.music.bitchord.data.model.ROW_ART_PX
 import com.music.bitchord.data.model.Song
 import com.music.bitchord.data.model.artworkAt
 import com.music.bitchord.data.model.playingRowMatcher
+import com.music.bitchord.data.settings.AppSettings
 import com.music.bitchord.data.settings.LibraryViewType
+import com.music.bitchord.data.settings.LocalFolderView
 import com.music.bitchord.data.settings.LocalMusicSort
 import com.music.bitchord.download.DownloadState
 import com.music.bitchord.download.DownloadedCollection
@@ -98,10 +103,10 @@ import com.music.bitchord.ui.theme.ArtworkPalette
  * has none), its name, Play and Shuffle, then its tracks — the same page an
  * album or playlist off YouTube gets, so the two can't drift apart. What a
  * folder has that an album hasn't is a choice of how to look at its tracks,
- * Songs, Artists or Albums, on a segmented control under the header. An album
- * or artist tapped there opens as a release page of its own (see
- * [LocalGroups]), which is what makes a Local Music album look like the album
- * it is.
+ * Songs, Artists, Albums or Folders, on a segmented control under the header.
+ * An album, artist or folder tapped there opens as a release page of its own
+ * (see [LocalGroups]), which is what makes a Local Music album look like the
+ * album it is.
  */
 class LocalFolder(
     /**
@@ -136,7 +141,7 @@ class LocalFolder(
     val onRemoveFromCache: ((List<Song>) -> Unit)? = null,
 )
 
-enum class LocalFolderTab { SONGS, ARTISTS, ALBUMS }
+enum class LocalFolderTab { SONGS, ARTISTS, ALBUMS, FOLDERS }
 
 /**
  * A folder's own state while its page is on the stack: the tab showing, and
@@ -148,7 +153,19 @@ enum class LocalFolderTab { SONGS, ARTISTS, ALBUMS }
  */
 @Stable
 class LocalFolderState {
-    var tab by mutableStateOf(LocalFolderTab.SONGS)
+    /**
+     * The tab showing, seeded from the persisted opening view
+     * ([AppSettings.localFolderView]) and written back whenever it changes,
+     * so the view picked on one folder is the view every folder opens on —
+     * across pages, and across restarts.
+     */
+    private var _tab by mutableStateOf(LocalFolderTab.valueOf(AppSettings.localFolderView.value.name))
+    var tab: LocalFolderTab
+        get() = _tab
+        set(value) {
+            _tab = value
+            AppSettings.setLocalFolderView(LocalFolderView.valueOf(value.name))
+        }
 
     var selectedIds by mutableStateOf<Set<String>>(emptySet())
         private set
@@ -189,8 +206,8 @@ class LocalFolderState {
 }
 
 /**
- * The Artists or Albums tab's entries, narrowed by [query]; empty on Songs,
- * which lists the page's own filtered tracks.
+ * The Artists, Albums or Folders tab's entries, narrowed by [query]; empty on
+ * Songs, which lists the page's own filtered tracks.
  *
  * Grouped off [songs] as listed rather than as sorted, so a grouping comes out
  * in the same order its page reads it back in (see [LocalGroups.songsOf]).
@@ -202,14 +219,21 @@ fun rememberLocalFolderGroups(
     tab: LocalFolderTab,
     songs: List<Song>,
     query: String,
-): List<LocalGroup> = remember(browseId, tab, songs, folder.collections, query) {
-    fun LocalGroup.matches() = query.isBlank() ||
-        title.contains(query, ignoreCase = true) ||
-        subtitle.contains(query, ignoreCase = true)
-    when (tab) {
-        LocalFolderTab.SONGS -> emptyList()
-        LocalFolderTab.ARTISTS -> LocalGroups.artistsOf(browseId, songs).filter { it.matches() }
-        LocalFolderTab.ALBUMS -> LocalGroups.albumsOf(browseId, songs, folder.collections).filter { it.matches() }
+): List<LocalGroup> {
+    // Starred folders lead the Folders tab; collected here, where the tab's
+    // rows are made, so a star tapped on any folder page re-orders them all.
+    val favoriteFolders by AppSettings.localFavoriteFolders.collectAsStateWithLifecycle()
+    return remember(browseId, tab, songs, folder.collections, query, favoriteFolders) {
+        fun LocalGroup.matches() = query.isBlank() ||
+            title.contains(query, ignoreCase = true) ||
+            subtitle.contains(query, ignoreCase = true)
+        when (tab) {
+            LocalFolderTab.SONGS -> emptyList()
+            LocalFolderTab.ARTISTS -> LocalGroups.artistsOf(browseId, songs).filter { it.matches() }
+            LocalFolderTab.ALBUMS -> LocalGroups.albumsOf(browseId, songs, folder.collections).filter { it.matches() }
+            LocalFolderTab.FOLDERS -> LocalGroups.orderFolders(LocalGroups.foldersOf(browseId, songs), favoriteFolders)
+                .filter { it.matches() }
+        }
     }
 }
 
@@ -241,6 +265,7 @@ internal fun LazyListScope.localFolderItems(
                 stringResource(R.string.songs),
                 stringResource(R.string.artists),
                 stringResource(R.string.albums),
+                stringResource(R.string.folders),
             ),
             selectedIndex = state.tab.ordinal,
             onSelect = { state.tab = LocalFolderTab.entries[it] },
@@ -350,6 +375,27 @@ internal fun LazyListScope.localFolderItems(
                     group = group,
                     palette = palette,
                     selected = group.browseId in state.selectedGroups,
+                    onClick = groupClick,
+                    onLongPress = { groupHold(group) },
+                )
+                FolderDivider(palette)
+            }
+        }
+
+        LocalFolderTab.FOLDERS -> if (grid) {
+            gridRows(groups, columns, key = { it.browseId }) { group ->
+                FolderGridCard(
+                    group = group,
+                    palette = palette,
+                    onClick = groupClick,
+                    onLongPress = { groupHold(group) },
+                )
+            }
+        } else {
+            items(groups, key = { it.browseId }) { group ->
+                FolderRow(
+                    group = group,
+                    palette = palette,
                     onClick = groupClick,
                     onLongPress = { groupHold(group) },
                 )
@@ -662,6 +708,155 @@ private fun AlbumRow(
             modifier = Modifier.weight(1f),
         )
         TrailingGlyph(selected = selected, palette = palette)
+    }
+}
+
+/**
+ * "Music · 12 songs" for a directory grouping: the subtitle a folder group
+ * carries is its full path, so what a row shows under the name is the path
+ * with the name itself already said by the title — the parent directory —
+ * which is also what tells two same-named folders apart.
+ */
+@Composable
+private fun LocalGroup.folderSubtitle(): String {
+    val count = pluralStringResource(R.plurals.song_count_plural, songs.size, songs.size)
+    val parent = subtitle.substringBeforeLast('/', missingDelimiterValue = "")
+    return if (parent.isNotBlank()) "$parent · $count" else count
+}
+
+/**
+ * A folder's star: filled in the accent while the folder is a favorite, an
+ * outline otherwise. Drawn on every row and card rather than held back for a
+ * long-press menu, and a button of its own, so tapping it stars the folder
+ * instead of opening its page.
+ *
+ * It reads the favorites itself because a row sits far from where they are
+ * collected for ordering (see [rememberLocalFolderGroups]). Over a card's
+ * cover it wears a veiled disc, so the outline stays readable on artwork.
+ */
+@Composable
+private fun FolderFavoriteButton(
+    group: LocalGroup,
+    palette: ArtworkPalette,
+    modifier: Modifier = Modifier,
+    overArtwork: Boolean = false,
+) {
+    val path = LocalGroups.folderPathOf(group) ?: return
+    val favorites by AppSettings.localFavoriteFolders.collectAsStateWithLifecycle()
+    val favorite = path in favorites
+    IconButton(
+        onClick = { AppSettings.toggleLocalFavoriteFolder(path) },
+        modifier = if (overArtwork) {
+            modifier.background(MaterialTheme.colorScheme.surface.copy(alpha = 0.72f), CircleShape)
+        } else {
+            modifier
+        },
+    ) {
+        Icon(
+            imageVector = if (favorite) Icons.Rounded.Star else Icons.Rounded.StarBorder,
+            contentDescription = stringResource(
+                if (favorite) R.string.remove_folder_from_favorites else R.string.add_folder_to_favorites,
+            ),
+            tint = if (favorite) palette.accent else palette.onBackgroundVariant,
+            modifier = Modifier.size(22.dp),
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun FolderGridCard(
+    group: LocalGroup,
+    palette: ArtworkPalette,
+    /** Handed the group with the cover this card found, so its page opens on the same one. */
+    onClick: (LocalGroup) -> Unit,
+    onLongPress: () -> Unit,
+) {
+    val art = group.coverArt()
+    Column(
+        modifier = Modifier
+            .clip(CARD_SHAPE)
+            .longPressMenuClickable(onClick = { onClick(group.copy(thumbnailUrl = art)) }, onLongClick = onLongPress)
+            .padding(4.dp),
+    ) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .clip(CARD_SHAPE)
+                .thumbnailBorder(CARD_SHAPE),
+        ) {
+            CoverPlaceholder(Icons.Rounded.Folder, Modifier.fillMaxSize())
+            if (art != null) {
+                AsyncImage(
+                    model = art.artworkAt(CARD_ART_PX),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
+            FolderFavoriteButton(
+                group = group,
+                palette = palette,
+                modifier = Modifier.align(Alignment.TopEnd).padding(4.dp),
+                overArtwork = true,
+            )
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = group.title,
+            style = MaterialTheme.typography.titleMedium,
+            color = palette.onBackground,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            text = group.folderSubtitle(),
+            style = MaterialTheme.typography.bodySmall,
+            color = palette.onBackgroundVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun FolderRow(
+    group: LocalGroup,
+    palette: ArtworkPalette,
+    onClick: (LocalGroup) -> Unit,
+    onLongPress: () -> Unit,
+) {
+    val art = group.coverArt()
+    val shape = RoundedCornerShape(8.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .longPressMenuClickable(onClick = { onClick(group.copy(thumbnailUrl = art)) }, onLongClick = onLongPress)
+            .padding(horizontal = PAGE_GUTTER, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(Modifier.size(52.dp).clip(shape).thumbnailBorder(shape)) {
+            CoverPlaceholder(Icons.Rounded.Folder, Modifier.fillMaxSize(), iconFraction = 0.46f)
+            if (art != null) {
+                AsyncImage(
+                    model = art.artworkAt(ROW_ART_PX),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
+        }
+        Spacer(Modifier.width(16.dp))
+        GroupLabels(
+            title = group.title,
+            subtitle = group.folderSubtitle(),
+            palette = palette,
+            modifier = Modifier.weight(1f),
+        )
+        FolderFavoriteButton(group = group, palette = palette)
+        TrailingGlyph(selected = false, palette = palette)
     }
 }
 

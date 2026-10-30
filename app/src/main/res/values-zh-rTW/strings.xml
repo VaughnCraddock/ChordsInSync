@@ -59,6 +59,9 @@
     <string name="songs">歌曲</string>
     <string name="artists">藝人</string>
     <string name="albums">專輯</string>
+    <string name="folders">資料夾</string>
+    <string name="add_folder_to_favorites">將資料夾加入收藏</string>
+    <string name="remove_folder_from_favorites">將資料夾從收藏中移除</string>
     <string name="no_album_metadata">這些曲目均未標明所屬專輯。</string>
     <string name="search_empty">在 YouTube Music 上搜尋數百萬首歌曲。</string>
     <string name="recent_searches">最近搜尋</string>

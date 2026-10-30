@@ -63,6 +63,9 @@
     <string name="songs">गाने</string>
     <string name="artists">कलाकार</string>
     <string name="albums">एल्बम</string>
+    <string name="folders">फ़ोल्डर</string>
+    <string name="add_folder_to_favorites">फ़ोल्डर को पसंदीदा में जोड़ें</string>
+    <string name="remove_folder_from_favorites">फ़ोल्डर को पसंदीदा से हटाएँ</string>
     <string name="no_album_metadata">इनमें से कोई भी ट्रैक यह नहीं बताता कि वह किस एल्बम का है।</string>
     <string name="search_empty">YouTube Music पर लाखों गाने खोजें।</string>
     <string name="recent_searches">हाल की खोजें</string>

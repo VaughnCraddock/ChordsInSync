@@ -90,6 +90,9 @@
     <string name="songs">Songs</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
+    <string name="folders">Folders</string>
+    <string name="add_folder_to_favorites">Add folder to favorites</string>
+    <string name="remove_folder_from_favorites">Remove folder from favorites</string>
     <string name="no_album_metadata">None of these tracks say what album they are from.</string>
     <string name="search_empty">Search millions of songs on YouTube Music.</string>
     <string name="recent_searches">Recent searches</string>

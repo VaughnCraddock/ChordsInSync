@@ -123,6 +123,19 @@ enum class LocalMusicSort {
 }
 
 /**
+ * How a device folder's page opens: its tracks as one list, or grouped by
+ * artist, by album, or by the folder each file sits in. Persisted by name,
+ * one choice for every device folder — the folder pages all carry the same
+ * tab control, so the choice made on one is the opening view of them all.
+ */
+enum class LocalFolderView {
+    SONGS,
+    ARTISTS,
+    ALBUMS,
+    FOLDERS,
+}
+
+/**
  * Ordering for the track list on an album or playlist page — the same idea as
  * the Downloads folder's sort, with a date option for the one thing a
  * catalogue row can still be dated by: the position it sits at. A playlist's
@@ -565,6 +578,16 @@ object AppSettings {
 
     val localMusicSort = MutableStateFlow(LocalMusicSort.TITLE_ASC)
     val downloadedMusicSort = MutableStateFlow(LocalMusicSort.TITLE_ASC)
+    /** A device folder's opening tab, kept across restarts — see [LocalFolderView]. */
+    val localFolderView = MutableStateFlow(LocalFolderView.SONGS)
+    /**
+     * The directories starred on a folder's Folders tab, by full path — the
+     * same path [com.music.bitchord.data.LocalGroups.foldersOf] groups by.
+     * Starred folders sort ahead of the rest; see
+     * [com.music.bitchord.data.LocalGroups.orderFolders]. App-wide, not per
+     * folder: a directory is the same place whichever page lists it.
+     */
+    val localFavoriteFolders = MutableStateFlow<Set<String>>(emptySet())
     val localMusicViewType = MutableStateFlow(LibraryViewType.LIST)
     val downloadedMusicViewType = MutableStateFlow(LibraryViewType.LIST)
     /** Layout used by the Recents shelf on Play; compact tracks are the default. */
@@ -919,6 +942,8 @@ object AppSettings {
         filterNonMusicAudio.value = prefs.getBoolean(KEY_FILTER_NON_MUSIC_AUDIO, true)
         localMusicSort.value = readLocalMusicSort(KEY_LOCAL_MUSIC_SORT)
         downloadedMusicSort.value = readLocalMusicSort(KEY_DOWNLOADED_MUSIC_SORT)
+        localFolderView.value = readLocalFolderView(KEY_LOCAL_FOLDER_VIEW)
+        localFavoriteFolders.value = readLocalFavoriteFolders()
         localMusicViewType.value = readLibraryViewType(KEY_LOCAL_MUSIC_VIEW_TYPE)
         downloadedMusicViewType.value = readLibraryViewType(KEY_DOWNLOADED_MUSIC_VIEW_TYPE)
         homeRecentsViewType.value = readLibraryViewType(KEY_HOME_RECENTS_VIEW_TYPE)
@@ -1702,6 +1727,24 @@ object AppSettings {
         prefs.edit().putString(KEY_DOWNLOADED_MUSIC_SORT, value.name).apply()
     }
 
+    fun setLocalFolderView(value: LocalFolderView) {
+        localFolderView.value = value
+        prefs.edit().putString(KEY_LOCAL_FOLDER_VIEW, value.name).apply()
+    }
+
+    fun setLocalFavoriteFolders(value: Set<String>) {
+        localFavoriteFolders.value = value
+        // A string set, not a joined string: a directory name may itself
+        // hold whatever separator a join would split on.
+        prefs.edit().putStringSet(KEY_LOCAL_FAVORITE_FOLDERS, value).apply()
+    }
+
+    /** Stars the directory at [path] on the Folders tab, or unstars it if it already is. */
+    fun toggleLocalFavoriteFolder(path: String) {
+        val current = localFavoriteFolders.value
+        setLocalFavoriteFolders(if (path in current) current - path else current + path)
+    }
+
     fun setLibrarySort(value: LibrarySort) {
         librarySort.value = value
         prefs.edit().putString(KEY_LIBRARY_SORT, value.name).apply()
@@ -1829,6 +1872,16 @@ object AppSettings {
         prefs.getString(key, null)
             ?.let { saved -> LocalMusicSort.entries.firstOrNull { it.name == saved } }
             ?: LocalMusicSort.TITLE_ASC
+
+    private fun readLocalFolderView(key: String): LocalFolderView =
+        prefs.getString(key, null)
+            ?.let { saved -> LocalFolderView.entries.firstOrNull { it.name == saved } }
+            ?: LocalFolderView.SONGS
+
+    private fun readLocalFavoriteFolders(): Set<String> =
+        // Copied out: the set SharedPreferences hands back is its own and
+        // must not be mutated.
+        prefs.getStringSet(KEY_LOCAL_FAVORITE_FOLDERS, null)?.toSet() ?: emptySet()
 
     private fun readLibraryViewType(key: String): LibraryViewType =
         prefs.getString(key, null)
@@ -1960,6 +2013,9 @@ object AppSettings {
         "downloaded_tracks_metadata",
         "downloaded_collections",
         KEY_LOCAL_MUSIC_FOLDER_URI,
+        // Starred folders are this device's own paths, like the folder URI
+        // above: on another device they would name places that are not there.
+        KEY_LOCAL_FAVORITE_FOLDERS,
         KEY_LAST_VERSION_CODE,
         KEY_ONBOARDING_COMPLETE,
     )
@@ -2055,6 +2111,8 @@ object AppSettings {
     private const val KEY_SHOW_CACHE_FOLDER = "show_cache_folder"
     private const val KEY_LOCAL_MUSIC_SORT = "local_music_sort"
     private const val KEY_DOWNLOADED_MUSIC_SORT = "downloaded_music_sort"
+    private const val KEY_LOCAL_FOLDER_VIEW = "local_folder_view"
+    private const val KEY_LOCAL_FAVORITE_FOLDERS = "local_favorite_folders"
     private const val KEY_LIBRARY_SORT = "library_sort"
     private const val KEY_DETAIL_SONG_SORTS = "detail_song_sorts"
     private const val KEY_LOCAL_MUSIC_VIEW_TYPE = "local_music_view_type"
