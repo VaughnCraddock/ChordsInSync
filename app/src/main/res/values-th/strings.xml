@@ -1404,4 +1404,14 @@
     <string name="sync_remove_pair_message">ลบคู่ซิงค์ %1$s? โฟลเดอร์และไฟล์ทั้งสองฝั่งจะยังคงอยู่ที่เดิม</string>
     <string name="sync_notification_title">กำลังซิงค์โฟลเดอร์</string>
     <string name="sync_notification_all">คู่ซิงค์ทั้งหมด</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">ลบออกจากอุปกรณ์</string>
+    <string name="delete_folder">ลบโฟลเดอร์</string>
+    <string name="delete_song_confirmation_title">ลบเพลงนี้?</string>
+    <string name="delete_song_confirmation">%1$s จะถูกลบออกจากโทรศัพท์เครื่องนี้ ไม่สามารถยกเลิกได้</string>
+    <string name="delete_folder_confirmation_title">ลบโฟลเดอร์นี้?</string>
+    <string name="delete_folder_confirmation">%1$s และเพลง %2$d เพลงในโฟลเดอร์จะถูกลบออกจากโทรศัพท์เครื่องนี้ ไม่สามารถยกเลิกได้</string>
+    <string name="deleted_one_song">ลบเพลงออกจากโทรศัพท์เครื่องนี้แล้ว</string>
+    <string name="deleted_songs_result">ลบ %1$d เพลงออกจากโทรศัพท์เครื่องนี้แล้ว</string>
+    <string name="delete_failed_some">ลบ %1$d เพลงไม่ได้</string>
 </resources>

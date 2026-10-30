@@ -1399,4 +1399,14 @@
     <string name="sync_remove_pair_message">ペア %1$s を削除しますか? 両側のフォルダとファイルはそのまま残ります。</string>
     <string name="sync_notification_title">フォルダを同期中</string>
     <string name="sync_notification_all">すべてのペア</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">デバイスから削除</string>
+    <string name="delete_folder">フォルダを削除</string>
+    <string name="delete_song_confirmation_title">この曲を削除しますか?</string>
+    <string name="delete_song_confirmation">%1$s はこのスマートフォンから削除されます。元に戻すことはできません。</string>
+    <string name="delete_folder_confirmation_title">このフォルダを削除しますか?</string>
+    <string name="delete_folder_confirmation">%1$s とその %2$d 曲がこのスマートフォンから削除されます。元に戻すことはできません。</string>
+    <string name="deleted_one_song">曲をこのスマートフォンから削除しました</string>
+    <string name="deleted_songs_result">%1$d 曲をこのスマートフォンから削除しました</string>
+    <string name="delete_failed_some">%1$d 曲を削除できませんでした</string>
 </resources>

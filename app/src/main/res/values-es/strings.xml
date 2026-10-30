@@ -1393,4 +1393,14 @@
     <string name="sync_remove_pair_message">¿Eliminar el par %1$s? Las carpetas y los archivos de ambos lados se quedan donde están.</string>
     <string name="sync_notification_title">Sincronizando carpetas</string>
     <string name="sync_notification_all">Todos los pares</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Eliminar del dispositivo</string>
+    <string name="delete_folder">Eliminar carpeta</string>
+    <string name="delete_song_confirmation_title">¿Eliminar esta canción?</string>
+    <string name="delete_song_confirmation">%1$s se eliminará de este teléfono. Esto no se puede deshacer.</string>
+    <string name="delete_folder_confirmation_title">¿Eliminar esta carpeta?</string>
+    <string name="delete_folder_confirmation">%1$s y sus %2$d canciones se eliminarán de este teléfono. Esto no se puede deshacer.</string>
+    <string name="deleted_one_song">Canción eliminada de este teléfono</string>
+    <string name="deleted_songs_result">%1$d canciones eliminadas de este teléfono</string>
+    <string name="delete_failed_some">%1$d canciones no se pudieron eliminar</string>
 </resources>

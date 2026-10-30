@@ -172,6 +172,15 @@ fun BrowseActionsSheet(
      */
     onDeleteDownload: (() -> Unit)? = null,
     /**
+     * Deletes a device folder's files from the phone — set only when the
+     * target is one of Local Music's folder groups. Unlike the two deletes
+     * above this is NOT confirmed by a second tap inside the sheet: the
+     * confirmation has to name the folder and count its songs, the count is
+     * only known once the caller resolves them, so the caller owns the
+     * dialog (see LocalDeleteHost) and this row only ever asks.
+     */
+    onDeleteLocalFolder: (() -> Unit)? = null,
+    /**
      * [SongActionsPresentation.Menu] draws only the rows, compact, for the
      * popup a held card lifts into — [HeldContextMenu] shows the card itself,
      * so the header here would only say the same thing twice.
@@ -319,6 +328,13 @@ fun BrowseActionsSheet(
                         confirmingDeleteDownload = true
                     }
                 }
+            }
+            if (onDeleteLocalFolder != null) {
+                ActionRow(
+                    icon = Icons.Rounded.Delete,
+                    label = stringResource(R.string.delete_folder),
+                    onClick = onDeleteLocalFolder,
+                )
             }
             if (!menu) Spacer(Modifier.height(24.dp))
         }

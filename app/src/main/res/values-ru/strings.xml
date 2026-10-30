@@ -1453,4 +1453,14 @@
     <string name="sync_remove_pair_message">Удалить пару %1$s? Папки и файлы на обеих сторонах останутся на месте.</string>
     <string name="sync_notification_title">Синхронизация папок</string>
     <string name="sync_notification_all">Все пары</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Удалить с устройства</string>
+    <string name="delete_folder">Удалить папку</string>
+    <string name="delete_song_confirmation_title">Удалить эту песню?</string>
+    <string name="delete_song_confirmation">%1$s будет удалена с этого телефона. Это действие нельзя отменить.</string>
+    <string name="delete_folder_confirmation_title">Удалить эту папку?</string>
+    <string name="delete_folder_confirmation">%1$s и её %2$d песен будут удалены с этого телефона. Это действие нельзя отменить.</string>
+    <string name="deleted_one_song">Песня удалена с этого телефона</string>
+    <string name="deleted_songs_result">Удалено песен с этого телефона: %1$d</string>
+    <string name="delete_failed_some">Не удалось удалить песен: %1$d</string>
 </resources>

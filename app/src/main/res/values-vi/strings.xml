@@ -1338,4 +1338,14 @@
     <string name="sync_remove_pair_message">Xóa cặp %1$s? Các thư mục và tệp ở cả hai phía vẫn giữ nguyên.</string>
     <string name="sync_notification_title">Đang đồng bộ thư mục</string>
     <string name="sync_notification_all">Tất cả các cặp</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Xóa khỏi thiết bị</string>
+    <string name="delete_folder">Xóa thư mục</string>
+    <string name="delete_song_confirmation_title">Xóa bài hát này?</string>
+    <string name="delete_song_confirmation">%1$s sẽ bị xóa khỏi điện thoại này. Không thể hoàn tác.</string>
+    <string name="delete_folder_confirmation_title">Xóa thư mục này?</string>
+    <string name="delete_folder_confirmation">%1$s và %2$d bài hát trong đó sẽ bị xóa khỏi điện thoại này. Không thể hoàn tác.</string>
+    <string name="deleted_one_song">Đã xóa bài hát khỏi điện thoại này</string>
+    <string name="deleted_songs_result">Đã xóa %1$d bài hát khỏi điện thoại này</string>
+    <string name="delete_failed_some">Không xóa được %1$d bài hát</string>
 </resources>

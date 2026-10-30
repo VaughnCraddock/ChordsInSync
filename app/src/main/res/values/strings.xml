@@ -1273,4 +1273,14 @@
     <string name="sync_remove_pair_message">Remove the pair %1$s? The folders and files on both sides stay where they are.</string>
     <string name="sync_notification_title">Syncing folders</string>
     <string name="sync_notification_all">All pairs</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Delete from device</string>
+    <string name="delete_folder">Delete folder</string>
+    <string name="delete_song_confirmation_title">Delete this song?</string>
+    <string name="delete_song_confirmation">%1$s will be deleted from this phone. This cannot be undone.</string>
+    <string name="delete_folder_confirmation_title">Delete this folder?</string>
+    <string name="delete_folder_confirmation">%1$s and its %2$d songs will be deleted from this phone. This cannot be undone.</string>
+    <string name="deleted_one_song">Song deleted from this phone</string>
+    <string name="deleted_songs_result">%1$d songs deleted from this phone</string>
+    <string name="delete_failed_some">%1$d songs could not be deleted</string>
 </resources>

@@ -1398,4 +1398,14 @@
     <string name="sync_remove_pair_message">刪除同步組 %1$s？兩側的資料夾和檔案都會保留原樣。</string>
     <string name="sync_notification_title">正在同步資料夾</string>
     <string name="sync_notification_all">所有同步組</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">從裝置刪除</string>
+    <string name="delete_folder">刪除資料夾</string>
+    <string name="delete_song_confirmation_title">刪除這首歌？</string>
+    <string name="delete_song_confirmation">%1$s 將從這支手機中刪除。此操作無法復原。</string>
+    <string name="delete_folder_confirmation_title">刪除這個資料夾？</string>
+    <string name="delete_folder_confirmation">%1$s 及其中的 %2$d 首歌曲將從這支手機中刪除。此操作無法復原。</string>
+    <string name="deleted_one_song">已從這支手機刪除歌曲</string>
+    <string name="deleted_songs_result">已從這支手機刪除 %1$d 首歌曲</string>
+    <string name="delete_failed_some">%1$d 首歌曲無法刪除</string>
 </resources>

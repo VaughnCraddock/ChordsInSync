@@ -1422,4 +1422,14 @@
     <string name="sync_remove_pair_message">Supprimer la paire %1$s ? Les dossiers et fichiers des deux côtés restent où ils sont.</string>
     <string name="sync_notification_title">Synchronisation des dossiers</string>
     <string name="sync_notification_all">Toutes les paires</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Supprimer de l\'appareil</string>
+    <string name="delete_folder">Supprimer le dossier</string>
+    <string name="delete_song_confirmation_title">Supprimer ce titre ?</string>
+    <string name="delete_song_confirmation">%1$s sera supprimé de ce téléphone. Cette action est irréversible.</string>
+    <string name="delete_folder_confirmation_title">Supprimer ce dossier ?</string>
+    <string name="delete_folder_confirmation">%1$s et ses %2$d titres seront supprimés de ce téléphone. Cette action est irréversible.</string>
+    <string name="deleted_one_song">Titre supprimé de ce téléphone</string>
+    <string name="deleted_songs_result">%1$d titres supprimés de ce téléphone</string>
+    <string name="delete_failed_some">%1$d titres n\'ont pas pu être supprimés</string>
 </resources>

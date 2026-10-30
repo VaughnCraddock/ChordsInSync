@@ -1398,4 +1398,14 @@
     <string name="sync_remove_pair_message">删除同步对 %1$s？两侧的文件夹和文件都会保留原样。</string>
     <string name="sync_notification_title">正在同步文件夹</string>
     <string name="sync_notification_all">所有同步对</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">从设备删除</string>
+    <string name="delete_folder">删除文件夹</string>
+    <string name="delete_song_confirmation_title">删除这首歌？</string>
+    <string name="delete_song_confirmation">%1$s 将从这部手机中删除。此操作无法撤销。</string>
+    <string name="delete_folder_confirmation_title">删除这个文件夹？</string>
+    <string name="delete_folder_confirmation">%1$s 及其中的 %2$d 首歌曲将从这部手机中删除。此操作无法撤销。</string>
+    <string name="deleted_one_song">已从这部手机删除歌曲</string>
+    <string name="deleted_songs_result">已从这部手机删除 %1$d 首歌曲</string>
+    <string name="delete_failed_some">%1$d 首歌曲无法删除</string>
 </resources>

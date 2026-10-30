@@ -127,6 +127,9 @@ import com.music.bitchord.auth.SpotifyLoginScreen
 import com.music.bitchord.auth.WebSessionMode
 import com.music.bitchord.auth.YtMusicLoginScreen
 import com.music.bitchord.data.AppUpdateChecker
+import com.music.bitchord.data.LocalDelete
+import com.music.bitchord.data.LocalDeleteRequest
+import com.music.bitchord.data.LocalDeleteRequests
 import com.music.bitchord.data.LocalMediaRepository
 import com.music.bitchord.data.listentogether.JamInviteLink
 import com.music.bitchord.data.listentogether.ListenTogether
@@ -227,6 +230,7 @@ import com.music.bitchord.ui.components.LongPressOrigin
 import com.music.bitchord.ui.components.SongActionsPresentation
 import com.music.bitchord.ui.components.SongActionsSheet
 import com.music.bitchord.ui.components.HeldContextMenu
+import com.music.bitchord.ui.components.LocalDeleteHost
 import com.music.bitchord.ui.components.HeldItem
 import androidx.media3.session.MediaController
 import com.music.bitchord.playback.QualityUpgrade
@@ -4269,6 +4273,18 @@ private fun BitChordApp(
                 } else {
                     null
                 },
+                // A local file that is not a saved download has no other
+                // delete: the Downloads row below only speaks for the
+                // app's own saves. The ask goes to the delete host, whose
+                // confirmation names the song before anything is touched.
+                onDeleteLocalFile = if (song.localUri != null && song.videoId !in savedDownloads) {
+                    {
+                        songActions = null
+                        LocalDeleteRequests.ask(LocalDeleteRequest(songs = listOf(song)))
+                    }
+                } else {
+                    null
+                },
                 onOpenAlbum = { id ->
                     openPage(
                         id,
@@ -4699,6 +4715,26 @@ private fun BitChordApp(
                         scope.launch { Downloads.deleteCollection(context, id) }
                     }
                 },
+                // A Folders tab folder group: delete the folder's files
+                // from the phone. The folder's own songs are resolved
+                // first — the confirmation the host shows counts them —
+                // and the ask is filtered back to the folder's own tracks,
+                // so a target carrying a wider list can never widen the
+                // delete. Local only; nothing here speaks to sync.
+                onDeleteLocalFolder = LocalGroups.folderPathOf(target.browseId)?.let { folderPath ->
+                    {
+                        browseActions = null
+                        withBrowseSongs(target) { songs ->
+                            LocalDeleteRequests.ask(
+                                LocalDeleteRequest(
+                                    songs = LocalDelete.folderSongs(songs, folderPath),
+                                    folderPath = folderPath,
+                                    folderName = target.title,
+                                ),
+                            )
+                        }
+                    }
+                },
             )
         }
         browseActions?.takeIf { browseMenuOrigin == null }?.let { target ->
@@ -4737,6 +4773,18 @@ private fun BitChordApp(
                 browseRenameInSheet = false
             }
         }
+
+        // ---- Local delete (song files and Folders tab folders) ----
+        // The menus only ask; the host confirms, deletes and reports. When
+        // files go, the pages built from them are re-read — the open one
+        // first, and Local Music's own listing, which is the page a folder
+        // delete is usually looking at.
+        LocalDeleteHost(onDeleted = {
+            viewModel.reloadLocalDetail("local:all")
+            topDetail?.browseId
+                ?.takeIf { it.startsWith("local:") }
+                ?.let { viewModel.reloadLocalDetail(it) }
+        })
 
         // ---- Welcome (once; under the sign-in WebView it can open) ----
         // There from the first frame, so no way in; on the way out it drops

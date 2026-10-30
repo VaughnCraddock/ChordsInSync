@@ -210,6 +210,10 @@ object LocalGroups {
     fun folderPathOf(group: LocalGroup): String? =
         parse(group.browseId)?.takeIf { it.kind == FOLDER }?.name
 
+    /** The same read-back as [folderPathOf], straight from a page id — for callers holding an id rather than a group. */
+    fun folderPathOf(browseId: String?): String? =
+        parse(browseId)?.takeIf { it.kind == FOLDER }?.name
+
     /**
      * The Folders tab's running order once favorites are known: starred
      * folders first, then the rest, each tier in the same title order
@@ -232,7 +236,7 @@ object LocalGroups {
  * recorded — null where the track never said, or said nothing with a
  * directory in it.
  */
-private fun Song.folderPath(): String? =
+internal fun Song.folderPath(): String? =
     localPath?.takeIf { it.isNotBlank() }
         ?.substringBeforeLast('/', missingDelimiterValue = "")
         ?.takeIf { it.isNotEmpty() }

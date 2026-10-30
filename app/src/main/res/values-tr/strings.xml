@@ -1378,4 +1378,14 @@
     <string name="sync_remove_pair_message">%1$s çifti kaldırılsın mı? Her iki taraftaki klasörler ve dosyalar yerinde kalır.</string>
     <string name="sync_notification_title">Klasörler senkronize ediliyor</string>
     <string name="sync_notification_all">Tüm çiftler</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Cihazdan sil</string>
+    <string name="delete_folder">Klasörü sil</string>
+    <string name="delete_song_confirmation_title">Bu şarkı silinsin mi?</string>
+    <string name="delete_song_confirmation">%1$s bu telefondan silinecek. Bu geri alınamaz.</string>
+    <string name="delete_folder_confirmation_title">Bu klasör silinsin mi?</string>
+    <string name="delete_folder_confirmation">%1$s ve %2$d şarkısı bu telefondan silinecek. Bu geri alınamaz.</string>
+    <string name="deleted_one_song">Şarkı bu telefondan silindi</string>
+    <string name="deleted_songs_result">%1$d şarkı bu telefondan silindi</string>
+    <string name="delete_failed_some">%1$d şarkı silinemedi</string>
 </resources>

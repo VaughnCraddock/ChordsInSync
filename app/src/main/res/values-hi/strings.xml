@@ -1421,4 +1421,14 @@
     <string name="sync_remove_pair_message">जोड़ा %1$s हटाएँ? दोनों तरफ़ के फ़ोल्डर और फ़ाइलें वहीं रहेंगी।</string>
     <string name="sync_notification_title">फ़ोल्डर सिंक हो रहे हैं</string>
     <string name="sync_notification_all">सभी जोड़े</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">डिवाइस से हटाएँ</string>
+    <string name="delete_folder">फ़ोल्डर हटाएँ</string>
+    <string name="delete_song_confirmation_title">यह गाना हटाएँ?</string>
+    <string name="delete_song_confirmation">%1$s इस फ़ोन से हटा दिया जाएगा। यह पूर्ववत नहीं किया जा सकता।</string>
+    <string name="delete_folder_confirmation_title">यह फ़ोल्डर हटाएँ?</string>
+    <string name="delete_folder_confirmation">%1$s और उसके %2$d गाने इस फ़ोन से हटा दिए जाएँगे। यह पूर्ववत नहीं किया जा सकता।</string>
+    <string name="deleted_one_song">गाना फ़ोन से हटाया गया</string>
+    <string name="deleted_songs_result">%1$d गाने फ़ोन से हटाए गए</string>
+    <string name="delete_failed_some">%1$d गाने नहीं हटाए जा सके</string>
 </resources>

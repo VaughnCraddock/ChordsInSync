@@ -1421,4 +1421,14 @@
     <string name="sync_remove_pair_message">Das Paar %1$s entfernen? Die Ordner und Dateien auf beiden Seiten bleiben, wo sie sind.</string>
     <string name="sync_notification_title">Ordner werden synchronisiert</string>
     <string name="sync_notification_all">Alle Paare</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Von diesem Gerät löschen</string>
+    <string name="delete_folder">Ordner löschen</string>
+    <string name="delete_song_confirmation_title">Diesen Titel löschen?</string>
+    <string name="delete_song_confirmation">%1$s wird von diesem Telefon gelöscht. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_folder_confirmation_title">Diesen Ordner löschen?</string>
+    <string name="delete_folder_confirmation">%1$s und seine %2$d Titel werden von diesem Telefon gelöscht. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="deleted_one_song">Titel vom Telefon gelöscht</string>
+    <string name="deleted_songs_result">%1$d Titel vom Telefon gelöscht</string>
+    <string name="delete_failed_some">%1$d Titel konnten nicht gelöscht werden</string>
 </resources>

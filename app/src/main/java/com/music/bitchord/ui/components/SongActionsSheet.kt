@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Bedtime
 import androidx.compose.material.icons.rounded.BugReport
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.DeleteSweep
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.DownloadDone
@@ -150,6 +151,14 @@ fun SongActionsSheet(
      * passes one only while the cache actually holds some of it.
      */
     onRemoveFromCache: (() -> Unit)? = null,
+    /**
+     * Deletes this track's file from the device. Null hides the row — the
+     * caller passes one only for a local file that is not a saved download:
+     * a saved download's own row already offers its delete, and duplicating
+     * it here would give one file two doors. The confirmation is the
+     * caller's, not this sheet's — see LocalDeleteHost.
+     */
+    onDeleteLocalFile: (() -> Unit)? = null,
     showSleepTimer: Boolean = false,
     /**
      * Sends the playing track back to YouTube's own upload, and keeps it there.
@@ -309,6 +318,14 @@ fun SongActionsSheet(
             ActionRow(
                 icon = Icons.Rounded.DeleteSweep,
                 label = stringResource(R.string.remove_from_cache),
+                accent = palette.accent,
+                onClick = it,
+            )
+        }
+        onDeleteLocalFile?.let {
+            ActionRow(
+                icon = Icons.Rounded.Delete,
+                label = stringResource(R.string.delete_from_device),
                 accent = palette.accent,
                 onClick = it,
             )

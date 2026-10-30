@@ -1398,4 +1398,14 @@
     <string name="sync_remove_pair_message">Hapus pasangan %1$s? Folder dan file di kedua sisi tetap di tempatnya.</string>
     <string name="sync_notification_title">Menyinkronkan folder</string>
     <string name="sync_notification_all">Semua pasangan</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Hapus dari perangkat</string>
+    <string name="delete_folder">Hapus folder</string>
+    <string name="delete_song_confirmation_title">Hapus lagu ini?</string>
+    <string name="delete_song_confirmation">%1$s akan dihapus dari ponsel ini. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="delete_folder_confirmation_title">Hapus folder ini?</string>
+    <string name="delete_folder_confirmation">%1$s dan %2$d lagunya akan dihapus dari ponsel ini. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="deleted_one_song">Lagu dihapus dari ponsel ini</string>
+    <string name="deleted_songs_result">%1$d lagu dihapus dari ponsel ini</string>
+    <string name="delete_failed_some">%1$d lagu tidak dapat dihapus</string>
 </resources>

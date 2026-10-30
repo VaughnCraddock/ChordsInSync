@@ -1461,4 +1461,14 @@
     <string name="sync_remove_pair_message">Usunąć parę %1$s? Foldery i pliki po obu stronach zostają na miejscu.</string>
     <string name="sync_notification_title">Synchronizowanie folderów</string>
     <string name="sync_notification_all">Wszystkie pary</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Usuń z urządzenia</string>
+    <string name="delete_folder">Usuń folder</string>
+    <string name="delete_song_confirmation_title">Usunąć ten utwór?</string>
+    <string name="delete_song_confirmation">%1$s zostanie usunięty z tego telefonu. Tej operacji nie można cofnąć.</string>
+    <string name="delete_folder_confirmation_title">Usunąć ten folder?</string>
+    <string name="delete_folder_confirmation">%1$s i jego %2$d utworów zostanie usuniętych z tego telefonu. Tej operacji nie można cofnąć.</string>
+    <string name="deleted_one_song">Utwór usunięty z tego telefonu</string>
+    <string name="deleted_songs_result">Usunięto %1$d utworów z tego telefonu</string>
+    <string name="delete_failed_some">Nie udało się usunąć %1$d utworów</string>
 </resources>

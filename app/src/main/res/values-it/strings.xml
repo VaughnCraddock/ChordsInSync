@@ -1360,4 +1360,14 @@
     <string name="sync_remove_pair_message">Rimuovere la coppia %1$s? Le cartelle e i file su entrambi i lati restano dove sono.</string>
     <string name="sync_notification_title">Sincronizzazione delle cartelle</string>
     <string name="sync_notification_all">Tutte le coppie</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Elimina dal dispositivo</string>
+    <string name="delete_folder">Elimina cartella</string>
+    <string name="delete_song_confirmation_title">Eliminare questo brano?</string>
+    <string name="delete_song_confirmation">%1$s verrà eliminato da questo telefono. L\'operazione non può essere annullata.</string>
+    <string name="delete_folder_confirmation_title">Eliminare questa cartella?</string>
+    <string name="delete_folder_confirmation">%1$s e i suoi %2$d brani verranno eliminati da questo telefono. L\'operazione non può essere annullata.</string>
+    <string name="deleted_one_song">Brano eliminato da questo telefono</string>
+    <string name="deleted_songs_result">%1$d brani eliminati da questo telefono</string>
+    <string name="delete_failed_some">%1$d brani non sono stati eliminati</string>
 </resources>

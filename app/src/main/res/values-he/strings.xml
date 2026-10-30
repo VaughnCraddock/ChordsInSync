@@ -1426,4 +1426,14 @@
     <string name="sync_remove_pair_message">להסיר את הזוג %1$s? התיקיות והקבצים בשני הצדדים נשארים במקומם.</string>
     <string name="sync_notification_title">מסנכרן תיקיות</string>
     <string name="sync_notification_all">כל הזוגות</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">מחיקה מהמכשיר</string>
+    <string name="delete_folder">מחיקת תיקייה</string>
+    <string name="delete_song_confirmation_title">למחוק את השיר הזה?</string>
+    <string name="delete_song_confirmation">%1$s יימחק מהטלפון הזה. לא ניתן לבטל פעולה זו.</string>
+    <string name="delete_folder_confirmation_title">למחוק את התיקייה הזו?</string>
+    <string name="delete_folder_confirmation">%1$s והשירים שבו (%2$d) יימחקו מהטלפון הזה. לא ניתן לבטל פעולה זו.</string>
+    <string name="deleted_one_song">השיר נמחק מהטלפון</string>
+    <string name="deleted_songs_result">%1$d שירים נמחקו מהטלפון</string>
+    <string name="delete_failed_some">%1$d שירים לא נמחקו</string>
 </resources>

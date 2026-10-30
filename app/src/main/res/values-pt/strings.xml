@@ -1426,4 +1426,14 @@
     <string name="sync_remove_pair_message">Remover o par %1$s? As pastas e os ficheiros de ambos os lados ficam onde estão.</string>
     <string name="sync_notification_title">A sincronizar pastas</string>
     <string name="sync_notification_all">Todos os pares</string>
+    <!-- Local delete -->
+    <string name="delete_from_device">Eliminar do dispositivo</string>
+    <string name="delete_folder">Eliminar pasta</string>
+    <string name="delete_song_confirmation_title">Eliminar esta música?</string>
+    <string name="delete_song_confirmation">%1$s será eliminado deste telemóvel. Isto não pode ser anulado.</string>
+    <string name="delete_folder_confirmation_title">Eliminar esta pasta?</string>
+    <string name="delete_folder_confirmation">%1$s e as suas %2$d músicas serão eliminados deste telemóvel. Isto não pode ser anulado.</string>
+    <string name="deleted_one_song">Música eliminada deste telemóvel</string>
+    <string name="deleted_songs_result">%1$d músicas eliminadas deste telemóvel</string>
+    <string name="delete_failed_some">%1$d músicas não puderam ser eliminadas</string>
 </resources>
