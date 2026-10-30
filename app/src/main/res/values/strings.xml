@@ -1232,13 +1232,13 @@
     <string name="sync_auto_note">Automatic sync runs only while the phone is charging and on unmetered Wi-Fi. Sync now runs right away, but uploads still wait until you are home.</string>
     <string name="sync_engines">Engines</string>
     <string name="sync_engine_device_folders">Device folders</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Available</string>
     <string name="sync_coming_soon">Coming soon</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">Downloads are placed in Music/BitChord, the Syncthing location for this device. Music placed there is what gets synced.</string>
     <string name="sync_home_section">Home network</string>
     <string name="sync_home_host">Home host</string>
     <string name="sync_home_port">Home port</string>
@@ -1275,28 +1275,6 @@
     <string name="sync_notification_all">All pairs</string>
     <string name="sync_status_needs_sign_in">Needs sign-in - reconnect the account above</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Set up Google Drive</string>
-    <string name="sync_drive_setup_steps">Sync uses your own Google Cloud project. At console.cloud.google.com: create a project and enable the Drive API. Set up the OAuth consent screen (External - Testing status is fine) and add the full Google Drive scope to it: https://www.googleapis.com/auth/drive. Then create an Android OAuth client using the package name and SHA-1 fingerprint below. Nothing is installed into the app - Google Play services matches this build against that client when you connect. On first connect Google shows an unverified app warning, because this scope is restricted and the project is not verified: choose Advanced, then Go to Chords In Sync, to continue. That warning is expected for your own project.</string>
-    <string name="sync_drive_package_label">Package name</string>
-    <string name="sync_drive_sha1_label">SHA-1 fingerprint</string>
-    <string name="sync_drive_copy">Copy</string>
-    <string name="sync_drive_scope_note">This build asks for full access to your Drive, so a pair can use any folder in it. The app only opens the folders your pairs point at - it never scans or changes anything else.</string>
-    <string name="sync_drive_not_connected">Not connected</string>
-    <string name="sync_drive_connect">Connect Google Drive</string>
-    <string name="sync_drive_connected_as">Connected as %1$s</string>
-    <string name="sync_drive_connect_failed">Could not connect Google Drive. Check the setup steps below, then try again.</string>
-    <string name="sync_drive_disconnect_message">Disconnect Google Drive? Its pairs stay, but cannot sync until you connect again.</string>
-    <string name="sync_drive_add_pair">Add a Drive pair</string>
-    <string name="sync_drive_folder_label">Drive folder</string>
-    <string name="sync_drive_my_drive">My Drive</string>
-    <string name="sync_drive_remote_folder">Pair folder: %1$s</string>
-    <string name="sync_drive_up">Up one level</string>
-    <string name="sync_drive_empty_folder">No subfolders here</string>
-    <string name="sync_drive_new_folder_label">Create a new folder here</string>
-    <string name="sync_drive_create_folder">Create folder</string>
-    <string name="sync_drive_loading_folders">Loading folders…</string>
-    <string name="sync_drive_load_failed">Could not load the folders. Connect Google Drive, then try again.</string>
-    <string name="sync_drive_create_folder_failed">Could not create that folder in Drive.</string>
     <!-- Local delete -->
     <string name="delete_from_device">Delete from device</string>
     <string name="delete_folder">Delete folder</string>

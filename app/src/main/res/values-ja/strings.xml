@@ -1358,13 +1358,13 @@
     <string name="sync_auto_note">自動同期は、スマートフォンが充電中で、従量制でない Wi-Fi に接続しているときだけ実行されます。今すぐ同期はすぐ実行されますが、アップロードは帰宅するまで待機します。</string>
     <string name="sync_engines">エンジン</string>
     <string name="sync_engine_device_folders">デバイスのフォルダ</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">利用可能</string>
     <string name="sync_coming_soon">近日公開</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">ダウンロードは、このデバイスの Syncthing の場所である Music/BitChord に配置されます。そこに配置された音楽が同期されます。</string>
     <string name="sync_home_section">自宅ネットワーク</string>
     <string name="sync_home_host">自宅ホスト</string>
     <string name="sync_home_port">自宅ポート</string>
@@ -1411,26 +1411,4 @@
     <string name="delete_failed_some">%1$d 曲を削除できませんでした</string>
     <string name="sync_status_needs_sign_in">サインインが必要です - 上記のアカウントを再接続してください</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Google ドライブのセットアップ</string>
-    <string name="sync_drive_setup_steps">同期にはあなた自身の Google Cloud プロジェクトを使います。console.cloud.google.com で：プロジェクトを作成して Drive API を有効にします。OAuth 同意画面を設定し（外部 - テスト ステータスで問題ありません）、Google ドライブのフル スコープ https://www.googleapis.com/auth/drive を追加します。次に、下のパッケージ名と SHA-1 フィンガープリントで Android OAuth クライアントを作成します。アプリに何かインストールされるわけではありません。接続時に Google Play 開発者サービスがこのビルドとそのクライアントを照合します。初回接続時、このスコープは制限付きでプロジェクトが未確認のため、Google は「未確認のアプリ」警告を表示します。続けるには「詳細」、次に「Chords In Sync に移動」を選択してください。自分のプロジェクトでは想定どおりの警告です。</string>
-    <string name="sync_drive_package_label">パッケージ名</string>
-    <string name="sync_drive_sha1_label">SHA-1 フィンガープリント</string>
-    <string name="sync_drive_copy">コピー</string>
-    <string name="sync_drive_scope_note">このビルドはドライブへのフル アクセスを求めます。これにより、ペアはドライブ内のどのフォルダでも使えます。アプリが開くのはペアが指定したフォルダだけです。他のものをスキャンしたり変更したりすることはありません。</string>
-    <string name="sync_drive_not_connected">未接続</string>
-    <string name="sync_drive_connect">Google ドライブを接続</string>
-    <string name="sync_drive_connected_as">%1$s として接続中</string>
-    <string name="sync_drive_connect_failed">Google ドライブに接続できませんでした。下記のセットアップ手順を確認して、もう一度お試しください。</string>
-    <string name="sync_drive_disconnect_message">Google ドライブを切断しますか？ペアは残りますが、再接続するまで同期できません。</string>
-    <string name="sync_drive_add_pair">ドライブのペアを追加</string>
-    <string name="sync_drive_folder_label">ドライブのフォルダ</string>
-    <string name="sync_drive_my_drive">マイドライブ</string>
-    <string name="sync_drive_remote_folder">ペアのフォルダ：%1$s</string>
-    <string name="sync_drive_up">上の階層へ</string>
-    <string name="sync_drive_empty_folder">サブフォルダはありません</string>
-    <string name="sync_drive_create_folder">フォルダを作成</string>
-    <string name="sync_drive_new_folder_label">ここに新しいフォルダを作成</string>
-    <string name="sync_drive_loading_folders">フォルダを読み込み中…</string>
-    <string name="sync_drive_load_failed">フォルダを読み込めませんでした。Google ドライブを接続してからもう一度お試しください。</string>
-    <string name="sync_drive_create_folder_failed">ドライブにそのフォルダを作成できませんでした。</string>
 </resources>

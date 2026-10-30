@@ -1380,13 +1380,13 @@
     <string name="sync_auto_note">स्वचालित सिंक केवल तभी चलता है जब फ़ोन चार्ज हो रहा हो और बिना मीटर वाले Wi-Fi पर हो। अभी सिंक करें तुरंत चलता है, लेकिन अपलोड तब तक रुकते हैं जब तक आप घर नहीं पहुँच जाते।</string>
     <string name="sync_engines">इंजन</string>
     <string name="sync_engine_device_folders">डिवाइस फ़ोल्डर</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">उपलब्ध</string>
     <string name="sync_coming_soon">जल्द आ रहा है</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">डाउनलोड Music/BitChord में रखे जाते हैं, जो इस डिवाइस का Syncthing स्थान है। वहाँ रखा गया संगीत ही सिंक होता है।</string>
     <string name="sync_home_section">घर का नेटवर्क</string>
     <string name="sync_home_host">घर का होस्ट</string>
     <string name="sync_home_port">घर का पोर्ट</string>
@@ -1433,26 +1433,4 @@
     <string name="delete_failed_some">%1$d गाने नहीं हटाए जा सके</string>
     <string name="sync_status_needs_sign_in">साइन-इन आवश्यक है - ऊपर खाता फिर से कनेक्ट करें</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Google Drive सेट करें</string>
-    <string name="sync_drive_setup_steps">सिंक आपके अपने Google Cloud प्रोजेक्ट का उपयोग करता है। console.cloud.google.com पर: एक प्रोजेक्ट बनाएं और Drive API सक्षम करें। OAuth सहमति स्क्रीन सेट करें (बाहरी - परीक्षण स्थिति ठीक है) और इसमें Google Drive का पूर्ण स्कोप जोड़ें: https://www.googleapis.com/auth/drive. फिर नीचे दिए गए पैकेज नाम और SHA-1 फिंगरप्रिंट से एक Android OAuth क्लाइंट बनाएं। ऐप में कुछ भी इंस्टॉल नहीं होता - कनेक्ट करते समय Google Play सेवाएं इस बिल्ड को उस क्लाइंट से मिलाती हैं। पहली बार कनेक्ट करने पर Google असत्यापित ऐप की चेतावनी दिखाता है, क्योंकि यह स्कोप प्रतिबंधित है और प्रोजेक्ट सत्यापित नहीं है: जारी रखने के लिए उन्नत चुनें, फिर Chords In Sync पर जाएं चुनें। आपके अपने प्रोजेक्ट में यह चेतावनी सामान्य है।</string>
-    <string name="sync_drive_package_label">पैकेज नाम</string>
-    <string name="sync_drive_sha1_label">SHA-1 फिंगरप्रिंट</string>
-    <string name="sync_drive_copy">कॉपी करें</string>
-    <string name="sync_drive_scope_note">यह बिल्ड आपके Drive की पूर्ण पहुंच मांगता है, ताकि कोई जोड़ा उसकी किसी भी फ़ोल्डर का उपयोग कर सके। ऐप केवल वही फ़ोल्डर खोलता है जिनकी ओर आपके जोड़े इशारा करते हैं - यह कभी कुछ और स्कैन या बदलता नहीं है।</string>
-    <string name="sync_drive_not_connected">कनेक्ट नहीं है</string>
-    <string name="sync_drive_connect">Google Drive कनेक्ट करें</string>
-    <string name="sync_drive_connected_as">%1$s के रूप में कनेक्ट है</string>
-    <string name="sync_drive_connect_failed">Google Drive कनेक्ट नहीं हो सका। नीचे दिए गए सेटअप चरण जांचें और फिर से प्रयास करें।</string>
-    <string name="sync_drive_disconnect_message">Google Drive डिस्कनेक्ट करें? इसके पेयर बने रहेंगे, लेकिन फिर से कनेक्ट होने तक सिंक नहीं हो सकेंगे।</string>
-    <string name="sync_drive_add_pair">Drive पेयर जोड़ें</string>
-    <string name="sync_drive_folder_label">Drive फ़ोल्डर</string>
-    <string name="sync_drive_my_drive">मेरी ड्राइव</string>
-    <string name="sync_drive_remote_folder">जोड़े का फ़ोल्डर: %1$s</string>
-    <string name="sync_drive_up">एक स्तर ऊपर</string>
-    <string name="sync_drive_empty_folder">यहां कोई उप-फ़ोल्डर नहीं है</string>
-    <string name="sync_drive_create_folder">फ़ोल्डर बनाएं</string>
-    <string name="sync_drive_new_folder_label">यहां एक नया फ़ोल्डर बनाएं</string>
-    <string name="sync_drive_loading_folders">फ़ोल्डर लोड हो रहे हैं…</string>
-    <string name="sync_drive_load_failed">फ़ोल्डर लोड नहीं हो सके। Google Drive कनेक्ट करें और फिर से प्रयास करें।</string>
-    <string name="sync_drive_create_folder_failed">Drive में वह फ़ोल्डर नहीं बनाया जा सका।</string>
 </resources>

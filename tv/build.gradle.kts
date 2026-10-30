@@ -328,10 +328,6 @@ dependencies {
     // in step with :app's.
     implementation("androidx.work:work-runtime-ktx:2.10.5")
 
-    // Same story for the Drive engine's Authorization API (play-services-auth):
-    // the phone app's sources compile here, so the dependency must too.
-    implementation("com.google.android.gms:play-services-auth:21.4.0")
-
     // ---- Media playback: Media3 / ExoPlayer ----
     implementation("androidx.media3:media3-exoplayer:1.11.0")
     implementation("androidx.media3:media3-session:1.11.0")

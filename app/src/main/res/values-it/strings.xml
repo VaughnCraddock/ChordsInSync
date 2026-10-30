@@ -1319,13 +1319,13 @@
     <string name="sync_auto_note">La sincronizzazione automatica avviene solo mentre il telefono è in carica e su Wi-Fi illimitato. Sincronizza ora parte subito, ma i caricamenti attendono che tu sia a casa.</string>
     <string name="sync_engines">Motori</string>
     <string name="sync_engine_device_folders">Cartelle del dispositivo</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Disponibile</string>
     <string name="sync_coming_soon">In arrivo</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">I download vengono salvati in Music/BitChord, la posizione Syncthing di questo dispositivo. La musica inserita lì è ciò che viene sincronizzato.</string>
     <string name="sync_home_section">Rete domestica</string>
     <string name="sync_home_host">Host domestico</string>
     <string name="sync_home_port">Porta domestica</string>
@@ -1372,26 +1372,4 @@
     <string name="delete_failed_some">%1$d brani non sono stati eliminati</string>
     <string name="sync_status_needs_sign_in">Accesso necessario - ricollega l\'account qui sopra</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Configura Google Drive</string>
-    <string name="sync_drive_setup_steps">La sincronizzazione usa il tuo progetto Google Cloud. Su console.cloud.google.com: crea un progetto e attiva l\'API Drive. Configura la schermata di consenso OAuth (Esterna - lo stato Test va bene) e aggiungi l\'ambito completo di Google Drive: https://www.googleapis.com/auth/drive. Poi crea un client OAuth Android con il nome del pacchetto e l\'impronta SHA-1 qui sotto. Non viene installato nulla nell\'app: i servizi Google Play associano questa build a quel client quando ti connetti. Alla prima connessione Google mostra un avviso di app non verificata, perché questo ambito è limitato e il progetto non è verificato: scegli Avanzate, poi Vai a Chords In Sync, per continuare. Quell\'avviso è previsto per il tuo progetto.</string>
-    <string name="sync_drive_package_label">Nome del pacchetto</string>
-    <string name="sync_drive_sha1_label">Impronta SHA-1</string>
-    <string name="sync_drive_copy">Copia</string>
-    <string name="sync_drive_scope_note">Questa build chiede l\'accesso completo al tuo Drive, così una coppia può usare qualsiasi cartella. L\'app apre solo le cartelle indicate dalle tue coppie: non esplora né modifica nient\'altro.</string>
-    <string name="sync_drive_not_connected">Non connesso</string>
-    <string name="sync_drive_connect">Connetti Google Drive</string>
-    <string name="sync_drive_connected_as">Connesso come %1$s</string>
-    <string name="sync_drive_connect_failed">Impossibile connettere Google Drive. Controlla i passaggi di configurazione qui sotto e riprova.</string>
-    <string name="sync_drive_disconnect_message">Disconnettere Google Drive? Le sue coppie restano, ma non potranno sincronizzarsi finché non ti riconnetti.</string>
-    <string name="sync_drive_add_pair">Aggiungi una coppia Drive</string>
-    <string name="sync_drive_folder_label">Cartella Drive</string>
-    <string name="sync_drive_my_drive">Il mio Drive</string>
-    <string name="sync_drive_remote_folder">Cartella della coppia: %1$s</string>
-    <string name="sync_drive_up">Su di un livello</string>
-    <string name="sync_drive_empty_folder">Nessuna sottocartella qui</string>
-    <string name="sync_drive_create_folder">Crea cartella</string>
-    <string name="sync_drive_new_folder_label">Crea una nuova cartella qui</string>
-    <string name="sync_drive_loading_folders">Caricamento cartelle…</string>
-    <string name="sync_drive_load_failed">Impossibile caricare le cartelle. Connetti Google Drive e riprova.</string>
-    <string name="sync_drive_create_folder_failed">Impossibile creare quella cartella in Drive.</string>
 </resources>

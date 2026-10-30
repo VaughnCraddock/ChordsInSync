@@ -1412,13 +1412,13 @@
     <string name="sync_auto_note">Автоматическая синхронизация работает только во время зарядки телефона и в Wi-Fi без лимита. Синхронизировать сейчас запускается сразу, но отправка ждёт, пока вы не окажетесь дома.</string>
     <string name="sync_engines">Движки</string>
     <string name="sync_engine_device_folders">Папки устройства</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Доступно</string>
     <string name="sync_coming_soon">Скоро</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">Загрузки помещаются в Music/BitChord, папку Syncthing на этом устройстве. Синхронизируется музыка, помещённая именно туда.</string>
     <string name="sync_home_section">Домашняя сеть</string>
     <string name="sync_home_host">Домашний хост</string>
     <string name="sync_home_port">Домашний порт</string>
@@ -1465,26 +1465,4 @@
     <string name="delete_failed_some">Не удалось удалить песен: %1$d</string>
     <string name="sync_status_needs_sign_in">Требуется вход - переподключите аккаунт выше</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Настройка Google Диска</string>
-    <string name="sync_drive_setup_steps">Синхронизация использует ваш собственный проект Google Cloud. На console.cloud.google.com: создайте проект и включите Drive API. Настройте экран согласия OAuth (Внешний - статус Тестирование подходит) и добавьте в него полный доступ к Google Drive: https://www.googleapis.com/auth/drive. Затем создайте Android OAuth-клиент с именем пакета и отпечатком SHA-1 ниже. В приложение ничего не устанавливается - сервисы Google Play сверяют эту сборку с этим клиентом при подключении. При первом подключении Google показывает предупреждение о непроверенном приложении, потому что этот доступ ограничен, а проект не проверен: выберите Дополнительно, затем Перейти в Chords In Sync, чтобы продолжить. Для вашего собственного проекта это предупреждение ожидаемо.</string>
-    <string name="sync_drive_package_label">Имя пакета</string>
-    <string name="sync_drive_sha1_label">Отпечаток SHA-1</string>
-    <string name="sync_drive_copy">Копировать</string>
-    <string name="sync_drive_scope_note">Эта сборка запрашивает полный доступ к вашему Диску, чтобы пара могла использовать любую папку. Приложение открывает только папки, на которые указывают ваши пары, - оно никогда не сканирует и не изменяет что-либо ещё.</string>
-    <string name="sync_drive_not_connected">Не подключено</string>
-    <string name="sync_drive_connect">Подключить Google Диск</string>
-    <string name="sync_drive_connected_as">Подключено как %1$s</string>
-    <string name="sync_drive_connect_failed">Не удалось подключить Google Диск. Проверьте шаги настройки ниже и попробуйте снова.</string>
-    <string name="sync_drive_disconnect_message">Отключить Google Диск? Его пары останутся, но не смогут синхронизироваться, пока вы не подключитесь снова.</string>
-    <string name="sync_drive_add_pair">Добавить пару Диска</string>
-    <string name="sync_drive_folder_label">Папка Диска</string>
-    <string name="sync_drive_my_drive">Мой диск</string>
-    <string name="sync_drive_remote_folder">Папка пары: %1$s</string>
-    <string name="sync_drive_up">На уровень выше</string>
-    <string name="sync_drive_empty_folder">Здесь нет вложенных папок</string>
-    <string name="sync_drive_create_folder">Создать папку</string>
-    <string name="sync_drive_new_folder_label">Создать новую папку здесь</string>
-    <string name="sync_drive_loading_folders">Загрузка папок…</string>
-    <string name="sync_drive_load_failed">Не удалось загрузить папки. Подключите Google Диск и попробуйте снова.</string>
-    <string name="sync_drive_create_folder_failed">Не удалось создать эту папку на Диске.</string>
 </resources>

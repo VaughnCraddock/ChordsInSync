@@ -1352,13 +1352,13 @@
     <string name="sync_auto_note">La sincronización automática solo se ejecuta mientras el teléfono se está cargando y está en una red Wi-Fi sin límite. Sincronizar ahora se ejecuta de inmediato, pero las subidas esperan hasta que estés en casa.</string>
     <string name="sync_engines">Motores</string>
     <string name="sync_engine_device_folders">Carpetas del dispositivo</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Disponible</string>
     <string name="sync_coming_soon">Próximamente</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">Las descargas se guardan en Music/BitChord, la ubicación de Syncthing en este dispositivo. La música que se coloca allí es lo que se sincroniza.</string>
     <string name="sync_home_section">Red doméstica</string>
     <string name="sync_home_host">Host doméstico</string>
     <string name="sync_home_port">Puerto doméstico</string>
@@ -1405,26 +1405,4 @@
     <string name="delete_failed_some">%1$d canciones no se pudieron eliminar</string>
     <string name="sync_status_needs_sign_in">Necesita iniciar sesión: vuelve a conectar la cuenta arriba</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Configurar Google Drive</string>
-    <string name="sync_drive_setup_steps">La sincronización usa tu propio proyecto de Google Cloud. En console.cloud.google.com: crea un proyecto y activa la API de Drive. Configura la pantalla de consentimiento de OAuth (Externa; el estado En pruebas es válido) y añade el alcance completo de Google Drive: https://www.googleapis.com/auth/drive. Después crea un cliente OAuth de Android con el nombre de paquete y la huella SHA-1 de abajo. No se instala nada en la app: los servicios de Google Play comparan esta versión con ese cliente cuando te conectas. Al conectar por primera vez, Google muestra una advertencia de app no verificada, porque este alcance es restringido y el proyecto no está verificado: elige Avanzado y luego Ir a Chords In Sync para continuar. Esa advertencia es normal en tu propio proyecto.</string>
-    <string name="sync_drive_package_label">Nombre del paquete</string>
-    <string name="sync_drive_sha1_label">Huella SHA-1</string>
-    <string name="sync_drive_copy">Copiar</string>
-    <string name="sync_drive_scope_note">Esta versión pide acceso completo a tu Drive para que un par pueda usar cualquier carpeta. La app solo abre las carpetas que indican tus pares: nunca explora ni cambia nada más.</string>
-    <string name="sync_drive_not_connected">No conectado</string>
-    <string name="sync_drive_connect">Conectar Google Drive</string>
-    <string name="sync_drive_connected_as">Conectado como %1$s</string>
-    <string name="sync_drive_connect_failed">No se pudo conectar Google Drive. Revisa los pasos de configuración de abajo e inténtalo de nuevo.</string>
-    <string name="sync_drive_disconnect_message">¿Desconectar Google Drive? Sus pares se quedan, pero no podrán sincronizar hasta que te conectes de nuevo.</string>
-    <string name="sync_drive_add_pair">Añadir un par de Drive</string>
-    <string name="sync_drive_folder_label">Carpeta de Drive</string>
-    <string name="sync_drive_my_drive">Mi unidad</string>
-    <string name="sync_drive_remote_folder">Carpeta del par: %1$s</string>
-    <string name="sync_drive_up">Subir un nivel</string>
-    <string name="sync_drive_empty_folder">No hay subcarpetas aquí</string>
-    <string name="sync_drive_create_folder">Crear carpeta</string>
-    <string name="sync_drive_new_folder_label">Crear una carpeta nueva aquí</string>
-    <string name="sync_drive_loading_folders">Cargando carpetas…</string>
-    <string name="sync_drive_load_failed">No se pudieron cargar las carpetas. Conecta Google Drive e inténtalo de nuevo.</string>
-    <string name="sync_drive_create_folder_failed">No se pudo crear esa carpeta en Drive.</string>
 </resources>

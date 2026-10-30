@@ -179,6 +179,21 @@ class DownloadStoreTest {
         }
     }
 
+    // ---- Where a download lands by default --------------------------------
+
+    /**
+     * Downloads belong in the shared Music/BitChord folder out of the box:
+     * that folder is this device's Syncthing location, and an app-private
+     * default would leave it empty no matter how much was downloaded. The
+     * setting itself still exists (a user can keep downloads private), so
+     * what this pins is the starting value, before anything is loaded from
+     * storage or chosen by anyone.
+     */
+    @Test
+    fun `downloads go to the shared music folder by default`() {
+        assertTrue(AppSettings.exportDownloads.value)
+    }
+
     // ---- When a download may start -----------------------------------------
 
     /**

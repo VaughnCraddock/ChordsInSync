@@ -1420,13 +1420,13 @@
     <string name="sync_auto_note">Automatyczna synchronizacja działa tylko, gdy telefon się ładuje i jest w sieci Wi-Fi bez limitu. Synchronizuj teraz działa od razu, ale wysyłanie czeka, aż będziesz w domu.</string>
     <string name="sync_engines">Silniki</string>
     <string name="sync_engine_device_folders">Foldery urządzenia</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Dostępne</string>
     <string name="sync_coming_soon">Wkrótce</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">Pobrane pliki trafiają do Music/BitChord, lokalizacji Syncthing na tym urządzeniu. Synchronizowana jest muzyka umieszczona właśnie tam.</string>
     <string name="sync_home_section">Sieć domowa</string>
     <string name="sync_home_host">Host domowy</string>
     <string name="sync_home_port">Port domowy</string>
@@ -1473,26 +1473,4 @@
     <string name="delete_failed_some">Nie udało się usunąć %1$d utworów</string>
     <string name="sync_status_needs_sign_in">Wymagane logowanie – połącz ponownie konto powyżej</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Konfiguracja Dysku Google</string>
-    <string name="sync_drive_setup_steps">Synchronizacja korzysta z Twojego własnego projektu Google Cloud. Na console.cloud.google.com: utwórz projekt i włącz Drive API. Skonfiguruj ekran zgody OAuth (Zewnętrzny - status Testowanie jest OK) i dodaj do niego pełny zakres Google Drive: https://www.googleapis.com/auth/drive. Następnie utwórz klienta OAuth dla Androida z nazwą pakietu i odciskiem SHA-1 poniżej. Nic nie jest instalowane w aplikacji - usługi Google Play dopasowują tę kompilację do tego klienta podczas łączenia. Przy pierwszym połączeniu Google pokazuje ostrzeżenie o niezweryfikowanej aplikacji, ponieważ ten zakres jest ograniczony, a projekt niezweryfikowany: wybierz Zaawansowane, a potem Przejdź do Chords In Sync, aby kontynuować. To ostrzeżenie jest normalne we własnym projekcie.</string>
-    <string name="sync_drive_package_label">Nazwa pakietu</string>
-    <string name="sync_drive_sha1_label">Odcisk SHA-1</string>
-    <string name="sync_drive_copy">Kopiuj</string>
-    <string name="sync_drive_scope_note">Ta kompilacja prosi o pełny dostęp do Twojego Dysku, aby para mogła użyć dowolnego folderu. Aplikacja otwiera tylko foldery wskazane przez Twoje pary - nigdy nie skanuje ani nie zmienia niczego innego.</string>
-    <string name="sync_drive_not_connected">Niepołączono</string>
-    <string name="sync_drive_connect">Połącz Dysk Google</string>
-    <string name="sync_drive_connected_as">Połączono jako %1$s</string>
-    <string name="sync_drive_connect_failed">Nie udało się połączyć Dysku Google. Sprawdź kroki konfiguracji poniżej i spróbuj ponownie.</string>
-    <string name="sync_drive_disconnect_message">Rozłączyć Dysk Google? Jego pary pozostaną, ale nie będą mogły się synchronizować, dopóki nie połączysz się ponownie.</string>
-    <string name="sync_drive_add_pair">Dodaj parę Dysku</string>
-    <string name="sync_drive_folder_label">Folder Dysku</string>
-    <string name="sync_drive_my_drive">Mój dysk</string>
-    <string name="sync_drive_remote_folder">Folder pary: %1$s</string>
-    <string name="sync_drive_up">O jeden poziom wyżej</string>
-    <string name="sync_drive_empty_folder">Brak podfolderów</string>
-    <string name="sync_drive_create_folder">Utwórz folder</string>
-    <string name="sync_drive_new_folder_label">Utwórz nowy folder tutaj</string>
-    <string name="sync_drive_loading_folders">Ładowanie folderów…</string>
-    <string name="sync_drive_load_failed">Nie udało się wczytać folderów. Połącz Dysk Google i spróbuj ponownie.</string>
-    <string name="sync_drive_create_folder_failed">Nie udało się utworzyć tego folderu na Dysku.</string>
 </resources>

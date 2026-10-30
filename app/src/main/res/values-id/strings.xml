@@ -1357,13 +1357,13 @@
     <string name="sync_auto_note">Sinkronisasi otomatis hanya berjalan saat ponsel sedang diisi daya dan terhubung ke Wi-Fi tanpa batas kuota. Sinkronkan sekarang berjalan langsung, tetapi unggahan menunggu sampai Anda di rumah.</string>
     <string name="sync_engines">Mesin</string>
     <string name="sync_engine_device_folders">Folder perangkat</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Tersedia</string>
     <string name="sync_coming_soon">Segera hadir</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">Unduhan ditempatkan di Music/BitChord, lokasi Syncthing untuk perangkat ini. Musik yang ditempatkan di sana adalah yang disinkronkan.</string>
     <string name="sync_home_section">Jaringan rumah</string>
     <string name="sync_home_host">Host rumah</string>
     <string name="sync_home_port">Port rumah</string>
@@ -1410,26 +1410,4 @@
     <string name="delete_failed_some">%1$d lagu tidak dapat dihapus</string>
     <string name="sync_status_needs_sign_in">Perlu masuk - sambungkan lagi akun di atas</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">Siapkan Google Drive</string>
-    <string name="sync_drive_setup_steps">Sinkronisasi menggunakan proyek Google Cloud Anda sendiri. Di console.cloud.google.com: buat proyek dan aktifkan Drive API. Siapkan layar persetujuan OAuth (Eksternal - status Pengujian tidak masalah) dan tambahkan cakupan Google Drive penuh ke dalamnya: https://www.googleapis.com/auth/drive. Lalu buat klien OAuth Android menggunakan nama paket dan sidik jari SHA-1 di bawah. Tidak ada yang dipasang ke aplikasi - layanan Google Play mencocokkan build ini dengan klien itu saat Anda terhubung. Saat pertama kali terhubung, Google menampilkan peringatan aplikasi belum terverifikasi, karena cakupan ini dibatasi dan proyeknya belum terverifikasi: pilih Lanjutan, lalu Buka Chords In Sync, untuk melanjutkan. Peringatan itu wajar untuk proyek Anda sendiri.</string>
-    <string name="sync_drive_package_label">Nama paket</string>
-    <string name="sync_drive_sha1_label">Sidik jari SHA-1</string>
-    <string name="sync_drive_copy">Salin</string>
-    <string name="sync_drive_scope_note">Build ini meminta akses penuh ke Drive Anda, agar pasangan dapat menggunakan folder mana pun di dalamnya. Aplikasi hanya membuka folder yang ditunjuk pasangan Anda - aplikasi tidak pernah memindai atau mengubah hal lain.</string>
-    <string name="sync_drive_not_connected">Tidak terhubung</string>
-    <string name="sync_drive_connect">Hubungkan Google Drive</string>
-    <string name="sync_drive_connected_as">Terhubung sebagai %1$s</string>
-    <string name="sync_drive_connect_failed">Tidak dapat menghubungkan Google Drive. Periksa langkah penyiapan di bawah, lalu coba lagi.</string>
-    <string name="sync_drive_disconnect_message">Putuskan Google Drive? Pasangannya tetap ada, tetapi tidak dapat disinkronkan sampai Anda terhubung lagi.</string>
-    <string name="sync_drive_add_pair">Tambah pasangan Drive</string>
-    <string name="sync_drive_folder_label">Folder Drive</string>
-    <string name="sync_drive_my_drive">Drive Saya</string>
-    <string name="sync_drive_remote_folder">Folder pasangan: %1$s</string>
-    <string name="sync_drive_up">Naik satu tingkat</string>
-    <string name="sync_drive_empty_folder">Tidak ada subfolder di sini</string>
-    <string name="sync_drive_create_folder">Buat folder</string>
-    <string name="sync_drive_new_folder_label">Buat folder baru di sini</string>
-    <string name="sync_drive_loading_folders">Memuat folder…</string>
-    <string name="sync_drive_load_failed">Tidak dapat memuat folder. Hubungkan Google Drive, lalu coba lagi.</string>
-    <string name="sync_drive_create_folder_failed">Tidak dapat membuat folder itu di Drive.</string>
 </resources>

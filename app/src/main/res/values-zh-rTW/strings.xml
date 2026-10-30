@@ -1357,13 +1357,13 @@
     <string name="sync_auto_note">自動同步僅在手機充電且連接不限量 Wi-Fi 時執行。立即同步會馬上執行，但上傳會等到你回家才進行。</string>
     <string name="sync_engines">引擎</string>
     <string name="sync_engine_device_folders">裝置資料夾</string>
-    <string name="sync_engine_google_drive">Google Drive</string>
-    <string name="sync_engine_onedrive">OneDrive</string>
     <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">可用</string>
     <string name="sync_coming_soon">即將推出</string>
+    <string name="sync_syncthing_title">Syncthing</string>
+    <string name="sync_syncthing_body">下載內容會放入 Music/BitChord,這是這台裝置的 Syncthing 位置。放在那裡的音樂就是會被同步的內容。</string>
     <string name="sync_home_section">家庭網路</string>
     <string name="sync_home_host">家庭主機</string>
     <string name="sync_home_port">家庭連接埠</string>
@@ -1410,26 +1410,4 @@
     <string name="delete_failed_some">%1$d 首歌曲無法刪除</string>
     <string name="sync_status_needs_sign_in">需要登入 - 請重新連接上方的帳號</string>
     <!-- Sync: Google Drive -->
-    <string name="sync_drive_setup_title">設定 Google 雲端硬碟</string>
-    <string name="sync_drive_setup_steps">同步會使用你自己的 Google Cloud 專案。在 console.cloud.google.com：建立專案並啟用 Drive API。設定 OAuth 同意畫面（外部 - 測試狀態即可），並將完整的 Google Drive 範圍加入其中：https://www.googleapis.com/auth/drive。然後使用下方的套件名稱和 SHA-1 指紋建立 Android OAuth 用戶端。應用程式內不會安裝任何東西 - 連線時 Google Play 服務會將此版本與該用戶端比對。首次連線時，由於此範圍受限制且專案未經驗證，Google 會顯示未經驗證的應用程式警告：選擇進階，然後選擇前往 Chords In Sync 以繼續。對於你自己的專案，這是預期中的警告。</string>
-    <string name="sync_drive_package_label">套件名稱</string>
-    <string name="sync_drive_sha1_label">SHA-1 指紋</string>
-    <string name="sync_drive_copy">複製</string>
-    <string name="sync_drive_scope_note">此版本要求完整存取你的雲端硬碟，讓同步配對可以使用其中的任何資料夾。應用程式只會開啟你的同步配對所指向的資料夾，絕不掃描或變更其他任何內容。</string>
-    <string name="sync_drive_not_connected">未連接</string>
-    <string name="sync_drive_connect">連接 Google 雲端硬碟</string>
-    <string name="sync_drive_connected_as">已連接為 %1$s</string>
-    <string name="sync_drive_connect_failed">無法連接 Google 雲端硬碟。請檢查下方的設定步驟，然後重試。</string>
-    <string name="sync_drive_disconnect_message">中斷 Google 雲端硬碟？其配對會保留，但在您重新連接之前無法同步。</string>
-    <string name="sync_drive_add_pair">新增雲端硬碟配對</string>
-    <string name="sync_drive_folder_label">雲端硬碟資料夾</string>
-    <string name="sync_drive_my_drive">我的雲端硬碟</string>
-    <string name="sync_drive_remote_folder">同步配對資料夾：%1$s</string>
-    <string name="sync_drive_up">向上一層</string>
-    <string name="sync_drive_empty_folder">這裡沒有子資料夾</string>
-    <string name="sync_drive_create_folder">建立資料夾</string>
-    <string name="sync_drive_new_folder_label">在此建立新資料夾</string>
-    <string name="sync_drive_loading_folders">正在載入資料夾…</string>
-    <string name="sync_drive_load_failed">無法載入資料夾。請連接 Google 雲端硬碟，然後重試。</string>
-    <string name="sync_drive_create_folder_failed">無法在雲端硬碟中建立該資料夾。</string>
 </resources>
