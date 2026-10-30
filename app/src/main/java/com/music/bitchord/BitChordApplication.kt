@@ -180,6 +180,10 @@ class BitChordApplication : Application(), SingletonImageLoader.Factory, Configu
         // Before anything could run a scheduled backup: its worker reads the
         // account and the schedule this loads.
         com.music.bitchord.data.backup.DriveBackup.init(this)
+        // Sync pairs and their indexes, then the standing scheduled run
+        // (charging + unmetered Wi-Fi; KEEP makes re-asserting it free).
+        com.music.bitchord.data.sync.SyncStore.init(this)
+        com.music.bitchord.data.sync.SyncScheduler.schedule(this)
         // The device's own listening record. Opened here rather than in
         // PlaybackService because the Replay page reads it from the UI side and
         // both live in this process — one owner, one directory.

@@ -17,6 +17,7 @@ import com.music.bitchord.ui.screens.SettingsChoiceKind
  */
 sealed interface AppRoute {
     data object Settings : AppRoute
+    data object Sync : AppRoute
     data object AccountScrobbling : AppRoute
     data object Sources : AppRoute
     data object ListenTogether : AppRoute

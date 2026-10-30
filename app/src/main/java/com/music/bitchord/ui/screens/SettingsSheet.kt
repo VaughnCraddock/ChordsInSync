@@ -73,6 +73,7 @@ import androidx.compose.material.icons.rounded.PlaylistPlay
 import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.Storage
 import androidx.compose.material.icons.rounded.SurroundSound
+import androidx.compose.material.icons.rounded.Sync
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Usb
 import androidx.compose.material.icons.rounded.VolumeOff
@@ -204,6 +205,7 @@ fun SettingsScreen(
     onLyricsSources: () -> Unit,
     onTranslationLanguage: () -> Unit,
     onSources: () -> Unit,
+    onSync: () -> Unit,
     onListenTogether: () -> Unit,
     onWearOs: () -> Unit,
     onSpotifyCanvasAuth: () -> Unit,
@@ -666,6 +668,15 @@ fun SettingsScreen(
                     checked = downloadLikedSongs,
                     onCheckedChange = AppSettings::setDownloadLikedSongs,
                     subtitle = stringResource(R.string.download_liked_songs_subtitle),
+                )
+            }
+            val syncTitle = stringResource(R.string.sync_title)
+            row(syncTitle, "sync", "folder", "drive", "backup") {
+                SettingsRow(
+                    icon = Icons.Rounded.Sync,
+                    title = syncTitle,
+                    subtitle = stringResource(R.string.sync_subtitle),
+                    onClick = onSync,
                 )
             }
         }
