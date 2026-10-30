@@ -59,6 +59,9 @@
     <string name="songs">Lagu</string>
     <string name="artists">Artis</string>
     <string name="albums">Album</string>
+    <string name="folders">Folder</string>
+    <string name="add_folder_to_favorites">Tambahkan folder ke favorit</string>
+    <string name="remove_folder_from_favorites">Hapus folder dari favorit</string>
     <string name="no_album_metadata">Tidak ada trek ini yang menunjukkan asal albumnya.</string>
     <string name="search_empty">Cari jutaan lagu di YouTube Music.</string>
     <string name="recent_searches">Pencarian terbaru</string>

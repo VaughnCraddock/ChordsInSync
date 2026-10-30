@@ -62,6 +62,9 @@
     <string name="songs">เพลง</string>
     <string name="artists">ศิลปิน</string>
     <string name="albums">อัลบั้ม</string>
+    <string name="folders">โฟลเดอร์</string>
+    <string name="add_folder_to_favorites">เพิ่มโฟลเดอร์ในรายการโปรด</string>
+    <string name="remove_folder_from_favorites">นำโฟลเดอร์ออกจากรายการโปรด</string>
     <string name="no_album_metadata">ไม่มีแทร็กใดระบุว่ามาจากอัลบั้มไหน</string>
     <string name="search_empty">ค้นหาเพลงหลายล้านเพลงบน YouTube Music</string>
     <string name="recent_searches">การค้นหาล่าสุด</string>

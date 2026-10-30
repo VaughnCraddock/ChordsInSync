@@ -67,6 +67,9 @@
     <string name="songs">Şarkılar</string>
     <string name="artists">Sanatçılar</string>
     <string name="albums">Albümler</string>
+    <string name="folders">Klasörler</string>
+    <string name="add_folder_to_favorites">Klasörü favorilere ekle</string>
+    <string name="remove_folder_from_favorites">Klasörü favorilerden kaldır</string>
     <string name="no_album_metadata">Bu parçaların hiçbiri hangi albümden geldiğini belirtmiyor.</string>
     <string name="search_empty">YouTube Music\'te milyonlarca şarkı arayın.</string>
     <string name="recent_searches">Son aramalar</string>

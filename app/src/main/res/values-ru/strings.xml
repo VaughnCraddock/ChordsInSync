@@ -71,6 +71,9 @@
     <string name="songs">Песни</string>
     <string name="artists">Исполнители</string>
     <string name="albums">Альбомы</string>
+    <string name="folders">Папки</string>
+    <string name="add_folder_to_favorites">Добавить папку в избранное</string>
+    <string name="remove_folder_from_favorites">Убрать папку из избранного</string>
     <string name="no_album_metadata">Ни один из этих треков не указывает свой альбом.</string>
     <string name="search_empty">Ищите миллионы песен на YouTube Music.</string>
     <string name="recent_searches">Недавние запросы</string>

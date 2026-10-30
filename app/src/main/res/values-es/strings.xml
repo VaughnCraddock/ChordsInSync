@@ -64,6 +64,9 @@
     <string name="songs">Canciones</string>
     <string name="artists">Artistas</string>
     <string name="albums">Álbumes</string>
+    <string name="folders">Carpetas</string>
+    <string name="add_folder_to_favorites">Añadir carpeta a favoritos</string>
+    <string name="remove_folder_from_favorites">Quitar carpeta de favoritos</string>
     <string name="no_album_metadata">Ninguna de estas pistas indica a qué álbum pertenece.</string>
     <string name="search_empty">Busca millones de canciones en YouTube Music.</string>
     <string name="recent_searches">Búsquedas recientes</string>

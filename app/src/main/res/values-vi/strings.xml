@@ -65,6 +65,9 @@
     <string name="songs">Bài hát</string>
     <string name="artists">Nghệ sĩ</string>
     <string name="albums">Album</string>
+    <string name="folders">Thư mục</string>
+    <string name="add_folder_to_favorites">Thêm thư mục vào mục yêu thích</string>
+    <string name="remove_folder_from_favorites">Xóa thư mục khỏi mục yêu thích</string>
     <string name="no_album_metadata">Không có thông tin album cho các bản nhạc này.</string>
     <string name="search_empty">Tìm kiếm hàng triệu bài hát trên YouTube Music.</string>
     <string name="recent_searches">Tìm kiếm gần đây</string>

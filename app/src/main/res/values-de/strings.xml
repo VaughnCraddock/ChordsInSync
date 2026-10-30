@@ -63,6 +63,9 @@
     <string name="songs">Songs</string>
     <string name="artists">Künstler</string>
     <string name="albums">Alben</string>
+    <string name="folders">Ordner</string>
+    <string name="add_folder_to_favorites">Ordner zu Favoriten hinzufügen</string>
+    <string name="remove_folder_from_favorites">Ordner aus Favoriten entfernen</string>
     <string name="no_album_metadata">Keiner dieser Titel gibt an, zu welchem Album er gehört.</string>
     <string name="search_empty">Durchsuche Millionen Songs auf YouTube Music.</string>
     <string name="recent_searches">Letzte Suchanfragen</string>

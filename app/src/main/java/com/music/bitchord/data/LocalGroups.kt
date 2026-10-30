@@ -58,6 +58,9 @@ object LocalGroups {
     /** One directory on the device, by its full path — see [foldersOf]. */
     fun directoryPageId(folderId: String, path: String): String = pageId(FOLDER, folderId, path)
 
+    /** The fork's original name for [directoryPageId]; both spellings make the same page id. */
+    fun folderPageId(folderId: String, path: String): String = directoryPageId(folderId, path)
+
     // `local:group:album:downloads:Some: Name` — the folder id is always
     // `local:<word>`, so only its word is stored and the name, which may hold
     // colons of its own, is everything after it.
@@ -241,6 +244,29 @@ object LocalGroups {
         startsWith("/storage/emulated/0") -> removePrefix("/storage/emulated/0").trimStart('/')
         startsWith("/storage/") -> removePrefix("/storage/")
         else -> trimStart('/')
+    }
+
+    /**
+     * The directory path a folder group stands for, read back off its page
+     * id — null for an album or artist group, whose ids name a tag instead.
+     * This remains the identity a fork favorite is recorded against.
+     */
+    fun folderPathOf(group: LocalGroup): String? =
+        parse(group.browseId)?.takeIf { it.kind == FOLDER }?.name
+
+    /**
+     * Upstream's Folders order, with the fork's starred folders first. Each
+     * tier keeps upstream's title and location order; a stale favorite is
+     * ignored, and no favorites leaves the order untouched.
+     */
+    fun orderFolders(groups: List<LocalGroup>, favorites: Set<String>): List<LocalGroup> {
+        if (favorites.isEmpty()) return groups
+        return groups.sortedWith(
+            compareByDescending<LocalGroup> { folderPathOf(it) in favorites }
+                .thenBy { it.title.lowercase(Locale.ROOT) }
+                .thenBy { it.subtitle }
+                .thenBy { folderPathOf(it) },
+        )
     }
 }
 
