@@ -174,6 +174,7 @@ import com.music.bitchord.ui.screens.ListenTogetherScreen
 import com.music.bitchord.ui.screens.PartyServerEditor
 import com.music.bitchord.ui.screens.SignatureApiEditor
 import com.music.bitchord.ui.screens.SettingsScreen
+import com.music.bitchord.ui.screens.SyncScreen
 import com.music.bitchord.ui.screens.SourceEditorAlert
 import com.music.bitchord.ui.screens.SourcesScreen
 import com.music.bitchord.data.sources.TrackMatcher
@@ -2788,6 +2789,8 @@ private fun BitChordApp(
                             )
                         } else if (pageRoute == AppRoute.WearOs) {
                             WearOsScreen(contentPadding = listPadding)
+                        } else if (pageRoute == AppRoute.Sync) {
+                            SyncScreen(contentPadding = listPadding)
                         } else if (pageRoute == AppRoute.ListenTogether) {
                             ListenTogetherScreen(
                                 signedIn = signedIn,
@@ -2825,6 +2828,7 @@ private fun BitChordApp(
                                 onLyricsSources = { showLyricsSources = true },
                                 onTranslationLanguage = { showTranslationLanguage = true },
                                 onSources = { navigator.push(AppRoute.Sources) },
+                                onSync = { navigator.push(AppRoute.Sync) },
                                 onListenTogether = { navigator.push(AppRoute.ListenTogether) },
                                 onWearOs = { navigator.push(AppRoute.WearOs) },
                                 onSpotifyCanvasAuth = { showSpotifyCanvasAuth = true },
@@ -3417,6 +3421,7 @@ private fun BitChordApp(
                         AppRoute.WearOs -> stringResource(R.string.wear_os_page_title)
                         AppRoute.Equalizer -> stringResource(R.string.equalizer)
                         AppRoute.Settings -> stringResource(R.string.settings)
+                        AppRoute.Sync -> stringResource(R.string.sync_title)
                         AppRoute.Replay -> stringResource(R.string.replay)
                         null -> when {
                             detail != null && detailActiveShelf != null -> detailActiveShelf?.title.orEmpty()

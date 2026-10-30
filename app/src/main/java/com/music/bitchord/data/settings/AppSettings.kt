@@ -604,6 +604,31 @@ object AppSettings {
     /** Empty means every MediaStore folder; otherwise this is a persisted SAF tree URI. */
     val localMusicFolderUri = MutableStateFlow("")
 
+    // ── Sync ──────────────────────────────────────────────────────────────
+
+    /**
+     * The sync engines' master switches, by engine id (see
+     * [com.music.bitchord.data.sync.SyncEngines]). An engine that is off is
+     * fully dormant: its pairs never run and are shown as paused by their
+     * engine. Only engines this build can actually run get a switch in the
+     * UI; the map simply has no entry worth showing for the rest.
+     */
+    val syncEngineEnabled = MutableStateFlow<Map<String, Boolean>>(emptyMap())
+
+    /** Whether [engineId]'s master switch is on. Device folders default on; unwired engines default off. */
+    fun isSyncEngineEnabled(engineId: String): Boolean =
+        syncEngineEnabled.value[engineId]
+            ?: (engineId == com.music.bitchord.data.sync.SyncEngines.DEVICE_FOLDERS)
+
+    /**
+     * The home-network probe's target: a host on the home LAN whose
+     * reachability over the current Wi-Fi says "you are home" (see
+     * [com.music.bitchord.data.sync.AndroidHomeProbe]). The defaults are
+     * Vaughn's TrueNAS and its SMB port.
+     */
+    val syncHomeHost = MutableStateFlow("192.168.100.3")
+    val syncHomePort = MutableStateFlow(445)
+
     // ── WebDAV ────────────────────────────────────────────────────────────
 
     /**
@@ -972,6 +997,11 @@ object AppSettings {
             webdavUsername.value,
             webdavPassword.value,
         )
+        syncEngineEnabled.value = com.music.bitchord.data.sync.SyncEngines.all.associate { engineId ->
+            engineId to prefs.getBoolean(syncEngineKey(engineId), engineId == com.music.bitchord.data.sync.SyncEngines.DEVICE_FOLDERS)
+        }
+        syncHomeHost.value = prefs.getString(KEY_SYNC_HOME_HOST, "192.168.100.3").orEmpty().ifBlank { "192.168.100.3" }
+        syncHomePort.value = prefs.getInt(KEY_SYNC_HOME_PORT, 445).takeIf { it in 1..65535 } ?: 445
         pinnedPlaylists.value = readPinnedPlaylists()
         discordToken.value = authStore.discordToken.orEmpty()
         discordUsername.value = prefs.getString(KEY_DISCORD_USERNAME, "").orEmpty()
@@ -1745,6 +1775,21 @@ object AppSettings {
         setLocalFavoriteFolders(if (path in current) current - path else current + path)
     }
 
+    fun setSyncEngineEnabled(engineId: String, value: Boolean) {
+        syncEngineEnabled.value = syncEngineEnabled.value + (engineId to value)
+        prefs.edit().putBoolean(syncEngineKey(engineId), value).apply()
+    }
+
+    fun setSyncHomeHost(value: String) {
+        syncHomeHost.value = value.trim().ifBlank { "192.168.100.3" }
+        prefs.edit().putString(KEY_SYNC_HOME_HOST, syncHomeHost.value).apply()
+    }
+
+    fun setSyncHomePort(value: Int) {
+        syncHomePort.value = value.takeIf { it in 1..65535 } ?: 445
+        prefs.edit().putInt(KEY_SYNC_HOME_PORT, syncHomePort.value).apply()
+    }
+
     fun setLibrarySort(value: LibrarySort) {
         librarySort.value = value
         prefs.edit().putString(KEY_LIBRARY_SORT, value.name).apply()
@@ -2016,6 +2061,17 @@ object AppSettings {
         // Starred folders are this device's own paths, like the folder URI
         // above: on another device they would name places that are not there.
         KEY_LOCAL_FAVORITE_FOLDERS,
+        // The sync engine switches and home probe target describe this
+        // device on this network; a restored backup elsewhere would probe
+        // for a home LAN it is not on.
+        KEY_SYNC_HOME_HOST,
+        KEY_SYNC_HOME_PORT,
+        "sync_engine_enabled_device_folders",
+        "sync_engine_enabled_google_drive",
+        "sync_engine_enabled_onedrive",
+        "sync_engine_enabled_dropbox",
+        "sync_engine_enabled_webdav",
+        "sync_engine_enabled_smb",
         KEY_LAST_VERSION_CODE,
         KEY_ONBOARDING_COMPLETE,
     )
@@ -2119,6 +2175,12 @@ object AppSettings {
     private const val KEY_DOWNLOADED_MUSIC_VIEW_TYPE = "downloaded_music_view_type"
     private const val KEY_HOME_RECENTS_VIEW_TYPE = "home_recents_view_type"
     private const val KEY_LOCAL_MUSIC_FOLDER_URI = "local_music_folder_uri"
+    private const val KEY_SYNC_HOME_HOST = "sync_home_host"
+    private const val KEY_SYNC_HOME_PORT = "sync_home_port"
+
+    /** The per-engine master switch key: `sync_engine_enabled_<id>`, the id lowercased. */
+    private fun syncEngineKey(engineId: String): String =
+        "sync_engine_enabled_" + engineId.lowercase()
     private const val KEY_WEBDAV_URL = "webdav_url"
     private const val KEY_WEBDAV_USERNAME = "webdav_username"
     private const val KEY_SMB_HOST = "smb_host"

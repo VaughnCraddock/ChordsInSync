@@ -73,6 +73,7 @@ import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.SmartDisplay
 import androidx.compose.material.icons.rounded.Storage
 import androidx.compose.material.icons.rounded.SurroundSound
+import androidx.compose.material.icons.rounded.Sync
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.VolumeOff
 import androidx.compose.material.icons.rounded.WebAssetOff
@@ -186,6 +187,7 @@ fun SettingsScreen(
     onLyricsSources: () -> Unit,
     onTranslationLanguage: () -> Unit,
     onSources: () -> Unit,
+    onSync: () -> Unit,
     onListenTogether: () -> Unit,
     onWearOs: () -> Unit,
     onSpotifyCanvasAuth: () -> Unit,
@@ -550,6 +552,15 @@ fun SettingsScreen(
                     checked = exportDownloads,
                     onCheckedChange = AppSettings::setExportDownloads,
                     subtitle = "Music/BitChord".takeIf { exportDownloads },
+                )
+            }
+            val syncTitle = stringResource(R.string.sync_title)
+            row(syncTitle, "sync", "folder", "drive", "backup") {
+                SettingsRow(
+                    icon = Icons.Rounded.Sync,
+                    title = syncTitle,
+                    subtitle = stringResource(R.string.sync_subtitle),
+                    onClick = onSync,
                 )
             }
         }

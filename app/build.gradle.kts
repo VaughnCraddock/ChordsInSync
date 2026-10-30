@@ -379,6 +379,13 @@ dependencies {
     // ---- Auth/session storage ----
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
+    // ---- Scheduled sync: WorkManager ----
+    // The charging + unmetered-network constraints Vaughn's sync rules are
+    // stated in are WorkManager's own vocabulary, and the OS evaluating them
+    // beats any polling loop of ours. 2.10.x is the stable line that pairs
+    // with this project's AndroidX set. Apache-2.0, GPLv3-compatible.
+    implementation("androidx.work:work-runtime-ktx:2.10.5")
+
     // ---- JS module execution: QuickJS VM for style source plugins ----
     // Held at InnerTubeX's version; the same VM runs QuickJsExecutor's module sources.
     implementation("io.github.dokar3:quickjs-kt-android:1.0.14")

@@ -322,6 +322,12 @@ dependencies {
     implementation("androidx.tv:tv-foundation:1.0.0-alpha12")
     implementation("androidx.startup:startup-runtime:1.2.0")
 
+    // ---- Scheduled sync: WorkManager ----
+    // This module compiles the phone app's own sources (see sourceSets
+    // above), so the sync core's WorkManager dependency has to be here too,
+    // in step with :app's.
+    implementation("androidx.work:work-runtime-ktx:2.10.5")
+
     // ---- Media playback: Media3 / ExoPlayer ----
     implementation("androidx.media3:media3-exoplayer:1.11.0")
     implementation("androidx.media3:media3-session:1.11.0")
