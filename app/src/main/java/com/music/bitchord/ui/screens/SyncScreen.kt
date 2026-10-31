@@ -376,7 +376,11 @@ private fun EngineRow(
             .padding(horizontal = 20.dp, vertical = 6.dp),
     ) {
         Column(Modifier.weight(1f)) {
-            Text(text = name, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
             Text(
                 text = stringResource(
                     if (SyncEngines.isAvailable(engineId)) R.string.sync_engine_available else R.string.sync_coming_soon,
@@ -408,6 +412,7 @@ private fun PairCard(
             text = pair.name,
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
             text = stringResource(
@@ -446,6 +451,7 @@ private fun PairCard(
         Text(
             text = pairStatusText(pair, engineEnabled),
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = 4.dp),
         )
         if (pair.direction != SyncDirection.DOWNLOAD_ONLY && engineEnabled && pair.enabled) {
@@ -517,6 +523,7 @@ private fun AddPairForm(
             text = stringResource(R.string.sync_add_pair),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
             text = stringResource(R.string.sync_remote_folder, stringResource(engineNameRes), pickedFolderName),
@@ -542,6 +549,7 @@ private fun AddPairForm(
         Text(
             text = stringResource(R.string.sync_direction),
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
         )
         for (option in SyncDirection.entries) {
@@ -567,6 +575,7 @@ private fun AddPairForm(
                         },
                     ),
                     style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         }
@@ -578,6 +587,7 @@ private fun AddPairForm(
                 Text(
                     text = stringResource(R.string.sync_mirror_deletes),
                     style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = stringResource(R.string.sync_mirror_deletes_subtitle),
@@ -702,6 +712,7 @@ private fun WebDavPairForm(
             text = stringResource(R.string.sync_add_pair),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         val root = rootUrl
         if (root == null) {
@@ -759,6 +770,7 @@ private fun WebDavPairForm(
             Text(
                 text = WebDavPaths.labelFor(root, current),
                 style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(top = 8.dp),
             )
             if (current != root) {
@@ -773,6 +785,7 @@ private fun WebDavPairForm(
                 Text(
                     text = folder.displayName,
                     style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable(enabled = !busy) { loadFolders(folder.url) }
@@ -897,6 +910,7 @@ private fun SmbPairForm(
             text = stringResource(R.string.sync_add_pair),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         OutlinedTextField(
             value = host,
@@ -1021,6 +1035,7 @@ private fun SyncthingCard() {
             text = "Music/BitChord",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
             text = stringResource(R.string.sync_syncthing_body),
