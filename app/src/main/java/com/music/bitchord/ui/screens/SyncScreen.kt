@@ -17,6 +17,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,10 +37,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.music.bitchord.R
+import com.music.bitchord.auth.AuthStore
 import com.music.bitchord.data.settings.AppSettings
 import com.music.bitchord.data.sync.SyncDirection
 import com.music.bitchord.data.sync.SyncEngines
@@ -47,6 +51,11 @@ import com.music.bitchord.data.sync.SyncRunResult
 import com.music.bitchord.data.sync.SyncService
 import com.music.bitchord.data.sync.SyncStore
 import com.music.bitchord.data.sync.syncSanitisedName
+import com.music.bitchord.data.sync.webdav.WebDavPaths
+import com.music.bitchord.data.sync.webdav.WebDavWritabilityProbe
+import com.music.bitchord.data.webdav.WebDavClient
+import com.music.bitchord.data.webdav.WebDavConfig
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
@@ -76,6 +85,7 @@ fun SyncScreen(contentPadding: PaddingValues, modifier: Modifier = Modifier) {
     var pairDirection by remember { mutableStateOf(SyncDirection.BIDIRECTIONAL) }
     var pairMirrorDeletes by rememberSaveable { mutableStateOf(false) }
     var removingPair by remember { mutableStateOf<SyncPair?>(null) }
+    var webDavFormOpen by remember { mutableStateOf(false) }
 
     val treePicker = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -238,6 +248,31 @@ fun SyncScreen(contentPadding: PaddingValues, modifier: Modifier = Modifier) {
             }
         }
 
+        val webDavEngineOn = AppSettings.isSyncEngineEnabled(SyncEngines.WEBDAV)
+        if (SyncEngines.isAvailable(SyncEngines.WEBDAV) && webDavEngineOn) {
+            Spacer(Modifier.height(16.dp))
+            if (!webDavFormOpen) {
+                Button(
+                    onClick = { webDavFormOpen = true },
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                ) {
+                    Text(stringResource(R.string.sync_add_webdav_pair))
+                }
+            } else {
+                WebDavPairForm(
+                    takenLocalFolders = pairs.map { it.localFolder }.toSet(),
+                    onCancel = { webDavFormOpen = false },
+                    onCreate = { pair, username, password ->
+                        SyncStore.addPair(pair)
+                        // The pair record is deliberately free of secrets:
+                        // its credential lives in the encrypted store.
+                        AuthStore(context).setSyncCredentials(pair.id, username, password)
+                        webDavFormOpen = false
+                    },
+                )
+            }
+        }
+
         Spacer(Modifier.height(32.dp))
     }
 
@@ -251,6 +286,9 @@ fun SyncScreen(contentPadding: PaddingValues, modifier: Modifier = Modifier) {
                 TextButton(
                     onClick = {
                         SyncStore.removePair(pairToRemove.id)
+                        // The pair's server credential goes with it: a
+                        // removed pair leaves nothing behind to sign in with.
+                        AuthStore(context).clearSyncCredentials(pairToRemove.id)
                         removingPair = null
                     },
                 ) {
@@ -415,6 +453,9 @@ private fun pairStatusText(pair: SyncPair, engineEnabled: Boolean): String {
     return when (status.result) {
         SyncRunResult.WAITING_HOME.name -> stringResource(R.string.sync_status_waiting_home)
         SyncRunResult.NEEDS_SIGN_IN.name -> stringResource(R.string.sync_status_needs_sign_in)
+        SyncRunResult.READ_ONLY_REMOTE.name ->
+            stringResource(R.string.sync_status_read_only, whenText, status.downloaded)
+        SyncRunResult.UNREACHABLE.name -> stringResource(R.string.sync_status_unreachable)
         SyncRunResult.ENGINE_OFF.name -> stringResource(R.string.sync_paused_engine_off)
         SyncRunResult.FAILED.name -> stringResource(R.string.sync_status_failed, whenText)
         SyncRunResult.PARTIAL.name ->
@@ -438,6 +479,8 @@ private fun AddPairForm(
     onMirrorDeletesChange: (Boolean) -> Unit,
     onCancel: () -> Unit,
     onCreate: () -> Unit,
+    engineNameRes: Int = R.string.sync_engine_device_folders,
+    readOnlyRemote: Boolean = false,
 ) {
     Column(Modifier.padding(horizontal = 20.dp)) {
         Text(
@@ -446,11 +489,19 @@ private fun AddPairForm(
             fontWeight = FontWeight.SemiBold,
         )
         Text(
-            text = stringResource(R.string.sync_remote_folder, stringResource(R.string.sync_engine_device_folders), pickedFolderName),
+            text = stringResource(R.string.sync_remote_folder, stringResource(engineNameRes), pickedFolderName),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 4.dp, bottom = 8.dp),
         )
+        if (readOnlyRemote) {
+            Text(
+                text = stringResource(R.string.sync_read_only_note),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+        }
         OutlinedTextField(
             value = name,
             onValueChange = onNameChange,
@@ -464,13 +515,19 @@ private fun AddPairForm(
             modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
         )
         for (option in SyncDirection.entries) {
+            // A read-only remote leaves exactly one direction standing.
+            val offered = !readOnlyRemote || option == SyncDirection.DOWNLOAD_ONLY
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDirectionChange(option) },
+                    .clickable(enabled = offered) { onDirectionChange(option) },
             ) {
-                RadioButton(selected = direction == option, onClick = { onDirectionChange(option) })
+                RadioButton(
+                    selected = direction == option,
+                    onClick = { onDirectionChange(option) },
+                    enabled = offered,
+                )
                 Text(
                     text = stringResource(
                         when (option) {
@@ -507,6 +564,226 @@ private fun AddPairForm(
             TextButton(onClick = onCancel) {
                 Text(stringResource(R.string.cancel))
             }
+        }
+    }
+}
+/** A failure's user-facing line: unreachable gets the plain explanation, anything else keeps the server's own answer. */
+private fun syncErrorText(failure: Throwable, unreachableText: String): String {
+    var cause: Throwable? = failure
+    while (cause != null) {
+        if (cause is java.net.ConnectException || cause is java.net.UnknownHostException ||
+            cause is java.net.SocketTimeoutException
+        ) {
+            return unreachableText
+        }
+        cause = cause.cause
+    }
+    return failure.message ?: unreachableText
+}
+
+/**
+ * The WebDAV add-pair flow: server and credential first, then a folder
+ * browser (PROPFIND, one level at a time, from the entered root), then the
+ * shared pair-details form. Standing in a folder and tapping "Use this
+ * folder" runs the one-time writability probe — a read-only server is
+ * known before the pair exists, so its direction is download-only from
+ * birth and no run ever wastes a PUT learning it again.
+ */
+@Composable
+private fun WebDavPairForm(
+    takenLocalFolders: Set<String>,
+    onCancel: () -> Unit,
+    onCreate: (SyncPair, String, String) -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    var serverUrl by rememberSaveable { mutableStateOf("") }
+    var username by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var rootUrl by remember { mutableStateOf<String?>(null) }
+    var currentUrl by remember { mutableStateOf<String?>(null) }
+    var folders by remember { mutableStateOf<List<WebDavClient.Entry>>(emptyList()) }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var pickedUrl by remember { mutableStateOf<String?>(null) }
+    var pickedLabel by remember { mutableStateOf("") }
+    var readOnly by remember { mutableStateOf(false) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var direction by remember { mutableStateOf(SyncDirection.BIDIRECTIONAL) }
+    var mirrorDeletes by rememberSaveable { mutableStateOf(false) }
+    val connectError = stringResource(R.string.sync_error_connect)
+
+    fun loadFolders(dirUrl: String) {
+        busy = true
+        error = null
+        scope.launch {
+            val result = WebDavClient.listDirectory(dirUrl, username.trim(), password)
+            busy = false
+            result.fold(
+                onSuccess = { entries ->
+                    currentUrl = dirUrl
+                    folders = entries.filter { it.isCollection }
+                        .sortedBy { it.displayName.lowercase() }
+                },
+                onFailure = { failure -> error = syncErrorText(failure, connectError) },
+            )
+        }
+    }
+
+    val picked = pickedUrl
+    if (picked != null) {
+        AddPairForm(
+            pickedFolderName = pickedLabel,
+            name = name,
+            onNameChange = { name = it },
+            direction = direction,
+            onDirectionChange = { direction = it },
+            mirrorDeletes = mirrorDeletes,
+            onMirrorDeletesChange = { mirrorDeletes = it },
+            onCancel = onCancel,
+            onCreate = {
+                val leaf = pickedLabel.substringAfterLast('/')
+                val base = syncSanitisedName(name).ifBlank { syncSanitisedName(leaf) }
+                    .ifBlank { "WebDAV" }
+                onCreate(
+                    SyncPair(
+                        id = UUID.randomUUID().toString(),
+                        engineId = SyncEngines.WEBDAV,
+                        name = name.ifBlank { pickedLabel },
+                        remoteLocator = picked,
+                        remoteLabel = pickedLabel,
+                        localFolder = uniqueLocalFolderName(base, takenLocalFolders),
+                        direction = if (readOnly) SyncDirection.DOWNLOAD_ONLY else direction,
+                        enabled = true,
+                        mirrorDeletes = mirrorDeletes,
+                        remoteReadOnly = readOnly,
+                    ),
+                    username.trim(),
+                    password,
+                )
+            },
+            engineNameRes = R.string.sync_engine_webdav,
+            readOnlyRemote = readOnly,
+        )
+        return
+    }
+
+    Column(Modifier.padding(horizontal = 20.dp)) {
+        Text(
+            text = stringResource(R.string.sync_add_pair),
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+        )
+        val root = rootUrl
+        if (root == null) {
+            OutlinedTextField(
+                value = serverUrl,
+                onValueChange = { serverUrl = it },
+                label = { Text(stringResource(R.string.sync_server_url)) },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+            )
+            OutlinedTextField(
+                value = username,
+                onValueChange = { username = it },
+                label = { Text(stringResource(R.string.sync_username)) },
+                singleLine = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+            )
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text(stringResource(R.string.sync_password)) },
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+            )
+            Row(Modifier.padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    onClick = {
+                        val normalized = WebDavPaths.rootOf(serverUrl)
+                        if (WebDavConfig.isConfigured(normalized)) {
+                            rootUrl = normalized
+                            loadFolders(normalized)
+                        } else {
+                            error = connectError
+                        }
+                    },
+                    enabled = !busy,
+                ) {
+                    Text(stringResource(R.string.sync_browse_folders))
+                }
+                TextButton(onClick = onCancel) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        } else {
+            val current = currentUrl ?: root
+            Text(
+                text = WebDavPaths.labelFor(root, current),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+            if (current != root) {
+                TextButton(
+                    onClick = { loadFolders(current.substringBeforeLast('/')) },
+                    enabled = !busy,
+                ) {
+                    Text(stringResource(R.string.sync_up_one_level))
+                }
+            }
+            for (folder in folders) {
+                Text(
+                    text = folder.displayName,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(enabled = !busy) { loadFolders(folder.url) }
+                        .padding(vertical = 10.dp),
+                )
+            }
+            Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    onClick = {
+                        busy = true
+                        error = null
+                        scope.launch {
+                            val writable = WebDavWritabilityProbe.probe(current, username.trim(), password)
+                            busy = false
+                            readOnly = writable == false
+                            if (readOnly) direction = SyncDirection.DOWNLOAD_ONLY
+                            pickedLabel = WebDavPaths.labelFor(root, current)
+                            if (name.isBlank()) name = pickedLabel.substringAfterLast('/')
+                            pickedUrl = current
+                        }
+                    },
+                    enabled = !busy,
+                ) {
+                    Text(stringResource(R.string.sync_use_this_folder))
+                }
+                TextButton(onClick = onCancel) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        }
+        if (busy) {
+            CircularProgressIndicator(Modifier.padding(top = 12.dp))
+        }
+        val errorText = error
+        if (errorText != null) {
+            Text(
+                text = errorText,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 8.dp),
+            )
         }
     }
 }

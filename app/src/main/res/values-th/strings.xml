@@ -1625,4 +1625,15 @@
 
 <string name="sync_syncthing_title">Syncthing</string>
 <string name="sync_syncthing_body">ไฟล์ดาวน์โหลดจะถูกเก็บไว้ใน Music/BitChord ซึ่งเป็นตำแหน่ง Syncthing ของอุปกรณ์นี้ เพลงที่วางไว้ที่นั่นคือสิ่งที่จะซิงค์</string>
+<string name="sync_status_read_only">เซิร์ฟเวอร์แบบอ่านอย่างเดียว - ดาวน์โหลดเท่านั้น (ซิงค์ล่าสุด %1$s, ดาวน์โหลด %2$d)</string>
+<string name="sync_status_unreachable">ติดต่อเซิร์ฟเวอร์ไม่ได้ - จะลองอีกครั้งภายหลัง</string>
+<string name="sync_add_webdav_pair">เพิ่มคู่ WebDAV</string>
+<string name="sync_server_url">URL เซิร์ฟเวอร์</string>
+<string name="sync_username">ชื่อผู้ใช้</string>
+<string name="sync_password">รหัสผ่าน</string>
+<string name="sync_browse_folders">เรียกดูโฟลเดอร์</string>
+<string name="sync_use_this_folder">ใช้โฟลเดอร์นี้</string>
+<string name="sync_up_one_level">ขึ้นหนึ่งระดับ</string>
+<string name="sync_read_only_note">เซิร์ฟเวอร์นี้เป็นแบบอ่านอย่างเดียว คู่นี้จึงดาวน์โหลดได้เท่านั้น</string>
+<string name="sync_error_connect">ติดต่อเซิร์ฟเวอร์ไม่ได้ โปรดตรวจสอบที่อยู่และเครือข่ายของคุณ แล้วลองอีกครั้ง</string>
 </resources>

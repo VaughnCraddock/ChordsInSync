@@ -1,8 +1,10 @@
 package com.music.bitchord.data.sync
 
 import android.content.Context
+import com.music.bitchord.auth.AuthStore
 import com.music.bitchord.data.DebugLog as Log
 import com.music.bitchord.data.settings.AppSettings
+import com.music.bitchord.data.sync.webdav.WebDavProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -48,6 +50,17 @@ class SyncEngine(
                         result = SyncRunResult.NEEDS_SIGN_IN.name,
                     )
                 }
+                if (failure is SyncUnreachableException) {
+                    // Also not a failure: the far side is a server on some
+                    // network the phone is not on right now. Away from home
+                    // that is a LAN pair's ordinary state — record it
+                    // quietly and let the next run try its luck.
+                    Log.i(TAG, "sync run for ${pair.name} skipped: server unreachable")
+                    return@getOrElse SyncRunStatus(
+                        atMs = System.currentTimeMillis(),
+                        result = SyncRunResult.UNREACHABLE.name,
+                    )
+                }
                 Log.w(TAG, "sync run failed for ${pair.name}: ${failure.message}")
                 SyncRunStatus(
                     atMs = System.currentTimeMillis(),
@@ -68,6 +81,19 @@ class SyncEngine(
                 val saf = SafTreeProvider(appContext, pair.remoteLocator)
                 remote = saf
                 remoteWritable = saf.canWrite()
+            }
+            SyncEngines.WEBDAV -> {
+                val store = AuthStore(appContext)
+                remote = WebDavProvider(
+                    rootUrl = pair.remoteLocator,
+                    username = store.syncUsername(pair.id).orEmpty(),
+                    password = store.syncPassword(pair.id).orEmpty(),
+                )
+                // Probed at pair creation and kept on the pair: a server
+                // that refuses writes is never offered one, so a read-only
+                // endpoint produces this stable clamped run — not a PUT,
+                // a 403, and the same surprise again next run.
+                remoteWritable = !pair.remoteReadOnly
             }
             else -> {
                 // Registered but not wired: no pair can exist for one yet,
@@ -96,6 +122,7 @@ class SyncEngine(
                 when (decision.block) {
                     DirectionBlock.ENGINE_DISABLED -> SyncRunResult.ENGINE_OFF.name
                     DirectionBlock.NOT_HOME -> SyncRunResult.WAITING_HOME.name
+                    DirectionBlock.READ_ONLY_REMOTE -> SyncRunResult.READ_ONLY_REMOTE.name
                     else -> SyncRunResult.FAILED.name
                 },
             )
@@ -223,12 +250,21 @@ class SyncEngine(
         if (gone.isNotEmpty()) SyncStore.saveIndex(pair.id, index)
 
         val transfers = downloaded + uploaded
+        val outcome = when {
+            failed > 0 && transfers == 0 && conflicts == 0 -> SyncRunResult.FAILED.name
+            failed > 0 || conflicts > 0 || uploadsStopped -> SyncRunResult.PARTIAL.name
+            else -> SyncRunResult.SUCCESS.name
+        }
         SyncRunStatus(
             atMs = System.currentTimeMillis(),
             result = when {
-                failed > 0 && transfers == 0 && conflicts == 0 -> SyncRunResult.FAILED.name
-                failed > 0 || conflicts > 0 || uploadsStopped -> SyncRunResult.PARTIAL.name
-                else -> SyncRunResult.SUCCESS.name
+                // A run clamped by a read-only remote did everything it was
+                // allowed to do; its status names the clamp so the pair's
+                // line stays honest about why uploads never happen. A run
+                // that actually failed keeps its failure — that is the news.
+                decision.block == DirectionBlock.READ_ONLY_REMOTE &&
+                    outcome != SyncRunResult.FAILED.name -> SyncRunResult.READ_ONLY_REMOTE.name
+                else -> outcome
             },
             downloaded = downloaded,
             uploaded = uploaded,

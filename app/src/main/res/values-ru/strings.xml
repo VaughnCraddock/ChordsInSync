@@ -1677,4 +1677,15 @@
 
 <string name="sync_syncthing_title">Syncthing</string>
 <string name="sync_syncthing_body">Загрузки помещаются в Music/BitChord, папку Syncthing на этом устройстве. Синхронизируется музыка, помещённая именно туда.</string>
+<string name="sync_status_read_only">Сервер только для чтения - только загрузки (последняя синхронизация %1$s, загружено %2$d)</string>
+<string name="sync_status_unreachable">Сервер недоступен - повторная попытка позже</string>
+<string name="sync_add_webdav_pair">Добавить пару WebDAV</string>
+<string name="sync_server_url">URL сервера</string>
+<string name="sync_username">Имя пользователя</string>
+<string name="sync_password">Пароль</string>
+<string name="sync_browse_folders">Обзор папок</string>
+<string name="sync_use_this_folder">Использовать эту папку</string>
+<string name="sync_up_one_level">На уровень выше</string>
+<string name="sync_read_only_note">Этот сервер доступен только для чтения, поэтому эта пара может только загружать.</string>
+<string name="sync_error_connect">Не удалось связаться с сервером. Проверьте адрес и сеть и повторите попытку.</string>
 </resources>

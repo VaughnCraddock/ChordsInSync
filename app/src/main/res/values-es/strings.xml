@@ -1615,4 +1615,15 @@
 
 <string name="sync_syncthing_title">Syncthing</string>
 <string name="sync_syncthing_body">Las descargas se guardan en Music/BitChord, la ubicación de Syncthing en este dispositivo. La música que se coloca allí es lo que se sincroniza.</string>
+<string name="sync_status_read_only">Servidor de solo lectura: solo descargas (última sincronización %1$s, %2$d descargados)</string>
+<string name="sync_status_unreachable">Servidor no disponible: se reintentará más tarde</string>
+<string name="sync_add_webdav_pair">Añadir un par WebDAV</string>
+<string name="sync_server_url">URL del servidor</string>
+<string name="sync_username">Nombre de usuario</string>
+<string name="sync_password">Contraseña</string>
+<string name="sync_browse_folders">Explorar carpetas</string>
+<string name="sync_use_this_folder">Usar esta carpeta</string>
+<string name="sync_up_one_level">Subir un nivel</string>
+<string name="sync_read_only_note">Este servidor es de solo lectura, por lo que este par solo puede descargar.</string>
+<string name="sync_error_connect">No se pudo contactar con el servidor. Comprueba la dirección y tu red e inténtalo de nuevo.</string>
 </resources>

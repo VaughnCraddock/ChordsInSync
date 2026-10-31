@@ -36,6 +36,12 @@ object WebDavClient {
         val displayName: String,
         val isCollection: Boolean,
         val contentType: String? = null,
+        /** `getcontentlength`, where the server offers one. The sync engine's size stamp. */
+        val size: Long? = null,
+        /** `getlastmodified` as epoch milliseconds, where offered. The sync engine's clock stamp. */
+        val lastModifiedMs: Long? = null,
+        /** `getetag`, quotes included as the server sent them, where offered. The sync engine's content stamp. */
+        val etag: String? = null,
     )
 
     private val PROPFIND_BODY = """<?xml version="1.0" encoding="utf-8"?>
@@ -44,6 +50,9 @@ object WebDavClient {
     <d:displayname/>
     <d:resourcetype/>
     <d:getcontenttype/>
+    <d:getcontentlength/>
+    <d:getlastmodified/>
+    <d:getetag/>
   </d:prop>
 </d:propfind>
 """.trimIndent().toRequestBody("application/xml; charset=utf-8".toMediaType())
@@ -227,37 +236,168 @@ object WebDavClient {
         }
     }
 
+    /** One directory's immediate children — the sync provider's and the folder browser's walk step. */
+    suspend fun listDirectory(dirUrl: String, username: String, password: String): Result<List<Entry>> =
+        withContext(Dispatchers.IO) { propfind(dirUrl, username, password) }
+
+    /**
+     * The entry for one URL (`PROPFIND`, Depth 0) — how a sync write reads
+     * its own result back instead of assuming the stamp it hoped for.
+     */
+    suspend fun stat(fileUrl: String, username: String, password: String): Result<Entry?> =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val request = propfindRequest(fileUrl, depth = "0", username, password)
+                Http.client.newCall(request).execute().use { response ->
+                    if (response.code == 404) return@runCatching null
+                    if (response.code != 207 && response.code !in 200..299) {
+                        throw WebDavException("Stat failed with ${response.code}")
+                    }
+                    val body = response.body?.string().orEmpty()
+                    if (body.isBlank()) null else parseStat(body, fileUrl)
+                }
+            }
+        }
+
+    /**
+     * Streams one file's bytes. The response body is the stream: the caller
+     * owns it and closes it, which is what ends the HTTP exchange. Nothing
+     * is buffered — a sync download can be a hundred megabytes of FLAC.
+     */
+    suspend fun getFile(fileUrl: String, username: String, password: String): Result<InputStream> =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val builder = Request.Builder().url(fileUrl).get()
+                WebDavConfig.basicAuthHeader(username, password)?.let { builder.header("Authorization", it) }
+                val response = Http.client.newCall(builder.build()).execute()
+                if (response.code !in 200..299) {
+                    val code = response.code
+                    response.close()
+                    throw WebDavException("Download failed with $code")
+                }
+                response.body?.byteStream() ?: run {
+                    response.close()
+                    throw WebDavException("Download failed: empty body")
+                }
+            }
+        }
+
+    /**
+     * Deletes one file. A 404 is success wearing an error code: the file is
+     * gone, which is all a delete ever promised. Only the sync engine calls
+     * this, and only under a pair that mirrors deletions.
+     */
+    suspend fun delete(fileUrl: String, username: String, password: String): Result<Unit> =
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val builder = Request.Builder().url(fileUrl).delete()
+                WebDavConfig.basicAuthHeader(username, password)?.let { builder.header("Authorization", it) }
+                Http.client.newCall(builder.build()).execute().use { response ->
+                    if (response.code !in 200..299 && response.code != 404) {
+                        throw WebDavException("Delete failed with ${response.code}")
+                    }
+                }
+            }
+        }
+
     /**
      * Parses a PROPFIND multistatus response. Pure function of the XML and the
      * directory it was asked of — the entry the server echoes back for the
      * directory itself is dropped.
      */
     fun parseMultistatus(xml: String, dirUrl: String): List<Entry> {
-        if (xml.isBlank()) return emptyList()
-        val doc = runCatching {
-            val factory = DocumentBuilderFactory.newInstance().apply { isNamespaceAware = true }
-            factory.newDocumentBuilder().parse(xml.byteInputStream(Charsets.UTF_8))
-        }.getOrNull() ?: return emptyList()
+        val doc = parseXml(xml) ?: return emptyList()
         val responses = doc.getElementsByTagNameNS("*", "response")
         val out = ArrayList<Entry>(responses.length)
         for (i in 0 until responses.length) {
             val node = responses.item(i) as? Element ?: continue
-            val href = node.getElementsByTagNameNS("*", "href").item(0)?.textContent?.trim().orEmpty()
-            if (href.isEmpty()) continue
-            val url = resolveHref(dirUrl, href)
-            if (isSameUrl(url, dirUrl)) continue
-            val displayName = node.getElementsByTagNameNS("*", "displayname")
-                .item(0)?.textContent?.trim().orEmpty()
-                .ifBlank { decodedName(url) }
-            val resourceType = node.getElementsByTagNameNS("*", "resourcetype").item(0) as? Element
-            val isCollection = resourceType
-                ?.getElementsByTagNameNS("*", "collection")?.length?.let { it > 0 } == true
-            val contentType = node.getElementsByTagNameNS("*", "getcontenttype")
-                .item(0)?.textContent?.trim()?.takeIf { it.isNotBlank() }
-            out.add(Entry(url = url, displayName = displayName, isCollection = isCollection, contentType = contentType))
+            val entry = entryFromResponse(node, dirUrl) ?: continue
+            if (isSameUrl(entry.url, dirUrl)) continue
+            out.add(entry)
         }
         return out
     }
+
+    /**
+     * Parses a Depth-0 multistatus — the answer about one URL itself, so
+     * unlike [parseMultistatus] the entry for the asked-of URL is the point
+     * and is kept. Null when the response carries nothing usable.
+     */
+    fun parseStat(xml: String, url: String): Entry? {
+        val doc = parseXml(xml) ?: return null
+        val responses = doc.getElementsByTagNameNS("*", "response")
+        for (i in 0 until responses.length) {
+            val node = responses.item(i) as? Element ?: continue
+            entryFromResponse(node, url)?.let { return it }
+        }
+        return null
+    }
+
+    private fun parseXml(xml: String): org.w3c.dom.Document? {
+        if (xml.isBlank()) return null
+        return runCatching {
+            val factory = DocumentBuilderFactory.newInstance().apply { isNamespaceAware = true }
+            factory.newDocumentBuilder().parse(xml.byteInputStream(Charsets.UTF_8))
+        }.getOrNull()
+    }
+
+    /** One `d:response` element as an [Entry]; null when it has no href to name it by. */
+    private fun entryFromResponse(node: Element, baseUrl: String): Entry? {
+        val href = node.getElementsByTagNameNS("*", "href").item(0)?.textContent?.trim().orEmpty()
+        if (href.isEmpty()) return null
+        val url = resolveHref(baseUrl, href)
+        val displayName = node.getElementsByTagNameNS("*", "displayname")
+            .item(0)?.textContent?.trim().orEmpty()
+            .ifBlank { decodedName(url) }
+        val resourceType = node.getElementsByTagNameNS("*", "resourcetype").item(0) as? Element
+        val isCollection = resourceType
+            ?.getElementsByTagNameNS("*", "collection")?.length?.let { it > 0 } == true
+        fun propText(name: String): String? = node.getElementsByTagNameNS("*", name)
+            .item(0)?.textContent?.trim()?.takeIf { it.isNotBlank() }
+        return Entry(
+            url = url,
+            displayName = displayName,
+            isCollection = isCollection,
+            contentType = propText("getcontenttype"),
+            size = propText("getcontentlength")?.toLongOrNull(),
+            lastModifiedMs = propText("getlastmodified")?.let { parseHttpDate(it) },
+            etag = propText("getetag"),
+        )
+    }
+
+    /**
+     * An HTTP-date (the format of `getlastmodified`) as epoch milliseconds.
+     * All three shapes the RFC allows are tried — the common IMF-fixdate
+     * first — because servers in the wild still send the obsolete ones.
+     * Pure `java.time`, so the JVM tests exercise the real parser.
+     */
+    fun parseHttpDate(value: String): Long? {
+        val trimmed = value.trim()
+        for (formatter in HTTP_DATE_FORMATTERS) {
+            val parsed = runCatching {
+                java.time.ZonedDateTime.parse(trimmed, formatter)
+            }.getOrNull()
+            if (parsed != null) return parsed.toInstant().toEpochMilli()
+        }
+        return null
+    }
+
+    private val HTTP_DATE_FORMATTERS = listOf(
+        java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME,
+        // RFC 1036: "Sunday, 06-Nov-1994 08:49:37 GMT" with a two-digit
+        // year. The pattern letter "yy" pivots at 2000, which would read
+        // 1994 as 2094 — the reduced-year builder pins the RFC's own rule
+        // (50-99 are 19xx, 00-49 are 20xx).
+        java.time.format.DateTimeFormatterBuilder()
+            .appendPattern("EEEE, dd-MMM-")
+            .appendValueReduced(java.time.temporal.ChronoField.YEAR, 2, 2, 1950)
+            .appendPattern(" HH:mm:ss 'GMT'")
+            .toFormatter(Locale.US)
+            .withZone(java.time.ZoneOffset.UTC),
+        // ANSI C asctime: "Sun Nov  6 08:49:37 1994".
+        java.time.format.DateTimeFormatter.ofPattern("EEE MMM ppd HH:mm:ss yyyy", Locale.US)
+            .withZone(java.time.ZoneOffset.UTC),
+    )
 
     fun resolveHref(baseUrl: String, href: String): String {
         val trimmed = href.trim()

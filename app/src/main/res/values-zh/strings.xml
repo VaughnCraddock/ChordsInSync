@@ -1619,4 +1619,15 @@
 
 <string name="sync_syncthing_title">Syncthing</string>
 <string name="sync_syncthing_body">下载内容会放入 Music/BitChord,这是这台设备的 Syncthing 位置。放在那里的音乐就是会被同步的内容。</string>
+<string name="sync_status_read_only">只读服务器 - 仅下载（上次同步 %1$s，已下载 %2$d）</string>
+<string name="sync_status_unreachable">无法连接服务器 - 稍后将重试</string>
+<string name="sync_add_webdav_pair">添加 WebDAV 配对</string>
+<string name="sync_server_url">服务器 URL</string>
+<string name="sync_username">用户名</string>
+<string name="sync_password">密码</string>
+<string name="sync_browse_folders">浏览文件夹</string>
+<string name="sync_use_this_folder">使用此文件夹</string>
+<string name="sync_up_one_level">上一级</string>
+<string name="sync_read_only_note">此服务器为只读，因此此配对只能下载。</string>
+<string name="sync_error_connect">无法连接服务器。请检查地址和网络后重试。</string>
 </resources>
