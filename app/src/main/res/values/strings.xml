@@ -1232,7 +1232,6 @@
     <string name="sync_auto_note">Automatic sync runs only while the phone is charging and on unmetered Wi-Fi. Sync now runs right away, but uploads still wait until you are home.</string>
     <string name="sync_engines">Engines</string>
     <string name="sync_engine_device_folders">Device folders</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Available</string>

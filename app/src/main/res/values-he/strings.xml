@@ -1385,7 +1385,6 @@
     <string name="sync_auto_note">הסנכרון האוטומטי פועל רק בזמן שהטלפון בטעינה ומחובר ל-Wi-Fi ללא הגבלה. סנכרון עכשיו פועל מיד, אבל העלאות ממתינות עד שתהיו בבית.</string>
     <string name="sync_engines">מנועים</string>
     <string name="sync_engine_device_folders">תיקיות במכשיר</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">זמין</string>

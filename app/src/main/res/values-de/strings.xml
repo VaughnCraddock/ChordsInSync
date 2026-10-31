@@ -1380,7 +1380,6 @@
     <string name="sync_auto_note">Die automatische Synchronisierung läuft nur, während das Telefon lädt und mit einem unbegrenzten WLAN verbunden ist. Jetzt synchronisieren läuft sofort, aber Uploads warten, bis Sie zu Hause sind.</string>
     <string name="sync_engines">Dienste</string>
     <string name="sync_engine_device_folders">Ordner auf dem Gerät</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Verfügbar</string>

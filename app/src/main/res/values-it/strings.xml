@@ -1319,7 +1319,6 @@
     <string name="sync_auto_note">La sincronizzazione automatica avviene solo mentre il telefono è in carica e su Wi-Fi illimitato. Sincronizza ora parte subito, ma i caricamenti attendono che tu sia a casa.</string>
     <string name="sync_engines">Motori</string>
     <string name="sync_engine_device_folders">Cartelle del dispositivo</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Disponibile</string>

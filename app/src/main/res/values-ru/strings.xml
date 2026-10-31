@@ -1412,7 +1412,6 @@
     <string name="sync_auto_note">Автоматическая синхронизация работает только во время зарядки телефона и в Wi-Fi без лимита. Синхронизировать сейчас запускается сразу, но отправка ждёт, пока вы не окажетесь дома.</string>
     <string name="sync_engines">Движки</string>
     <string name="sync_engine_device_folders">Папки устройства</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Доступно</string>

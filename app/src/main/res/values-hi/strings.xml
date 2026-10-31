@@ -1380,7 +1380,6 @@
     <string name="sync_auto_note">स्वचालित सिंक केवल तभी चलता है जब फ़ोन चार्ज हो रहा हो और बिना मीटर वाले Wi-Fi पर हो। अभी सिंक करें तुरंत चलता है, लेकिन अपलोड तब तक रुकते हैं जब तक आप घर नहीं पहुँच जाते।</string>
     <string name="sync_engines">इंजन</string>
     <string name="sync_engine_device_folders">डिवाइस फ़ोल्डर</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">उपलब्ध</string>

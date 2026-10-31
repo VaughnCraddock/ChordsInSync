@@ -1381,7 +1381,6 @@
     <string name="sync_auto_note">La synchronisation automatique ne s\'exécute que lorsque le téléphone est en charge et sur un Wi-Fi illimité. Synchroniser maintenant s\'exécute tout de suite, mais les envois attendent que vous soyez à la maison.</string>
     <string name="sync_engines">Moteurs</string>
     <string name="sync_engine_device_folders">Dossiers de l\'appareil</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Disponible</string>

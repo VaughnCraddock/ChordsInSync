@@ -1420,7 +1420,6 @@
     <string name="sync_auto_note">Automatyczna synchronizacja działa tylko, gdy telefon się ładuje i jest w sieci Wi-Fi bez limitu. Synchronizuj teraz działa od razu, ale wysyłanie czeka, aż będziesz w domu.</string>
     <string name="sync_engines">Silniki</string>
     <string name="sync_engine_device_folders">Foldery urządzenia</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Dostępne</string>

@@ -1297,7 +1297,6 @@
     <string name="sync_auto_note">Đồng bộ tự động chỉ chạy khi điện thoại đang sạc và trên Wi-Fi không giới hạn. Đồng bộ ngay chạy ngay lập tức, nhưng tải lên phải chờ đến khi bạn về nhà.</string>
     <string name="sync_engines">Công cụ</string>
     <string name="sync_engine_device_folders">Thư mục trên thiết bị</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Khả dụng</string>

@@ -1385,7 +1385,6 @@
     <string name="sync_auto_note">A sincronização automática só funciona enquanto o telemóvel está a carregar e numa rede Wi-Fi sem limites. Sincronizar agora funciona de imediato, mas os carregamentos esperam até estar em casa.</string>
     <string name="sync_engines">Motores</string>
     <string name="sync_engine_device_folders">Pastas do dispositivo</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Disponível</string>

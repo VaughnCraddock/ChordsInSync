@@ -1357,7 +1357,6 @@
     <string name="sync_auto_note">自動同步僅在手機充電且連接不限量 Wi-Fi 時執行。立即同步會馬上執行，但上傳會等到你回家才進行。</string>
     <string name="sync_engines">引擎</string>
     <string name="sync_engine_device_folders">裝置資料夾</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">可用</string>

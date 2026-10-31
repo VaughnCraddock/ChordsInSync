@@ -1357,7 +1357,6 @@
     <string name="sync_auto_note">Sinkronisasi otomatis hanya berjalan saat ponsel sedang diisi daya dan terhubung ke Wi-Fi tanpa batas kuota. Sinkronkan sekarang berjalan langsung, tetapi unggahan menunggu sampai Anda di rumah.</string>
     <string name="sync_engines">Mesin</string>
     <string name="sync_engine_device_folders">Folder perangkat</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Tersedia</string>

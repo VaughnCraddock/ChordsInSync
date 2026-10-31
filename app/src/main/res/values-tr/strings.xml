@@ -1337,7 +1337,6 @@
     <string name="sync_auto_note">Otomatik senkronizasyon yalnızca telefon şarj olurken ve kotasız Wi-Fi ağındayken çalışır. Şimdi senkronize et hemen çalışır, ancak yüklemeler eve varmanızı bekler.</string>
     <string name="sync_engines">Motorlar</string>
     <string name="sync_engine_device_folders">Cihaz klasörleri</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">Kullanılabilir</string>

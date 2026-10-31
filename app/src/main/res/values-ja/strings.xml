@@ -1358,7 +1358,6 @@
     <string name="sync_auto_note">自動同期は、スマートフォンが充電中で、従量制でない Wi-Fi に接続しているときだけ実行されます。今すぐ同期はすぐ実行されますが、アップロードは帰宅するまで待機します。</string>
     <string name="sync_engines">エンジン</string>
     <string name="sync_engine_device_folders">デバイスのフォルダ</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">利用可能</string>

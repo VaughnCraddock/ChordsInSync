@@ -1363,7 +1363,6 @@
     <string name="sync_auto_note">การซิงค์อัตโนมัติจะทำงานเฉพาะขณะที่โทรศัพท์กำลังชาร์จและอยู่บน Wi-Fi แบบไม่จำกัดปริมาณ การซิงค์ตอนนี้จะทำงานทันที แต่การอัปโหลดจะรอจนกว่าคุณจะอยู่บ้าน</string>
     <string name="sync_engines">เครื่องมือซิงค์</string>
     <string name="sync_engine_device_folders">โฟลเดอร์ในอุปกรณ์</string>
-    <string name="sync_engine_dropbox">Dropbox</string>
     <string name="sync_engine_webdav">WebDAV</string>
     <string name="sync_engine_smb">SMB</string>
     <string name="sync_engine_available">พร้อมใช้งาน</string>
