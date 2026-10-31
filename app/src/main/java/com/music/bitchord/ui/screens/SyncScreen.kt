@@ -51,11 +51,17 @@ import com.music.bitchord.data.sync.SyncRunResult
 import com.music.bitchord.data.sync.SyncService
 import com.music.bitchord.data.sync.SyncStore
 import com.music.bitchord.data.sync.syncSanitisedName
+import com.music.bitchord.data.smb.SmbClient
+import com.music.bitchord.data.sync.smb.SmbPaths
+import com.music.bitchord.data.sync.smb.SmbSyncSessions
+import com.music.bitchord.data.sync.smb.SmbWritabilityProbe
 import com.music.bitchord.data.sync.webdav.WebDavPaths
 import com.music.bitchord.data.sync.webdav.WebDavWritabilityProbe
 import com.music.bitchord.data.webdav.WebDavClient
 import com.music.bitchord.data.webdav.WebDavConfig
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
@@ -86,6 +92,7 @@ fun SyncScreen(contentPadding: PaddingValues, modifier: Modifier = Modifier) {
     var pairMirrorDeletes by rememberSaveable { mutableStateOf(false) }
     var removingPair by remember { mutableStateOf<SyncPair?>(null) }
     var webDavFormOpen by remember { mutableStateOf(false) }
+    var smbFormOpen by remember { mutableStateOf(false) }
 
     val treePicker = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -268,6 +275,29 @@ fun SyncScreen(contentPadding: PaddingValues, modifier: Modifier = Modifier) {
                         // its credential lives in the encrypted store.
                         AuthStore(context).setSyncCredentials(pair.id, username, password)
                         webDavFormOpen = false
+                    },
+                )
+            }
+        }
+
+        val smbEngineOn = AppSettings.isSyncEngineEnabled(SyncEngines.SMB)
+        if (SyncEngines.isAvailable(SyncEngines.SMB) && smbEngineOn) {
+            Spacer(Modifier.height(16.dp))
+            if (!smbFormOpen) {
+                Button(
+                    onClick = { smbFormOpen = true },
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                ) {
+                    Text(stringResource(R.string.sync_add_smb_pair))
+                }
+            } else {
+                SmbPairForm(
+                    takenLocalFolders = pairs.map { it.localFolder }.toSet(),
+                    onCancel = { smbFormOpen = false },
+                    onCreate = { pair, username, password ->
+                        SyncStore.addPair(pair)
+                        AuthStore(context).setSyncCredentials(pair.id, username, password)
+                        smbFormOpen = false
                     },
                 )
             }
@@ -771,6 +801,192 @@ private fun WebDavPairForm(
                 TextButton(onClick = onCancel) {
                     Text(stringResource(R.string.cancel))
                 }
+            }
+        }
+        if (busy) {
+            CircularProgressIndicator(Modifier.padding(top = 12.dp))
+        }
+        val errorText = error
+        if (errorText != null) {
+            Text(
+                text = errorText,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+        }
+    }
+}
+/**
+ * The SMB add-pair flow: server, share, folder and credential first, then
+ * a connection test — list the folder (which proves the server, the share,
+ * the folder and the sign-in in one round trip) and the writability probe
+ * — and only then the shared pair-details form. An SMB server is a LAN
+ * citizen: if the test cannot reach it, the error says so plainly and no
+ * pair is created to fail quietly later.
+ */
+@Composable
+private fun SmbPairForm(
+    takenLocalFolders: Set<String>,
+    onCancel: () -> Unit,
+    onCreate: (SyncPair, String, String) -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    var host by rememberSaveable { mutableStateOf("") }
+    var share by rememberSaveable { mutableStateOf("") }
+    var folder by rememberSaveable { mutableStateOf("") }
+    var username by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var tested by remember { mutableStateOf<SmbPaths.Target?>(null) }
+    var readOnly by remember { mutableStateOf(false) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var direction by remember { mutableStateOf(SyncDirection.BIDIRECTIONAL) }
+    var mirrorDeletes by rememberSaveable { mutableStateOf(false) }
+    val connectError = stringResource(R.string.sync_error_connect)
+
+    val target = tested
+    if (target != null) {
+        Column {
+            Text(
+                text = stringResource(R.string.sync_smb_connected),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
+            )
+            AddPairForm(
+                pickedFolderName = SmbPaths.label(target),
+                name = name,
+                onNameChange = { name = it },
+                direction = direction,
+                onDirectionChange = { direction = it },
+                mirrorDeletes = mirrorDeletes,
+                onMirrorDeletesChange = { mirrorDeletes = it },
+                onCancel = onCancel,
+                onCreate = {
+                    val leaf = SmbPaths.label(target).substringAfterLast('/')
+                    val base = syncSanitisedName(name).ifBlank { syncSanitisedName(leaf) }
+                        .ifBlank { "SMB" }
+                    onCreate(
+                        SyncPair(
+                            id = UUID.randomUUID().toString(),
+                            engineId = SyncEngines.SMB,
+                            name = name.ifBlank { SmbPaths.label(target) },
+                            remoteLocator = SmbPaths.locator(target),
+                            remoteLabel = SmbPaths.label(target),
+                            localFolder = uniqueLocalFolderName(base, takenLocalFolders),
+                            direction = if (readOnly) SyncDirection.DOWNLOAD_ONLY else direction,
+                            enabled = true,
+                            mirrorDeletes = mirrorDeletes,
+                            remoteReadOnly = readOnly,
+                        ),
+                        username.trim(),
+                        password,
+                    )
+                },
+                engineNameRes = R.string.sync_engine_smb,
+                readOnlyRemote = readOnly,
+            )
+        }
+        return
+    }
+
+    Column(Modifier.padding(horizontal = 20.dp)) {
+        Text(
+            text = stringResource(R.string.sync_add_pair),
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+        )
+        OutlinedTextField(
+            value = host,
+            onValueChange = { host = it },
+            label = { Text(stringResource(R.string.sync_smb_host)) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        )
+        OutlinedTextField(
+            value = share,
+            onValueChange = { share = it },
+            label = { Text(stringResource(R.string.sync_smb_share)) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        )
+        OutlinedTextField(
+            value = folder,
+            onValueChange = { folder = it },
+            label = { Text(stringResource(R.string.sync_smb_folder)) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        )
+        OutlinedTextField(
+            value = username,
+            onValueChange = { username = it },
+            label = { Text(stringResource(R.string.sync_username)) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text(stringResource(R.string.sync_password)) },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+        )
+        Row(Modifier.padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Button(
+                onClick = {
+                    val candidate = SmbPaths.target(host, share, folder)
+                    if (candidate.host.isBlank() || candidate.share.isBlank()) {
+                        error = connectError
+                        return@Button
+                    }
+                    busy = true
+                    error = null
+                    scope.launch {
+                        val failure = runCatching {
+                            withContext(Dispatchers.IO) {
+                                val session = SmbSyncSessions.forTarget(
+                                    candidate, username.trim(), password,
+                                )
+                                // One listing proves server, share, folder
+                                // and sign-in together.
+                                session.withShare { diskShare ->
+                                    diskShare.list(SmbClient.smbPath(candidate.basePath))
+                                }
+                            }
+                        }.exceptionOrNull()
+                        if (failure != null) {
+                            busy = false
+                            error = syncErrorText(failure, connectError)
+                            return@launch
+                        }
+                        val writable = SmbWritabilityProbe.probe(candidate, username.trim(), password)
+                        busy = false
+                        readOnly = writable == false
+                        if (readOnly) direction = SyncDirection.DOWNLOAD_ONLY
+                        if (name.isBlank()) name = SmbPaths.label(candidate).substringAfterLast('/')
+                        tested = candidate
+                    }
+                },
+                enabled = !busy,
+            ) {
+                Text(stringResource(R.string.sync_smb_test))
+            }
+            TextButton(onClick = onCancel) {
+                Text(stringResource(R.string.cancel))
             }
         }
         if (busy) {
