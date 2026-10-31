@@ -1431,5 +1431,16 @@
     <string name="deleted_songs_result">%1$d गाने फ़ोन से हटाए गए</string>
     <string name="delete_failed_some">%1$d गाने नहीं हटाए जा सके</string>
     <string name="sync_status_needs_sign_in">साइन-इन आवश्यक है - ऊपर खाता फिर से कनेक्ट करें</string>
+    <string name="sync_status_read_only">केवल पढ़ने वाला सर्वर - केवल डाउनलोड (अंतिम सिंक %1$s, %2$d डाउनलोड हुए)</string>
+    <string name="sync_status_unreachable">सर्वर उपलब्ध नहीं - बाद में फिर कोशिश होगी</string>
+    <string name="sync_add_webdav_pair">WebDAV जोड़ी जोड़ें</string>
+    <string name="sync_server_url">सर्वर URL</string>
+    <string name="sync_username">उपयोगकर्ता नाम</string>
+    <string name="sync_password">पासवर्ड</string>
+    <string name="sync_browse_folders">फ़ोल्डर ब्राउज़ करें</string>
+    <string name="sync_use_this_folder">इस फ़ोल्डर का उपयोग करें</string>
+    <string name="sync_up_one_level">एक स्तर ऊपर</string>
+    <string name="sync_read_only_note">यह सर्वर केवल पढ़ने के लिए है, इसलिए यह जोड़ी केवल डाउनलोड कर सकती है।</string>
+    <string name="sync_error_connect">सर्वर से संपर्क नहीं हो सका। पता और अपना नेटवर्क जांचें, फिर फिर से कोशिश करें।</string>
     <!-- Sync: Google Drive -->
 </resources>

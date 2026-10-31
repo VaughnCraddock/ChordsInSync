@@ -1370,5 +1370,16 @@
     <string name="deleted_songs_result">%1$d brani eliminati da questo telefono</string>
     <string name="delete_failed_some">%1$d brani non sono stati eliminati</string>
     <string name="sync_status_needs_sign_in">Accesso necessario - ricollega l\'account qui sopra</string>
+    <string name="sync_status_read_only">Server di sola lettura - solo download (ultima sincronizzazione %1$s, %2$d scaricati)</string>
+    <string name="sync_status_unreachable">Server non raggiungibile - riproverò più tardi</string>
+    <string name="sync_add_webdav_pair">Aggiungi una coppia WebDAV</string>
+    <string name="sync_server_url">URL del server</string>
+    <string name="sync_username">Nome utente</string>
+    <string name="sync_password">Password</string>
+    <string name="sync_browse_folders">Sfoglia cartelle</string>
+    <string name="sync_use_this_folder">Usa questa cartella</string>
+    <string name="sync_up_one_level">Su di un livello</string>
+    <string name="sync_read_only_note">Questo server è di sola lettura, quindi questa coppia può solo scaricare.</string>
+    <string name="sync_error_connect">Impossibile raggiungere il server. Controlla l\'indirizzo e la rete, poi riprova.</string>
     <!-- Sync: Google Drive -->
 </resources>

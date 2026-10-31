@@ -1431,5 +1431,16 @@
     <string name="deleted_songs_result">%1$d Titel vom Telefon gelöscht</string>
     <string name="delete_failed_some">%1$d Titel konnten nicht gelöscht werden</string>
     <string name="sync_status_needs_sign_in">Anmeldung nötig – Konto oben erneut verbinden</string>
+    <string name="sync_status_read_only">Schreibgeschützter Server – nur Downloads (letzte Synchronisierung %1$s, %2$d heruntergeladen)</string>
+    <string name="sync_status_unreachable">Server nicht erreichbar – später erneuter Versuch</string>
+    <string name="sync_add_webdav_pair">WebDAV-Paar hinzufügen</string>
+    <string name="sync_server_url">Server-URL</string>
+    <string name="sync_username">Benutzername</string>
+    <string name="sync_password">Passwort</string>
+    <string name="sync_browse_folders">Ordner durchsuchen</string>
+    <string name="sync_use_this_folder">Diesen Ordner verwenden</string>
+    <string name="sync_up_one_level">Eine Ebene nach oben</string>
+    <string name="sync_read_only_note">Dieser Server ist schreibgeschützt, daher kann dieses Paar nur herunterladen.</string>
+    <string name="sync_error_connect">Server konnte nicht erreicht werden. Prüfen Sie Adresse und Netzwerk und versuchen Sie es erneut.</string>
     <!-- Sync: Google Drive -->
 </resources>

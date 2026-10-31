@@ -1408,5 +1408,16 @@
     <string name="deleted_songs_result">%1$d lagu dihapus dari ponsel ini</string>
     <string name="delete_failed_some">%1$d lagu tidak dapat dihapus</string>
     <string name="sync_status_needs_sign_in">Perlu masuk - sambungkan lagi akun di atas</string>
+    <string name="sync_status_read_only">Server hanya-baca - hanya unduhan (sinkronisasi terakhir %1$s, %2$d diunduh)</string>
+    <string name="sync_status_unreachable">Server tidak terjangkau - akan dicoba lagi nanti</string>
+    <string name="sync_add_webdav_pair">Tambah pasangan WebDAV</string>
+    <string name="sync_server_url">URL server</string>
+    <string name="sync_username">Nama pengguna</string>
+    <string name="sync_password">Kata sandi</string>
+    <string name="sync_browse_folders">Telusuri folder</string>
+    <string name="sync_use_this_folder">Gunakan folder ini</string>
+    <string name="sync_up_one_level">Naik satu tingkat</string>
+    <string name="sync_read_only_note">Server ini hanya-baca, jadi pasangan ini hanya bisa mengunduh.</string>
+    <string name="sync_error_connect">Tidak dapat menjangkau server. Periksa alamat dan jaringan Anda, lalu coba lagi.</string>
     <!-- Sync: Google Drive -->
 </resources>

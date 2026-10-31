@@ -1436,5 +1436,16 @@
     <string name="deleted_songs_result">%1$d שירים נמחקו מהטלפון</string>
     <string name="delete_failed_some">%1$d שירים לא נמחקו</string>
     <string name="sync_status_needs_sign_in">נדרשת התחברות - חברו מחדש את החשבון למעלה</string>
+    <string name="sync_status_read_only">שרת לקריאה בלבד - הורדות בלבד (סנכרון אחרון %1$s, הורדו %2$d)</string>
+    <string name="sync_status_unreachable">השרת אינו נגיש - ננסה שוב מאוחר יותר</string>
+    <string name="sync_add_webdav_pair">הוספת זוג WebDAV</string>
+    <string name="sync_server_url">כתובת השרת</string>
+    <string name="sync_username">שם משתמש</string>
+    <string name="sync_password">סיסמה</string>
+    <string name="sync_browse_folders">עיון בתיקיות</string>
+    <string name="sync_use_this_folder">השתמש בתיקייה זו</string>
+    <string name="sync_up_one_level">רמה אחת למעלה</string>
+    <string name="sync_read_only_note">שרת זה לקריאה בלבד, ולכן זוג זה יכול רק להוריד.</string>
+    <string name="sync_error_connect">לא ניתן להגיע לשרת. בדקו את הכתובת ואת הרשת ונסו שוב.</string>
     <!-- Sync: Google Drive -->
 </resources>

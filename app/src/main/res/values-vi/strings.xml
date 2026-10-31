@@ -1348,5 +1348,16 @@
     <string name="deleted_songs_result">Đã xóa %1$d bài hát khỏi điện thoại này</string>
     <string name="delete_failed_some">Không xóa được %1$d bài hát</string>
     <string name="sync_status_needs_sign_in">Cần đăng nhập - hãy kết nối lại tài khoản ở trên</string>
+    <string name="sync_status_read_only">Máy chủ chỉ đọc - chỉ tải xuống (đồng bộ lần cuối %1$s, đã tải %2$d)</string>
+    <string name="sync_status_unreachable">Không liên hệ được máy chủ - sẽ thử lại sau</string>
+    <string name="sync_add_webdav_pair">Thêm cặp WebDAV</string>
+    <string name="sync_server_url">URL máy chủ</string>
+    <string name="sync_username">Tên người dùng</string>
+    <string name="sync_password">Mật khẩu</string>
+    <string name="sync_browse_folders">Duyệt thư mục</string>
+    <string name="sync_use_this_folder">Dùng thư mục này</string>
+    <string name="sync_up_one_level">Lên một cấp</string>
+    <string name="sync_read_only_note">Máy chủ này chỉ đọc nên cặp này chỉ có thể tải xuống.</string>
+    <string name="sync_error_connect">Không liên hệ được máy chủ. Hãy kiểm tra địa chỉ và mạng của bạn rồi thử lại.</string>
     <!-- Sync: Google Drive -->
 </resources>

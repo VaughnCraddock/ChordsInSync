@@ -1408,5 +1408,16 @@
     <string name="deleted_songs_result">已從這支手機刪除 %1$d 首歌曲</string>
     <string name="delete_failed_some">%1$d 首歌曲無法刪除</string>
     <string name="sync_status_needs_sign_in">需要登入 - 請重新連接上方的帳號</string>
+    <string name="sync_status_read_only">唯讀伺服器 - 僅下載（上次同步 %1$s，已下載 %2$d）</string>
+    <string name="sync_status_unreachable">無法連線到伺服器 - 稍後將重試</string>
+    <string name="sync_add_webdav_pair">新增 WebDAV 配對</string>
+    <string name="sync_server_url">伺服器 URL</string>
+    <string name="sync_username">使用者名稱</string>
+    <string name="sync_password">密碼</string>
+    <string name="sync_browse_folders">瀏覽資料夾</string>
+    <string name="sync_use_this_folder">使用此資料夾</string>
+    <string name="sync_up_one_level">上一層</string>
+    <string name="sync_read_only_note">此伺服器為唯讀，因此此配對只能下載。</string>
+    <string name="sync_error_connect">無法連線到伺服器。請檢查位址和網路後重試。</string>
     <!-- Sync: Google Drive -->
 </resources>

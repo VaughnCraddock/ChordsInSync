@@ -53,9 +53,11 @@ class SyncSchedulerTest {
 
     @Test
     fun `an unwired engine never runs, whatever its switch says`() {
-        // WebDAV stands for every engine with no provider wired yet; Google
-        // Drive used to be this test's example and graduated out of it.
-        val pairs = listOf(pair("a", engineId = SyncEngines.WEBDAV))
+        // Every registered engine is wired now, so an id no build knows —
+        // FTP, say, from some future version's state — stands for the case.
+        // Google Drive and WebDAV used to be this test's examples and
+        // graduated out of it in turn.
+        val pairs = listOf(pair("a", engineId = "FTP"))
         val selected = SyncScheduler.selectRunnablePairs(pairs) { true }
         assertEquals(emptyList<String>(), selected.map { it.id })
     }

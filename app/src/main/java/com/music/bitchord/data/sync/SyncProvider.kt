@@ -50,6 +50,16 @@ interface SyncProvider {
 class SyncNeedsSignInException(message: String? = null) : Exception(message)
 
 /**
+ * The far side cannot be reached at all — no route to its host, no DNS
+ * answer, a connect that never lands. For a LAN server that is a pair's
+ * ordinary away-from-home state, not a failure: [SyncEngine] records it as
+ * the pair's unreachable status and the run moves on quietly. Providers
+ * throw it for transport failures only; a server that answers (even with
+ * an error) has been reached, and its answer keeps its own identity.
+ */
+class SyncUnreachableException(message: String? = null) : Exception(message)
+
+/**
  * Characters a folder name on shared storage cannot hold, and the whitespace
  * runs a name reads better without — the same treatment [com.music.bitchord.download.DownloadStore]
  * gives the files it names.

@@ -122,6 +122,35 @@ class AuthStore(context: Context) {
         set(value) = prefs.edit().putString(KEY_SMB_PASSWORD, value).apply()
 
     /**
+     * Per-pair sync credentials, keyed by pair id. A pair's server config
+     * lives in its [com.music.bitchord.data.sync.SyncPair] record — plain
+     * prefs, deliberately free of secrets — so the username and password a
+     * WebDAV or SMB pair signs in with live here instead, encrypted like
+     * every other credential in this store.
+     */
+    fun syncUsername(pairId: String): String? = prefs.getString(syncUserKey(pairId), null)
+
+    fun syncPassword(pairId: String): String? = prefs.getString(syncPassKey(pairId), null)
+
+    fun setSyncCredentials(pairId: String, username: String?, password: String?) {
+        prefs.edit()
+            .putString(syncUserKey(pairId), username)
+            .putString(syncPassKey(pairId), password)
+            .apply()
+    }
+
+    /** Forgets a removed pair's credentials; the pair record going is what calls this. */
+    fun clearSyncCredentials(pairId: String) {
+        prefs.edit()
+            .remove(syncUserKey(pairId))
+            .remove(syncPassKey(pairId))
+            .apply()
+    }
+
+    private fun syncUserKey(pairId: String) = "sync_user_$pairId"
+    private fun syncPassKey(pairId: String) = "sync_pass_$pairId"
+
+    /**
      * The channel the listener chose to act as, if they chose one.
      *
      * Stored beside the cookie rather than in the plain settings because it is
