@@ -56,6 +56,15 @@ data class SyncPair(
     /** A paused pair keeps every setting and simply never runs. */
     val enabled: Boolean = true,
     /**
+     * Whether the far side refuses writes, as probed once at pair creation
+     * (a tiny write-then-delete, SYNC-RESEARCH §7.3). A read-only remote
+     * clamps the pair to its download half through the same gate as a
+     * SAF grant without write permission — uploads are never attempted, so
+     * a read-only server (dav.craddock.club is one, permanently, by
+     * Vaughn's standing rule) is a stable status, not a run of failed PUTs.
+     */
+    val remoteReadOnly: Boolean = false,
+    /**
      * Whether a file deleted on one side is deleted on the other. Off — the
      * default, and the reason is in the planner — a deletion is reported and
      * the surviving copy is kept.
@@ -103,6 +112,20 @@ enum class SyncRunResult {
      * show that UI, so it records this and the Sync page offers the fix.
      */
     NEEDS_SIGN_IN,
+
+    /**
+     * The remote refuses writes (probed at pair creation), so the run did
+     * its download half only — or, for an upload-only pair, nothing at all.
+     * A fact about the server, not a failure of the run.
+     */
+    READ_ONLY_REMOTE,
+
+    /**
+     * The far side could not be reached at all. For a server on the home
+     * LAN that is the expected state away from home; the pair simply waits
+     * for a run that can reach it.
+     */
+    UNREACHABLE,
 }
 
 /** What one side says about one file: how big it is, when it last changed. */
@@ -164,7 +187,7 @@ object SyncEngines {
     val all: List<String> = listOf(DEVICE_FOLDERS, WEBDAV, SMB)
 
     /** Engines with a working provider behind them in this build. */
-    private val available: Set<String> = setOf(DEVICE_FOLDERS)
+    private val available: Set<String> = setOf(DEVICE_FOLDERS, WEBDAV)
 
     fun isAvailable(engineId: String): Boolean = engineId in available
 }
