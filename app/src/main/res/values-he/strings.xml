@@ -1447,5 +1447,11 @@
     <string name="sync_up_one_level">רמה אחת למעלה</string>
     <string name="sync_read_only_note">שרת זה לקריאה בלבד, ולכן זוג זה יכול רק להוריד.</string>
     <string name="sync_error_connect">לא ניתן להגיע לשרת. בדקו את הכתובת ואת הרשת ונסו שוב.</string>
+    <string name="sync_add_smb_pair">הוספת זוג SMB</string>
+    <string name="sync_smb_host">שרת (שם או IP)</string>
+    <string name="sync_smb_share">שיתוף</string>
+    <string name="sync_smb_folder">תיקייה בשיתוף</string>
+    <string name="sync_smb_test">בדיקת חיבור</string>
+    <string name="sync_smb_connected">מחובר - השרת מגיב</string>
     <!-- Sync: Google Drive -->
 </resources>

@@ -1482,5 +1482,11 @@
     <string name="sync_up_one_level">Poziom wyżej</string>
     <string name="sync_read_only_note">Ten serwer jest tylko do odczytu, więc ta para może tylko pobierać.</string>
     <string name="sync_error_connect">Nie udało się połączyć z serwerem. Sprawdź adres i sieć, a potem spróbuj ponownie.</string>
+    <string name="sync_add_smb_pair">Dodaj parę SMB</string>
+    <string name="sync_smb_host">Serwer (nazwa lub IP)</string>
+    <string name="sync_smb_share">Udział</string>
+    <string name="sync_smb_folder">Folder w udziale</string>
+    <string name="sync_smb_test">Testuj połączenie</string>
+    <string name="sync_smb_connected">Połączono – serwer odpowiada</string>
     <!-- Sync: Google Drive -->
 </resources>

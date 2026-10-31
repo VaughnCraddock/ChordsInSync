@@ -1425,5 +1425,11 @@
     <string name="sync_up_one_level">ขึ้นหนึ่งระดับ</string>
     <string name="sync_read_only_note">เซิร์ฟเวอร์นี้เป็นแบบอ่านอย่างเดียว คู่นี้จึงดาวน์โหลดได้เท่านั้น</string>
     <string name="sync_error_connect">ติดต่อเซิร์ฟเวอร์ไม่ได้ โปรดตรวจสอบที่อยู่และเครือข่ายของคุณ แล้วลองอีกครั้ง</string>
+    <string name="sync_add_smb_pair">เพิ่มคู่ SMB</string>
+    <string name="sync_smb_host">เซิร์ฟเวอร์ (ชื่อหรือ IP)</string>
+    <string name="sync_smb_share">แชร์</string>
+    <string name="sync_smb_folder">โฟลเดอร์ในแชร์</string>
+    <string name="sync_smb_test">ทดสอบการเชื่อมต่อ</string>
+    <string name="sync_smb_connected">เชื่อมต่อแล้ว - เซิร์ฟเวอร์ตอบสนอง</string>
     <!-- Sync: Google Drive -->
 </resources>

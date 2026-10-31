@@ -1359,5 +1359,11 @@
     <string name="sync_up_one_level">Lên một cấp</string>
     <string name="sync_read_only_note">Máy chủ này chỉ đọc nên cặp này chỉ có thể tải xuống.</string>
     <string name="sync_error_connect">Không liên hệ được máy chủ. Hãy kiểm tra địa chỉ và mạng của bạn rồi thử lại.</string>
+    <string name="sync_add_smb_pair">Thêm cặp SMB</string>
+    <string name="sync_smb_host">Máy chủ (tên hoặc IP)</string>
+    <string name="sync_smb_share">Chia sẻ</string>
+    <string name="sync_smb_folder">Thư mục trong chia sẻ</string>
+    <string name="sync_smb_test">Kiểm tra kết nối</string>
+    <string name="sync_smb_connected">Đã kết nối - máy chủ phản hồi</string>
     <!-- Sync: Google Drive -->
 </resources>

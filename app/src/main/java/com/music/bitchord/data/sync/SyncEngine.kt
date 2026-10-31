@@ -4,6 +4,8 @@ import android.content.Context
 import com.music.bitchord.auth.AuthStore
 import com.music.bitchord.data.DebugLog as Log
 import com.music.bitchord.data.settings.AppSettings
+import com.music.bitchord.data.sync.smb.SmbPaths
+import com.music.bitchord.data.sync.smb.SmbProvider
 import com.music.bitchord.data.sync.webdav.WebDavProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -93,6 +95,21 @@ class SyncEngine(
                 // that refuses writes is never offered one, so a read-only
                 // endpoint produces this stable clamped run — not a PUT,
                 // a 403, and the same surprise again next run.
+                remoteWritable = !pair.remoteReadOnly
+            }
+            SyncEngines.SMB -> {
+                val target = SmbPaths.parse(pair.remoteLocator)
+                    ?: return@withContext SyncRunStatus(now, SyncRunResult.FAILED.name)
+                val store = AuthStore(appContext)
+                remote = SmbProvider(
+                    target = target,
+                    username = store.syncUsername(pair.id).orEmpty(),
+                    password = store.syncPassword(pair.id).orEmpty(),
+                )
+                // Probed at pair creation, like WebDAV's. Reachability is
+                // the provider's business: an SMB server off the phone's
+                // current network throws SyncUnreachableException out of
+                // the listing below, and the run records UNREACHABLE.
                 remoteWritable = !pair.remoteReadOnly
             }
             else -> {

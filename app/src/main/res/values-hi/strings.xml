@@ -1442,5 +1442,11 @@
     <string name="sync_up_one_level">एक स्तर ऊपर</string>
     <string name="sync_read_only_note">यह सर्वर केवल पढ़ने के लिए है, इसलिए यह जोड़ी केवल डाउनलोड कर सकती है।</string>
     <string name="sync_error_connect">सर्वर से संपर्क नहीं हो सका। पता और अपना नेटवर्क जांचें, फिर फिर से कोशिश करें।</string>
+    <string name="sync_add_smb_pair">SMB जोड़ी जोड़ें</string>
+    <string name="sync_smb_host">सर्वर (नाम या IP)</string>
+    <string name="sync_smb_share">शेयर</string>
+    <string name="sync_smb_folder">शेयर में फ़ोल्डर</string>
+    <string name="sync_smb_test">कनेक्शन जांचें</string>
+    <string name="sync_smb_connected">कनेक्ट हो गया - सर्वर जवाब दे रहा है</string>
     <!-- Sync: Google Drive -->
 </resources>

@@ -1284,6 +1284,12 @@
     <string name="sync_up_one_level">Up one level</string>
     <string name="sync_read_only_note">This server is read-only, so this pair can only download.</string>
     <string name="sync_error_connect">Could not reach the server. Check the address and your network, then try again.</string>
+    <string name="sync_add_smb_pair">Add an SMB pair</string>
+    <string name="sync_smb_host">Server (name or IP)</string>
+    <string name="sync_smb_share">Share</string>
+    <string name="sync_smb_folder">Folder in the share</string>
+    <string name="sync_smb_test">Test connection</string>
+    <string name="sync_smb_connected">Connected - the server answers</string>
     <!-- Sync: Google Drive -->
     <!-- Local delete -->
     <string name="delete_from_device">Delete from device</string>

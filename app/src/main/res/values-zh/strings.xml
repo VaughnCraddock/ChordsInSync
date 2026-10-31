@@ -1419,5 +1419,11 @@
     <string name="sync_up_one_level">上一级</string>
     <string name="sync_read_only_note">此服务器为只读，因此此配对只能下载。</string>
     <string name="sync_error_connect">无法连接服务器。请检查地址和网络后重试。</string>
+    <string name="sync_add_smb_pair">添加 SMB 配对</string>
+    <string name="sync_smb_host">服务器（名称或 IP）</string>
+    <string name="sync_smb_share">共享</string>
+    <string name="sync_smb_folder">共享中的文件夹</string>
+    <string name="sync_smb_test">测试连接</string>
+    <string name="sync_smb_connected">已连接 - 服务器有响应</string>
     <!-- Sync: Google Drive -->
 </resources>

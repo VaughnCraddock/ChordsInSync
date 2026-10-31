@@ -1420,5 +1420,11 @@
     <string name="sync_up_one_level">上の階層へ</string>
     <string name="sync_read_only_note">このサーバーは読み取り専用のため、このペアはダウンロードのみ可能です。</string>
     <string name="sync_error_connect">サーバーに接続できませんでした。アドレスとネットワークを確認して、もう一度お試しください。</string>
+    <string name="sync_add_smb_pair">SMBペアを追加</string>
+    <string name="sync_smb_host">サーバー (名前またはIP)</string>
+    <string name="sync_smb_share">共有</string>
+    <string name="sync_smb_folder">共有内のフォルダー</string>
+    <string name="sync_smb_test">接続テスト</string>
+    <string name="sync_smb_connected">接続しました - サーバーが応答しています</string>
     <!-- Sync: Google Drive -->
 </resources>

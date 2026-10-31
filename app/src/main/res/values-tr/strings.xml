@@ -1399,5 +1399,11 @@
     <string name="sync_up_one_level">Bir düzey yukarı</string>
     <string name="sync_read_only_note">Bu sunucu salt okunur olduğundan bu çift yalnızca indirebilir.</string>
     <string name="sync_error_connect">Sunucuya ulaşılamadı. Adresi ve ağınızı kontrol edip tekrar deneyin.</string>
+    <string name="sync_add_smb_pair">SMB çifti ekle</string>
+    <string name="sync_smb_host">Sunucu (adı veya IP)</string>
+    <string name="sync_smb_share">Paylaşım</string>
+    <string name="sync_smb_folder">Paylaşımdaki klasör</string>
+    <string name="sync_smb_test">Bağlantıyı test et</string>
+    <string name="sync_smb_connected">Bağlandı - sunucu yanıt veriyor</string>
     <!-- Sync: Google Drive -->
 </resources>

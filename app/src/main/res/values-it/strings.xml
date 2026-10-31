@@ -1381,5 +1381,11 @@
     <string name="sync_up_one_level">Su di un livello</string>
     <string name="sync_read_only_note">Questo server è di sola lettura, quindi questa coppia può solo scaricare.</string>
     <string name="sync_error_connect">Impossibile raggiungere il server. Controlla l\'indirizzo e la rete, poi riprova.</string>
+    <string name="sync_add_smb_pair">Aggiungi una coppia SMB</string>
+    <string name="sync_smb_host">Server (nome o IP)</string>
+    <string name="sync_smb_share">Condivisione</string>
+    <string name="sync_smb_folder">Cartella nella condivisione</string>
+    <string name="sync_smb_test">Prova connessione</string>
+    <string name="sync_smb_connected">Connesso - il server risponde</string>
     <!-- Sync: Google Drive -->
 </resources>

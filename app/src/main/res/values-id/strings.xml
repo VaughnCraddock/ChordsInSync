@@ -1419,5 +1419,11 @@
     <string name="sync_up_one_level">Naik satu tingkat</string>
     <string name="sync_read_only_note">Server ini hanya-baca, jadi pasangan ini hanya bisa mengunduh.</string>
     <string name="sync_error_connect">Tidak dapat menjangkau server. Periksa alamat dan jaringan Anda, lalu coba lagi.</string>
+    <string name="sync_add_smb_pair">Tambah pasangan SMB</string>
+    <string name="sync_smb_host">Server (nama atau IP)</string>
+    <string name="sync_smb_share">Share</string>
+    <string name="sync_smb_folder">Folder di dalam share</string>
+    <string name="sync_smb_test">Uji koneksi</string>
+    <string name="sync_smb_connected">Terhubung - server merespons</string>
     <!-- Sync: Google Drive -->
 </resources>

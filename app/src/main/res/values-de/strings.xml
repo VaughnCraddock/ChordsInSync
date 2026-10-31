@@ -1442,5 +1442,11 @@
     <string name="sync_up_one_level">Eine Ebene nach oben</string>
     <string name="sync_read_only_note">Dieser Server ist schreibgeschützt, daher kann dieses Paar nur herunterladen.</string>
     <string name="sync_error_connect">Server konnte nicht erreicht werden. Prüfen Sie Adresse und Netzwerk und versuchen Sie es erneut.</string>
+    <string name="sync_add_smb_pair">SMB-Paar hinzufügen</string>
+    <string name="sync_smb_host">Server (Name oder IP)</string>
+    <string name="sync_smb_share">Freigabe</string>
+    <string name="sync_smb_folder">Ordner in der Freigabe</string>
+    <string name="sync_smb_test">Verbindung testen</string>
+    <string name="sync_smb_connected">Verbunden – der Server antwortet</string>
     <!-- Sync: Google Drive -->
 </resources>

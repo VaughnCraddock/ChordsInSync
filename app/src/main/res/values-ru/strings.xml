@@ -1474,5 +1474,11 @@
     <string name="sync_up_one_level">На уровень выше</string>
     <string name="sync_read_only_note">Этот сервер доступен только для чтения, поэтому эта пара может только загружать.</string>
     <string name="sync_error_connect">Не удалось связаться с сервером. Проверьте адрес и сеть и повторите попытку.</string>
+    <string name="sync_add_smb_pair">Добавить пару SMB</string>
+    <string name="sync_smb_host">Сервер (имя или IP)</string>
+    <string name="sync_smb_share">Общий ресурс</string>
+    <string name="sync_smb_folder">Папка в общем ресурсе</string>
+    <string name="sync_smb_test">Проверить подключение</string>
+    <string name="sync_smb_connected">Подключено - сервер отвечает</string>
     <!-- Sync: Google Drive -->
 </resources>

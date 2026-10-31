@@ -1414,5 +1414,11 @@
     <string name="sync_up_one_level">Subir un nivel</string>
     <string name="sync_read_only_note">Este servidor es de solo lectura, por lo que este par solo puede descargar.</string>
     <string name="sync_error_connect">No se pudo contactar con el servidor. Comprueba la dirección y tu red e inténtalo de nuevo.</string>
+    <string name="sync_add_smb_pair">Añadir un par SMB</string>
+    <string name="sync_smb_host">Servidor (nombre o IP)</string>
+    <string name="sync_smb_share">Recurso compartido</string>
+    <string name="sync_smb_folder">Carpeta en el recurso compartido</string>
+    <string name="sync_smb_test">Probar conexión</string>
+    <string name="sync_smb_connected">Conectado: el servidor responde</string>
     <!-- Sync: Google Drive -->
 </resources>
