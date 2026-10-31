@@ -1511,7 +1511,7 @@
 <string name="sync_engine_device_folders">Device folders</string>
 
 
-<string name="sync_engine_dropbox">Dropbox</string>
+
 <string name="sync_engine_webdav">WebDAV</string>
 <string name="sync_engine_smb">SMB</string>
 <string name="sync_engine_available">Available</string>

@@ -297,7 +297,6 @@ private fun EngineRow(
     val name = stringResource(
         when (engineId) {
             SyncEngines.DEVICE_FOLDERS -> R.string.sync_engine_device_folders
-            SyncEngines.DROPBOX -> R.string.sync_engine_dropbox
             SyncEngines.WEBDAV -> R.string.sync_engine_webdav
             else -> R.string.sync_engine_smb
         },
@@ -348,7 +347,6 @@ private fun PairCard(
                 stringResource(
                     when (pair.engineId) {
                         SyncEngines.DEVICE_FOLDERS -> R.string.sync_engine_device_folders
-                        SyncEngines.DROPBOX -> R.string.sync_engine_dropbox
                         SyncEngines.WEBDAV -> R.string.sync_engine_webdav
                         else -> R.string.sync_engine_smb
                     },

@@ -148,25 +148,20 @@ data class SyncIndexEntry(
 }
 
 /**
- * The engines a pair can belong to. Only [DEVICE_FOLDERS] is wired so far;
- * the rest are registered so the settings UI can list them as coming soon
- * and so a pair created later needs no new plumbing here.
- *
- * Google Drive was wired in one build and then removed again (2026-10-30):
- * Vaughn dropped the cloud engines in favour of Syncthing carrying the
- * Music/BitChord downloads folder. OneDrive was never more than a
- * coming-soon entry. Both constants went with their engines — a pair naming
- * either id can only be state from that one Drive build, and [SyncEngine]
- * answers FAILED for an engine it does not know.
+ * The engines a pair can belong to. Google Drive was wired in one build
+ * and then removed again (2026-10-30): Vaughn dropped the cloud engines in
+ * favour of Syncthing carrying the Music/BitChord downloads folder.
+ * OneDrive and Dropbox were never more than coming-soon entries and went
+ * the same day. A pair naming a removed id can only be state from those
+ * builds, and [SyncEngine] answers FAILED for an engine it does not know.
  */
 object SyncEngines {
     const val DEVICE_FOLDERS = "DEVICE_FOLDERS"
-    const val DROPBOX = "DROPBOX"
     const val WEBDAV = "WEBDAV"
     const val SMB = "SMB"
 
     /** Every engine id, in display order. */
-    val all: List<String> = listOf(DEVICE_FOLDERS, DROPBOX, WEBDAV, SMB)
+    val all: List<String> = listOf(DEVICE_FOLDERS, WEBDAV, SMB)
 
     /** Engines with a working provider behind them in this build. */
     private val available: Set<String> = setOf(DEVICE_FOLDERS)
