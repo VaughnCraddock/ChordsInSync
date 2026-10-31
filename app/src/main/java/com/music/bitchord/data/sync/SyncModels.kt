@@ -187,7 +187,7 @@ object SyncEngines {
     val all: List<String> = listOf(DEVICE_FOLDERS, WEBDAV, SMB)
 
     /** Engines with a working provider behind them in this build. */
-    private val available: Set<String> = setOf(DEVICE_FOLDERS, WEBDAV)
+    private val available: Set<String> = setOf(DEVICE_FOLDERS, WEBDAV, SMB)
 
     fun isAvailable(engineId: String): Boolean = engineId in available
 }
