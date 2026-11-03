@@ -22,12 +22,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.DeleteSweep
-import androidx.compose.material.icons.rounded.Download
-import androidx.compose.material.icons.rounded.DownloadDone
-import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.ErrorOutline
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -348,7 +342,7 @@ fun SongActionsMenu(
         }
         onDeleteLocalFile?.let {
             ActionRow(
-                icon = Icons.Rounded.Delete,
+                icon = SfIcons.Trash,
                 label = stringResource(R.string.delete_from_device),
                 accent = palette.accent,
                 onClick = it,

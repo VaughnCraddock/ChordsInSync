@@ -158,12 +158,6 @@ fun BrowseActionsMenu(
      */
     onDeleteLocalFolder: (() -> Unit)? = null,
     /**
-     * [SongActionsPresentation.Menu] draws only the rows, compact, for the
-     * popup a held card lifts into — [HeldContextMenu] shows the card itself,
-     * so the header here would only say the same thing twice.
-     */
-    presentation: SongActionsPresentation = SongActionsPresentation.Sheet,
-    /**
      * Rename in the popup: a text field and its keyboard have no place on a
      * menu floating over the page, so the popup hands the job to the sheet,
      * which then opens straight on the form via [startRenaming].
@@ -302,12 +296,11 @@ fun BrowseActionsMenu(
             }
             if (onDeleteLocalFolder != null) {
                 ActionRow(
-                    icon = Icons.Rounded.Delete,
+                    icon = SfIcons.Trash,
                     label = stringResource(R.string.delete_folder),
                     onClick = onDeleteLocalFolder,
                 )
             }
-            if (!menu) Spacer(Modifier.height(24.dp))
         }
     }
 }
