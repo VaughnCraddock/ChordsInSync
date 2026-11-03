@@ -96,7 +96,6 @@
     <string name="songs">Songs</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
-    <string name="folders">Folders</string>
     <string name="add_folder_to_favorites">Add folder to favorites</string>
     <string name="remove_folder_from_favorites">Remove folder from favorites</string>
     <string name="no_album_metadata">None of these tracks say what album they are from.</string>
@@ -1374,4 +1373,8 @@
     <string name="deleted_one_song">Song deleted from this phone</string>
     <string name="deleted_songs_result">%1$d songs deleted from this phone</string>
     <string name="delete_failed_some">%1$d songs could not be deleted</string>
+    <string name="find_your_mood">Find Your Mood</string>
+    <string name="no_audio_version">No audio version found for this video</string>
+    <string name="no_video_version">No video version found for this song</string>
+    <string name="version_switch_in_party">Everyone in Listen Together hears the same version</string>
 </resources>
