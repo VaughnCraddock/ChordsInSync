@@ -125,9 +125,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.viewinterop.AndroidView
 import com.music.bitchord.AppIcon
@@ -135,13 +137,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.SingletonImageLoader
 import coil3.compose.AsyncImage
@@ -1651,6 +1656,54 @@ fun SettingsScreen(
         // The version line is the page's colophon, not a setting: it belongs to
         // the whole list, so it goes when the list is narrowed to a few rows.
         if (section == null && searchQuery.isBlank()) {
+        // Fork branding lockup directly above the version line: the app name
+        // in caps, with the fork credit at half size tracked out beneath it so
+        // the two lines span the same width. The tracking is measured, not
+        // guessed: solve for the letter spacing from both lines' measured
+        // widths, then re-measure with it applied and correct the residual
+        // (spacing is added after every glyph, so one pass is not exact).
+        val lockupName = "CHORDS IN SYNC"
+        val lockupCredit = "Fork of BitChord"
+        val lockupNameStyle = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontSize = 10.sp,
+        )
+        val lockupCreditStyle = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontSize = 5.sp,
+        )
+        val lockupMeasurer = rememberTextMeasurer()
+        val lockupDensity = LocalDensity.current
+        val lockupCreditSpacing = remember(lockupMeasurer, lockupDensity) {
+            val nameWidth = lockupMeasurer.measure(lockupName, lockupNameStyle).size.width
+            val naturalWidth = lockupMeasurer.measure(lockupCredit, lockupCreditStyle).size.width
+            val gaps = (lockupCredit.length - 1).coerceAtLeast(1)
+            var spacingPx = (nameWidth - naturalWidth).toFloat() / gaps
+            val appliedWidth = lockupMeasurer.measure(
+                lockupCredit,
+                lockupCreditStyle.copy(letterSpacing = with(lockupDensity) { spacingPx.toSp() }),
+            ).size.width
+            spacingPx += (nameWidth - appliedWidth).toFloat() / gaps
+            with(lockupDensity) { spacingPx.toSp() }
+        }
+        Text(
+            text = lockupName,
+            style = lockupNameStyle,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp),
+        )
+        Text(
+            text = lockupCredit,
+            style = lockupCreditStyle.copy(letterSpacing = lockupCreditSpacing),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 2.dp),
+        )
         Text(
             text = buildAnnotatedString {
                 append("bitchord $version  ")
@@ -1682,7 +1735,7 @@ fun SettingsScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp, bottom = 8.dp),
+                .padding(top = 4.dp, bottom = 8.dp),
         )
         }
     }
