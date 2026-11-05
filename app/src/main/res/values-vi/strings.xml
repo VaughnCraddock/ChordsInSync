@@ -1430,4 +1430,35 @@
     <string name="bit_perfect_status_inexact">%1$s · không chính xác: nguồn này không phải PCM lossless</string>
     <string name="bit_perfect_status_waiting">Đang chờ bản nhạc lossless trên đầu ra được hỗ trợ</string>
     <string name="bit_perfect_status_unavailable">Không khả dụng cho bản nhạc này (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Phân tích BPM</string>
+    <string name="analyze_bpm_in_folder">Phân tích BPM trong thư mục</string>
+    <string name="bpm_channel_name">Phân tích BPM</string>
+    <string name="bpm_notification_title">Đang phân tích BPM</string>
+    <string name="bpm_notification_progress">Đã phân tích %1$d trong %2$d tệp</string>
+    <string name="bpm_analyzing">Đang phân tích…</string>
+    <string name="bpm_existing_tag">BPM đã gắn thẻ: %1$s</string>
+    <string name="bpm_detected">Phát hiện: %1$s BPM</string>
+    <string name="bpm_confidence">Độ tin cậy %1$d%%</string>
+    <string name="bpm_no_tempo_found">Không phát hiện được nhịp trong tệp này</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Chạm theo nhịp</string>
+    <string name="bpm_tap_use">Dùng %1$s</string>
+    <string name="bpm_save_to_tags">Lưu vào thẻ</string>
+    <string name="bpm_saved">Đã lưu BPM: %1$s</string>
+    <string name="bpm_invalid_value">Nhập BPM từ 20 đến 400</string>
+    <string name="bpm_failure_unsupported">Định dạng này không hỗ trợ thẻ BPM</string>
+    <string name="bpm_failure_unrecognized">Không nhận dạng được cấu trúc thẻ</string>
+    <string name="bpm_failure_too_large">Tệp quá lớn để gắn thẻ lại</string>
+    <string name="bpm_failure_permission">Không có quyền sửa tệp này</string>
+    <string name="bpm_failure_unreadable">Không đọc được tệp</string>
+    <string name="bpm_failure_verify">Không xác minh được việc ghi</string>
+    <string name="bpm_failure_io">Lỗi lưu trữ</string>
+    <string name="bpm_batch_include_tagged">Bao gồm tệp đã gắn thẻ</string>
+    <string name="bpm_batch_save_all">Lưu tất cả</string>
+    <string name="bpm_status_tagged">Đã gắn thẻ</string>
+    <string name="bpm_status_saved">Đã lưu</string>
+    <string name="bpm_status_unsupported">Định dạng không được hỗ trợ</string>
 </resources>

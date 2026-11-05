@@ -1377,4 +1377,35 @@
     <string name="no_audio_version">No audio version found for this video</string>
     <string name="no_video_version">No video version found for this song</string>
     <string name="version_switch_in_party">Everyone in Listen Together hears the same version</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analyze BPM</string>
+    <string name="analyze_bpm_in_folder">Analyze BPM in folder</string>
+    <string name="bpm_channel_name">BPM analysis</string>
+    <string name="bpm_notification_title">Analyzing BPM</string>
+    <string name="bpm_notification_progress">%1$d of %2$d files analyzed</string>
+    <string name="bpm_analyzing">Analyzing…</string>
+    <string name="bpm_existing_tag">Tagged BPM: %1$s</string>
+    <string name="bpm_detected">Detected: %1$s BPM</string>
+    <string name="bpm_confidence">Confidence %1$d%%</string>
+    <string name="bpm_no_tempo_found">No tempo could be detected in this file</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Tap along with the beat</string>
+    <string name="bpm_tap_use">Use %1$s</string>
+    <string name="bpm_save_to_tags">Save to tags</string>
+    <string name="bpm_saved">BPM saved: %1$s</string>
+    <string name="bpm_invalid_value">Enter a BPM between 20 and 400</string>
+    <string name="bpm_failure_unsupported">This format does not support BPM tags</string>
+    <string name="bpm_failure_unrecognized">Tag layout not recognized</string>
+    <string name="bpm_failure_too_large">File too large to retag</string>
+    <string name="bpm_failure_permission">No permission to modify this file</string>
+    <string name="bpm_failure_unreadable">File could not be read</string>
+    <string name="bpm_failure_verify">The write could not be verified</string>
+    <string name="bpm_failure_io">Storage error</string>
+    <string name="bpm_batch_include_tagged">Include already-tagged files</string>
+    <string name="bpm_batch_save_all">Save all</string>
+    <string name="bpm_status_tagged">Already tagged</string>
+    <string name="bpm_status_saved">Saved</string>
+    <string name="bpm_status_unsupported">Unsupported format</string>
 </resources>

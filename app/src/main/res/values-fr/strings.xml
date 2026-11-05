@@ -1514,4 +1514,35 @@
     <string name="bit_perfect_status_inexact">%1$s · inexact : cette source n\'est pas du PCM sans perte</string>
     <string name="bit_perfect_status_waiting">En attente d\'un morceau sans perte sur une sortie compatible</string>
     <string name="bit_perfect_status_unavailable">Indisponible pour ce morceau (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analyser le BPM</string>
+    <string name="analyze_bpm_in_folder">Analyser le BPM du dossier</string>
+    <string name="bpm_channel_name">Analyse BPM</string>
+    <string name="bpm_notification_title">Analyse BPM en cours</string>
+    <string name="bpm_notification_progress">%1$d fichiers analysés sur %2$d</string>
+    <string name="bpm_analyzing">Analyse…</string>
+    <string name="bpm_existing_tag">BPM étiqueté : %1$s</string>
+    <string name="bpm_detected">Détecté : %1$s BPM</string>
+    <string name="bpm_confidence">Confiance %1$d%%</string>
+    <string name="bpm_no_tempo_found">Aucun tempo détecté dans ce fichier</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Tapez en rythme avec la musique</string>
+    <string name="bpm_tap_use">Utiliser %1$s</string>
+    <string name="bpm_save_to_tags">Enregistrer dans les tags</string>
+    <string name="bpm_saved">BPM enregistré : %1$s</string>
+    <string name="bpm_invalid_value">Saisissez un BPM entre 20 et 400</string>
+    <string name="bpm_failure_unsupported">Ce format ne prend pas en charge les tags BPM</string>
+    <string name="bpm_failure_unrecognized">Structure de tags non reconnue</string>
+    <string name="bpm_failure_too_large">Fichier trop volumineux pour être réétiqueté</string>
+    <string name="bpm_failure_permission">Aucune autorisation de modifier ce fichier</string>
+    <string name="bpm_failure_unreadable">Lecture du fichier impossible</string>
+    <string name="bpm_failure_verify">Écriture impossible à vérifier</string>
+    <string name="bpm_failure_io">Erreur de stockage</string>
+    <string name="bpm_batch_include_tagged">Inclure les fichiers déjà étiquetés</string>
+    <string name="bpm_batch_save_all">Tout enregistrer</string>
+    <string name="bpm_status_tagged">Déjà étiqueté</string>
+    <string name="bpm_status_saved">Enregistré</string>
+    <string name="bpm_status_unsupported">Format non pris en charge</string>
 </resources>

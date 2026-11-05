@@ -1518,4 +1518,35 @@
     <string name="bit_perfect_status_inexact">%1$s · לא מדויק: המקור הזה אינו PCM ללא אובדן</string>
     <string name="bit_perfect_status_waiting">ממתין לרצועת Lossless ביציאה נתמכת</string>
     <string name="bit_perfect_status_unavailable">לא זמין עבור רצועה זו (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">ניתוח BPM</string>
+    <string name="analyze_bpm_in_folder">ניתוח BPM בתיקייה</string>
+    <string name="bpm_channel_name">ניתוח BPM</string>
+    <string name="bpm_notification_title">מנתח BPM</string>
+    <string name="bpm_notification_progress">נותחו %1$d מתוך %2$d קבצים</string>
+    <string name="bpm_analyzing">מנתח…</string>
+    <string name="bpm_existing_tag">BPM מתויג: %1$s</string>
+    <string name="bpm_detected">זוהה: %1$s BPM</string>
+    <string name="bpm_confidence">ביטחון %1$d%%</string>
+    <string name="bpm_no_tempo_found">לא ניתן היה לזהות טמפו בקובץ זה</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">הקישו לפי הקצב</string>
+    <string name="bpm_tap_use">השתמש ב-%1$s</string>
+    <string name="bpm_save_to_tags">שמירה בתגיות</string>
+    <string name="bpm_saved">BPM נשמר: %1$s</string>
+    <string name="bpm_invalid_value">הזינו BPM בין 20 ל-400</string>
+    <string name="bpm_failure_unsupported">פורמט זה אינו תומך בתגיות BPM</string>
+    <string name="bpm_failure_unrecognized">מבנה התגיות לא זוהה</string>
+    <string name="bpm_failure_too_large">הקובץ גדול מדי לתיוג מחדש</string>
+    <string name="bpm_failure_permission">אין הרשאה לשנות קובץ זה</string>
+    <string name="bpm_failure_unreadable">לא ניתן היה לקרוא את הקובץ</string>
+    <string name="bpm_failure_verify">לא ניתן היה לאמת את הכתיבה</string>
+    <string name="bpm_failure_io">שגיאת אחסון</string>
+    <string name="bpm_batch_include_tagged">כלילת קבצים שכבר מתויגים</string>
+    <string name="bpm_batch_save_all">שמירת הכל</string>
+    <string name="bpm_status_tagged">כבר מתויג</string>
+    <string name="bpm_status_saved">נשמר</string>
+    <string name="bpm_status_unsupported">פורמט לא נתמך</string>
 </resources>

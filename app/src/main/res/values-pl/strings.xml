@@ -1553,4 +1553,35 @@
     <string name="bit_perfect_status_inexact">%1$s · niedokładne: to źródło nie jest bezstratnym PCM</string>
     <string name="bit_perfect_status_waiting">Oczekiwanie na bezstratny utwór na obsługiwanym wyjściu</string>
     <string name="bit_perfect_status_unavailable">Niedostępne dla tego utworu (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analizuj BPM</string>
+    <string name="analyze_bpm_in_folder">Analizuj BPM w folderze</string>
+    <string name="bpm_channel_name">Analiza BPM</string>
+    <string name="bpm_notification_title">Analizowanie BPM</string>
+    <string name="bpm_notification_progress">Przeanalizowano %1$d z %2$d plików</string>
+    <string name="bpm_analyzing">Analizowanie…</string>
+    <string name="bpm_existing_tag">Otagowane BPM: %1$s</string>
+    <string name="bpm_detected">Wykryto: %1$s BPM</string>
+    <string name="bpm_confidence">Pewność %1$d%%</string>
+    <string name="bpm_no_tempo_found">Nie udało się wykryć tempa w tym pliku</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Stukaj w rytm muzyki</string>
+    <string name="bpm_tap_use">Użyj %1$s</string>
+    <string name="bpm_save_to_tags">Zapisz w tagach</string>
+    <string name="bpm_saved">Zapisano BPM: %1$s</string>
+    <string name="bpm_invalid_value">Podaj BPM od 20 do 400</string>
+    <string name="bpm_failure_unsupported">Ten format nie obsługuje tagów BPM</string>
+    <string name="bpm_failure_unrecognized">Nierozpoznany układ tagów</string>
+    <string name="bpm_failure_too_large">Plik zbyt duży, aby zmienić tagi</string>
+    <string name="bpm_failure_permission">Brak uprawnień do modyfikacji tego pliku</string>
+    <string name="bpm_failure_unreadable">Nie udało się odczytać pliku</string>
+    <string name="bpm_failure_verify">Nie udało się zweryfikować zapisu</string>
+    <string name="bpm_failure_io">Błąd pamięci</string>
+    <string name="bpm_batch_include_tagged">Uwzględnij już otagowane pliki</string>
+    <string name="bpm_batch_save_all">Zapisz wszystko</string>
+    <string name="bpm_status_tagged">Już otagowany</string>
+    <string name="bpm_status_saved">Zapisano</string>
+    <string name="bpm_status_unsupported">Nieobsługiwany format</string>
 </resources>

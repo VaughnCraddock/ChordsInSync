@@ -1490,4 +1490,35 @@
     <string name="bit_perfect_status_inexact">%1$s · 不精确：此音源不是无损 PCM</string>
     <string name="bit_perfect_status_waiting">正在等待受支持输出上的无损曲目</string>
     <string name="bit_perfect_status_unavailable">此曲目不可用（%1$s）</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">分析 BPM</string>
+    <string name="analyze_bpm_in_folder">分析文件夹中的 BPM</string>
+    <string name="bpm_channel_name">BPM 分析</string>
+    <string name="bpm_notification_title">正在分析 BPM</string>
+    <string name="bpm_notification_progress">已分析 %2$d 个文件中的 %1$d 个</string>
+    <string name="bpm_analyzing">分析中…</string>
+    <string name="bpm_existing_tag">已标记 BPM：%1$s</string>
+    <string name="bpm_detected">检测到：%1$s BPM</string>
+    <string name="bpm_confidence">置信度 %1$d%%</string>
+    <string name="bpm_no_tempo_found">无法在此文件中检测到节奏</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">跟着节拍点按</string>
+    <string name="bpm_tap_use">使用 %1$s</string>
+    <string name="bpm_save_to_tags">保存到标签</string>
+    <string name="bpm_saved">BPM 已保存：%1$s</string>
+    <string name="bpm_invalid_value">请输入 20 到 400 之间的 BPM</string>
+    <string name="bpm_failure_unsupported">此格式不支持 BPM 标签</string>
+    <string name="bpm_failure_unrecognized">无法识别标签结构</string>
+    <string name="bpm_failure_too_large">文件太大，无法重新标记</string>
+    <string name="bpm_failure_permission">没有修改此文件的权限</string>
+    <string name="bpm_failure_unreadable">无法读取文件</string>
+    <string name="bpm_failure_verify">无法验证写入</string>
+    <string name="bpm_failure_io">存储错误</string>
+    <string name="bpm_batch_include_tagged">包括已标记的文件</string>
+    <string name="bpm_batch_save_all">全部保存</string>
+    <string name="bpm_status_tagged">已标记</string>
+    <string name="bpm_status_saved">已保存</string>
+    <string name="bpm_status_unsupported">不支持的格式</string>
 </resources>

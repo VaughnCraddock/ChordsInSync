@@ -1545,4 +1545,35 @@
     <string name="bit_perfect_status_inexact">%1$s · неточно: этот источник не является PCM без потерь</string>
     <string name="bit_perfect_status_waiting">Ожидание трека без потерь на поддерживаемом выходе</string>
     <string name="bit_perfect_status_unavailable">Недоступно для этого трека (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Анализ BPM</string>
+    <string name="analyze_bpm_in_folder">Анализ BPM в папке</string>
+    <string name="bpm_channel_name">Анализ BPM</string>
+    <string name="bpm_notification_title">Анализ BPM</string>
+    <string name="bpm_notification_progress">Проанализировано %1$d из %2$d файлов</string>
+    <string name="bpm_analyzing">Анализ…</string>
+    <string name="bpm_existing_tag">BPM в теге: %1$s</string>
+    <string name="bpm_detected">Определено: %1$s BPM</string>
+    <string name="bpm_confidence">Уверенность %1$d%%</string>
+    <string name="bpm_no_tempo_found">Не удалось определить темп в этом файле</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Нажимайте в такт биту</string>
+    <string name="bpm_tap_use">Использовать %1$s</string>
+    <string name="bpm_save_to_tags">Сохранить в теги</string>
+    <string name="bpm_saved">BPM сохранён: %1$s</string>
+    <string name="bpm_invalid_value">Введите BPM от 20 до 400</string>
+    <string name="bpm_failure_unsupported">Этот формат не поддерживает теги BPM</string>
+    <string name="bpm_failure_unrecognized">Структура тегов не распознана</string>
+    <string name="bpm_failure_too_large">Файл слишком большой для перезаписи тегов</string>
+    <string name="bpm_failure_permission">Нет разрешения на изменение этого файла</string>
+    <string name="bpm_failure_unreadable">Не удалось прочитать файл</string>
+    <string name="bpm_failure_verify">Не удалось проверить запись</string>
+    <string name="bpm_failure_io">Ошибка хранилища</string>
+    <string name="bpm_batch_include_tagged">Включить файлы, уже имеющие тег</string>
+    <string name="bpm_batch_save_all">Сохранить все</string>
+    <string name="bpm_status_tagged">Тег уже есть</string>
+    <string name="bpm_status_saved">Сохранено</string>
+    <string name="bpm_status_unsupported">Неподдерживаемый формат</string>
 </resources>

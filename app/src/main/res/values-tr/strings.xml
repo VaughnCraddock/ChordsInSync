@@ -1470,4 +1470,35 @@
     <string name="bit_perfect_status_inexact">%1$s · tam değil: bu kaynak kayıpsız PCM değil</string>
     <string name="bit_perfect_status_waiting">Desteklenen bir çıkışta kayıpsız parça bekleniyor</string>
     <string name="bit_perfect_status_unavailable">Bu parça için kullanılamıyor (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">BPM Analizi</string>
+    <string name="analyze_bpm_in_folder">Klasörde BPM Analizi</string>
+    <string name="bpm_channel_name">BPM analizi</string>
+    <string name="bpm_notification_title">BPM analiz ediliyor</string>
+    <string name="bpm_notification_progress">%2$d dosyadan %1$d tanesi analiz edildi</string>
+    <string name="bpm_analyzing">Analiz ediliyor…</string>
+    <string name="bpm_existing_tag">Etiketli BPM: %1$s</string>
+    <string name="bpm_detected">Algılanan: %1$s BPM</string>
+    <string name="bpm_confidence">Güven %1$d%%</string>
+    <string name="bpm_no_tempo_found">Bu dosyada tempo algılanamadı</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Ritme uyarak dokunun</string>
+    <string name="bpm_tap_use">%1$s kullan</string>
+    <string name="bpm_save_to_tags">Etiketlere kaydet</string>
+    <string name="bpm_saved">BPM kaydedildi: %1$s</string>
+    <string name="bpm_invalid_value">20 ile 400 arasında bir BPM girin</string>
+    <string name="bpm_failure_unsupported">Bu biçim BPM etiketlerini desteklemiyor</string>
+    <string name="bpm_failure_unrecognized">Etiket düzeni tanınmadı</string>
+    <string name="bpm_failure_too_large">Dosya yeniden etiketlemek için çok büyük</string>
+    <string name="bpm_failure_permission">Bu dosyayı değiştirme izni yok</string>
+    <string name="bpm_failure_unreadable">Dosya okunamadı</string>
+    <string name="bpm_failure_verify">Yazma doğrulanamadı</string>
+    <string name="bpm_failure_io">Depolama hatası</string>
+    <string name="bpm_batch_include_tagged">Zaten etiketli dosyaları dahil et</string>
+    <string name="bpm_batch_save_all">Tümünü kaydet</string>
+    <string name="bpm_status_tagged">Zaten etiketli</string>
+    <string name="bpm_status_saved">Kaydedildi</string>
+    <string name="bpm_status_unsupported">Desteklenmeyen biçim</string>
 </resources>

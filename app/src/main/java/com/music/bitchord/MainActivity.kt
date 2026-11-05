@@ -247,6 +247,9 @@ import com.music.bitchord.ui.components.IosMenuPopover
 import com.music.bitchord.ui.components.SongActionsMenu
 import com.music.bitchord.ui.components.HeldContextMenu
 import com.music.bitchord.ui.components.LocalDeleteHost
+import com.music.bitchord.data.bpm.BpmRequest
+import com.music.bitchord.data.bpm.BpmRequests
+import com.music.bitchord.ui.components.BpmHost
 import com.music.bitchord.ui.components.HeldItem
 import androidx.media3.session.MediaController
 import com.music.bitchord.playback.QualityUpgrade
@@ -4505,6 +4508,19 @@ private fun BitChordApp(
                 } else {
                     null
                 },
+                // Any local file can have its tempo analyzed and tagged —
+                // saved downloads included, since (unlike delete) no other
+                // row offers it. The ask goes to the BPM host, whose editor
+                // shows the existing tag and the detected value before
+                // anything is written.
+                onAnalyzeBpm = if (song.localUri != null) {
+                    {
+                        songActions = null
+                        BpmRequests.ask(BpmRequest.Single(song))
+                    }
+                } else {
+                    null
+                },
                 onOpenAlbum = { id ->
                     openPage(
                         id,
@@ -5228,6 +5244,23 @@ private fun BitChordApp(
                         }
                     }
                 },
+                // The same folder resolution, for tempo: queue the folder's
+                // own tracks for a batch BPM run. The host dialog starts the
+                // service and shows progress and results; nothing is
+                // written until the results are confirmed there.
+                onAnalyzeBpmFolder = LocalGroups.folderPathOf(target.browseId)?.let { folderPath ->
+                    {
+                        browseActions = null
+                        withBrowseSongs(target) { songs ->
+                            BpmRequests.ask(
+                                BpmRequest.Batch(
+                                    songs = LocalDelete.folderSongs(songs, folderPath),
+                                    folderName = target.title,
+                                ),
+                            )
+                        }
+                    }
+                },
             )
         }
         // In a recompose scope of its own, as the track menu's is.
@@ -5295,6 +5328,11 @@ private fun BitChordApp(
                 ?.takeIf { it.startsWith("local:") }
                 ?.let { viewModel.reloadLocalDetail(it) }
         })
+
+        // ---- BPM analysis and tag writing ----
+        // The song and folder menus only ask; the host owns the editor,
+        // the batch run's progress and results, and every write's consent.
+        BpmHost()
 
         // ---- Welcome (once; under the sign-in WebView it can open) ----
         // There from the first frame, so no way in; on the way out it drops

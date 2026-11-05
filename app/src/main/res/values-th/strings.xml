@@ -1496,4 +1496,35 @@
     <string name="bit_perfect_status_inexact">%1$s · ไม่ตรงทุกบิต: แหล่งนี้ไม่ใช่ PCM แบบไม่สูญเสียคุณภาพ</string>
     <string name="bit_perfect_status_waiting">กำลังรอแทร็กแบบไม่สูญเสียคุณภาพบนเอาต์พุตที่รองรับ</string>
     <string name="bit_perfect_status_unavailable">ไม่พร้อมใช้งานสำหรับแทร็กนี้ (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">วิเคราะห์ BPM</string>
+    <string name="analyze_bpm_in_folder">วิเคราะห์ BPM ในโฟลเดอร์</string>
+    <string name="bpm_channel_name">การวิเคราะห์ BPM</string>
+    <string name="bpm_notification_title">กำลังวิเคราะห์ BPM</string>
+    <string name="bpm_notification_progress">วิเคราะห์แล้ว %1$d จาก %2$d ไฟล์</string>
+    <string name="bpm_analyzing">กำลังวิเคราะห์…</string>
+    <string name="bpm_existing_tag">BPM ที่แท็กไว้: %1$s</string>
+    <string name="bpm_detected">ตรวจพบ: %1$s BPM</string>
+    <string name="bpm_confidence">ความมั่นใจ %1$d%%</string>
+    <string name="bpm_no_tempo_found">ตรวจไม่พบจังหวะในไฟล์นี้</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">แตะตามจังหวะเพลง</string>
+    <string name="bpm_tap_use">ใช้ %1$s</string>
+    <string name="bpm_save_to_tags">บันทึกลงแท็ก</string>
+    <string name="bpm_saved">บันทึก BPM แล้ว: %1$s</string>
+    <string name="bpm_invalid_value">กรอก BPM ระหว่าง 20 ถึง 400</string>
+    <string name="bpm_failure_unsupported">รูปแบบนี้ไม่รองรับแท็ก BPM</string>
+    <string name="bpm_failure_unrecognized">ไม่รู้จักโครงสร้างแท็ก</string>
+    <string name="bpm_failure_too_large">ไฟล์ใหญ่เกินไปสำหรับการแท็กใหม่</string>
+    <string name="bpm_failure_permission">ไม่มีสิทธิ์แก้ไขไฟล์นี้</string>
+    <string name="bpm_failure_unreadable">อ่านไฟล์ไม่ได้</string>
+    <string name="bpm_failure_verify">ยืนยันการเขียนไม่ได้</string>
+    <string name="bpm_failure_io">ข้อผิดพลาดของพื้นที่จัดเก็บ</string>
+    <string name="bpm_batch_include_tagged">รวมไฟล์ที่แท็กแล้ว</string>
+    <string name="bpm_batch_save_all">บันทึกทั้งหมด</string>
+    <string name="bpm_status_tagged">แท็กแล้ว</string>
+    <string name="bpm_status_saved">บันทึกแล้ว</string>
+    <string name="bpm_status_unsupported">รูปแบบไม่รองรับ</string>
 </resources>

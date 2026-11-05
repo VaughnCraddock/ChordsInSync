@@ -21,8 +21,11 @@ import androidx.compose.ui.window.DialogProperties
 import com.music.bitchord.R
 import com.music.bitchord.data.SongInfo
 import com.music.bitchord.data.SongInfoRepository
+import com.music.bitchord.data.bpm.BpmTagStore
+import com.music.bitchord.data.bpm.BpmTags
 import com.music.bitchord.data.compactCount
 import com.music.bitchord.data.model.Song
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Refresh
 
@@ -45,6 +48,17 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
     val info by produceState<SongInfo?>(null, song, retry) {
         value = null
         value = SongInfoRepository.load(song)
+    }
+    // A local file's own BPM tag, read fresh each time this opens — which is
+    // also what makes a tag written moments ago show here without a restart.
+    val context = LocalContext.current
+    var tagBpm by remember(song) { mutableStateOf<Double?>(null) }
+    var tagLoaded by remember(song) { mutableStateOf(song.localUri == null) }
+    LaunchedEffect(song) {
+        song.localUri?.let { uri ->
+            tagBpm = BpmTagStore.readBpm(context, uri)
+            tagLoaded = true
+        }
     }
     val onSurface = MaterialTheme.colorScheme.onSurface
 
@@ -95,13 +109,25 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
                     .verticalScroll(rememberScrollState()),
             ) {
                 val unavailable = stringResource(R.string.song_info_unavailable)
-                val rows = listOf(
-                    R.string.song_info_album to (info?.album ?: song.albumName),
-                    R.string.song_info_release_date to (info?.releaseDate ?: info?.releaseYear),
-                    R.string.song_info_views to info?.views?.let(::compactCount),
-                    R.string.song_info_likes to info?.likes,
-                    R.string.song_info_comments to info?.comments,
-                )
+                val rows = buildList {
+                    add(R.string.song_info_album to (info?.album ?: song.albumName))
+                    add(R.string.song_info_release_date to (info?.releaseDate ?: info?.releaseYear))
+                    add(R.string.song_info_views to info?.views?.let(::compactCount))
+                    add(R.string.song_info_likes to info?.likes)
+                    add(R.string.song_info_comments to info?.comments)
+                    // The tag BPM row exists only for a local file; while the
+                    // tag is being read the row shows the loading spinner
+                    // like the others, and an untagged file gets a dash.
+                    if (song.localUri != null) {
+                        add(
+                            R.string.bpm to when {
+                                !tagLoaded -> null
+                                tagBpm != null -> BpmTags.formatBpmText(tagBpm!!)
+                                else -> "—"
+                            },
+                        )
+                    }
+                }
                 rows.forEachIndexed { index, (label, value) ->
                     if (index > 0) AlertRule(Modifier.padding(start = 16.dp))
                     SongInfoRow(

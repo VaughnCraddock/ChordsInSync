@@ -1518,4 +1518,35 @@
     <string name="bit_perfect_status_inexact">%1$s · não exato: esta fonte não é PCM sem perdas</string>
     <string name="bit_perfect_status_waiting">Aguardando uma faixa sem perdas em uma saída compatível</string>
     <string name="bit_perfect_status_unavailable">Indisponível para esta faixa (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analisar BPM</string>
+    <string name="analyze_bpm_in_folder">Analisar BPM na pasta</string>
+    <string name="bpm_channel_name">Análise de BPM</string>
+    <string name="bpm_notification_title">Analisando BPM</string>
+    <string name="bpm_notification_progress">%1$d de %2$d arquivos analisados</string>
+    <string name="bpm_analyzing">Analisando…</string>
+    <string name="bpm_existing_tag">BPM etiquetado: %1$s</string>
+    <string name="bpm_detected">Detectado: %1$s BPM</string>
+    <string name="bpm_confidence">Confiança %1$d%%</string>
+    <string name="bpm_no_tempo_found">Não foi possível detectar o tempo neste arquivo</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Toque no ritmo da batida</string>
+    <string name="bpm_tap_use">Usar %1$s</string>
+    <string name="bpm_save_to_tags">Salvar nas etiquetas</string>
+    <string name="bpm_saved">BPM salvo: %1$s</string>
+    <string name="bpm_invalid_value">Insira um BPM entre 20 e 400</string>
+    <string name="bpm_failure_unsupported">Este formato não suporta etiquetas BPM</string>
+    <string name="bpm_failure_unrecognized">Estrutura de etiquetas não reconhecida</string>
+    <string name="bpm_failure_too_large">Arquivo grande demais para reetiquetar</string>
+    <string name="bpm_failure_permission">Sem permissão para modificar este arquivo</string>
+    <string name="bpm_failure_unreadable">Não foi possível ler o arquivo</string>
+    <string name="bpm_failure_verify">Não foi possível verificar a gravação</string>
+    <string name="bpm_failure_io">Erro de armazenamento</string>
+    <string name="bpm_batch_include_tagged">Incluir arquivos já etiquetados</string>
+    <string name="bpm_batch_save_all">Salvar tudo</string>
+    <string name="bpm_status_tagged">Já etiquetado</string>
+    <string name="bpm_status_saved">Salvo</string>
+    <string name="bpm_status_unsupported">Formato não suportado</string>
 </resources>

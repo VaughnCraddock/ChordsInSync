@@ -158,6 +158,14 @@ fun BrowseActionsMenu(
      */
     onDeleteLocalFolder: (() -> Unit)? = null,
     /**
+     * Analyzes the tempo of every track in a device folder and offers the
+     * results for tag writing — set only when the target is one of Local
+     * Music's folder groups. Like the folder delete above, this row only
+     * ever asks: the run and its results live with the caller (see
+     * BpmHost), because a folder's songs are only known once resolved.
+     */
+    onAnalyzeBpmFolder: (() -> Unit)? = null,
+    /**
      * Rename in the popup: a text field and its keyboard have no place on a
      * menu floating over the page, so the popup hands the job to the sheet,
      * which then opens straight on the form via [startRenaming].
@@ -299,6 +307,13 @@ fun BrowseActionsMenu(
                     icon = SfIcons.Trash,
                     label = stringResource(R.string.delete_folder),
                     onClick = onDeleteLocalFolder,
+                )
+            }
+            if (onAnalyzeBpmFolder != null) {
+                ActionRow(
+                    icon = SfIcons.Metronome,
+                    label = stringResource(R.string.analyze_bpm_in_folder),
+                    onClick = onAnalyzeBpmFolder,
                 )
             }
         }

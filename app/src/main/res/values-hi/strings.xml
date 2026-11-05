@@ -1513,4 +1513,35 @@
     <string name="bit_perfect_status_inexact">%1$s · सटीक नहीं: यह सोर्स लॉसलेस PCM नहीं है</string>
     <string name="bit_perfect_status_waiting">समर्थित आउटपुट पर लॉसलेस ट्रैक का इंतज़ार है</string>
     <string name="bit_perfect_status_unavailable">इस ट्रैक के लिए उपलब्ध नहीं (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">BPM का विश्लेषण करें</string>
+    <string name="analyze_bpm_in_folder">फ़ोल्डर में BPM का विश्लेषण करें</string>
+    <string name="bpm_channel_name">BPM विश्लेषण</string>
+    <string name="bpm_notification_title">BPM का विश्लेषण हो रहा है</string>
+    <string name="bpm_notification_progress">%2$d में से %1$d फ़ाइलों का विश्लेषण हुआ</string>
+    <string name="bpm_analyzing">विश्लेषण हो रहा है…</string>
+    <string name="bpm_existing_tag">टैग किया गया BPM: %1$s</string>
+    <string name="bpm_detected">पता चला: %1$s BPM</string>
+    <string name="bpm_confidence">विश्वास %1$d%%</string>
+    <string name="bpm_no_tempo_found">इस फ़ाइल में कोई टेम्पो नहीं मिला</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">बीट के साथ टैप करें</string>
+    <string name="bpm_tap_use">%1$s उपयोग करें</string>
+    <string name="bpm_save_to_tags">टैग में सहेजें</string>
+    <string name="bpm_saved">BPM सहेजा गया: %1$s</string>
+    <string name="bpm_invalid_value">20 और 400 के बीच BPM दर्ज करें</string>
+    <string name="bpm_failure_unsupported">यह प्रारूप BPM टैग का समर्थन नहीं करता</string>
+    <string name="bpm_failure_unrecognized">टैग संरचना पहचानी नहीं गई</string>
+    <string name="bpm_failure_too_large">फ़ाइल फिर से टैग करने के लिए बहुत बड़ी है</string>
+    <string name="bpm_failure_permission">इस फ़ाइल को बदलने की अनुमति नहीं है</string>
+    <string name="bpm_failure_unreadable">फ़ाइल पढ़ी नहीं जा सकी</string>
+    <string name="bpm_failure_verify">लेखन सत्यापित नहीं हो सका</string>
+    <string name="bpm_failure_io">संग्रहण त्रुटि</string>
+    <string name="bpm_batch_include_tagged">पहले से टैग की गई फ़ाइलें शामिल करें</string>
+    <string name="bpm_batch_save_all">सभी सहेजें</string>
+    <string name="bpm_status_tagged">पहले से टैग है</string>
+    <string name="bpm_status_saved">सहेजा गया</string>
+    <string name="bpm_status_unsupported">असमर्थित प्रारूप</string>
 </resources>

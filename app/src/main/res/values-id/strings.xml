@@ -1490,4 +1490,35 @@
     <string name="bit_perfect_status_inexact">%1$s · tidak persis: sumber ini bukan PCM lossless</string>
     <string name="bit_perfect_status_waiting">Menunggu trek lossless pada output yang didukung</string>
     <string name="bit_perfect_status_unavailable">Tidak tersedia untuk trek ini (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analisis BPM</string>
+    <string name="analyze_bpm_in_folder">Analisis BPM di folder</string>
+    <string name="bpm_channel_name">Analisis BPM</string>
+    <string name="bpm_notification_title">Menganalisis BPM</string>
+    <string name="bpm_notification_progress">%1$d dari %2$d file dianalisis</string>
+    <string name="bpm_analyzing">Menganalisis…</string>
+    <string name="bpm_existing_tag">BPM bertanda: %1$s</string>
+    <string name="bpm_detected">Terdeteksi: %1$s BPM</string>
+    <string name="bpm_confidence">Keyakinan %1$d%%</string>
+    <string name="bpm_no_tempo_found">Tidak ada tempo yang dapat dideteksi di file ini</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Ketuk mengikuti irama</string>
+    <string name="bpm_tap_use">Gunakan %1$s</string>
+    <string name="bpm_save_to_tags">Simpan ke tag</string>
+    <string name="bpm_saved">BPM disimpan: %1$s</string>
+    <string name="bpm_invalid_value">Masukkan BPM antara 20 dan 400</string>
+    <string name="bpm_failure_unsupported">Format ini tidak mendukung tag BPM</string>
+    <string name="bpm_failure_unrecognized">Tata letak tag tidak dikenali</string>
+    <string name="bpm_failure_too_large">File terlalu besar untuk ditandai ulang</string>
+    <string name="bpm_failure_permission">Tidak ada izin untuk mengubah file ini</string>
+    <string name="bpm_failure_unreadable">File tidak dapat dibaca</string>
+    <string name="bpm_failure_verify">Penulisan tidak dapat diverifikasi</string>
+    <string name="bpm_failure_io">Kesalahan penyimpanan</string>
+    <string name="bpm_batch_include_tagged">Sertakan file yang sudah bertanda</string>
+    <string name="bpm_batch_save_all">Simpan semua</string>
+    <string name="bpm_status_tagged">Sudah bertanda</string>
+    <string name="bpm_status_saved">Disimpan</string>
+    <string name="bpm_status_unsupported">Format tidak didukung</string>
 </resources>

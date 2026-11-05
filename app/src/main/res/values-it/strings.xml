@@ -1452,4 +1452,35 @@
     <string name="bit_perfect_status_inexact">%1$s · non esatto: questa sorgente non è PCM lossless</string>
     <string name="bit_perfect_status_waiting">In attesa di un brano lossless su un\'uscita supportata</string>
     <string name="bit_perfect_status_unavailable">Non disponibile per questo brano (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">Analizza BPM</string>
+    <string name="analyze_bpm_in_folder">Analizza BPM nella cartella</string>
+    <string name="bpm_channel_name">Analisi BPM</string>
+    <string name="bpm_notification_title">Analisi BPM in corso</string>
+    <string name="bpm_notification_progress">%1$d file analizzati su %2$d</string>
+    <string name="bpm_analyzing">Analisi…</string>
+    <string name="bpm_existing_tag">BPM nei tag: %1$s</string>
+    <string name="bpm_detected">Rilevato: %1$s BPM</string>
+    <string name="bpm_confidence">Affidabilità %1$d%%</string>
+    <string name="bpm_no_tempo_found">Nessun tempo rilevato in questo file</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Tocca a tempo con il ritmo</string>
+    <string name="bpm_tap_use">Usa %1$s</string>
+    <string name="bpm_save_to_tags">Salva nei tag</string>
+    <string name="bpm_saved">BPM salvato: %1$s</string>
+    <string name="bpm_invalid_value">Inserisci un BPM tra 20 e 400</string>
+    <string name="bpm_failure_unsupported">Questo formato non supporta i tag BPM</string>
+    <string name="bpm_failure_unrecognized">Struttura dei tag non riconosciuta</string>
+    <string name="bpm_failure_too_large">File troppo grande per essere ritaggato</string>
+    <string name="bpm_failure_permission">Nessun permesso di modificare questo file</string>
+    <string name="bpm_failure_unreadable">Impossibile leggere il file</string>
+    <string name="bpm_failure_verify">Impossibile verificare la scrittura</string>
+    <string name="bpm_failure_io">Errore di archiviazione</string>
+    <string name="bpm_batch_include_tagged">Includi i file già taggati</string>
+    <string name="bpm_batch_save_all">Salva tutto</string>
+    <string name="bpm_status_tagged">Già taggato</string>
+    <string name="bpm_status_saved">Salvato</string>
+    <string name="bpm_status_unsupported">Formato non supportato</string>
 </resources>

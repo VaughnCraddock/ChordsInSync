@@ -140,6 +140,14 @@ fun SongActionsMenu(
      * caller's, not this sheet's — see LocalDeleteHost.
      */
     onDeleteLocalFile: (() -> Unit)? = null,
+    /**
+     * Analyzes this track's tempo and offers to write it into the file's
+     * own BPM tag. Null hides the row — the caller passes one for any local
+     * file (unlike delete, a saved download has no other door to this, so
+     * it is offered there too). The editor is the caller's, not this
+     * sheet's — see BpmHost.
+     */
+    onAnalyzeBpm: (() -> Unit)? = null,
     showSleepTimer: Boolean = false,
     /**
      * Sends the playing track back to YouTube's own upload, and keeps it there.
@@ -344,6 +352,14 @@ fun SongActionsMenu(
             ActionRow(
                 icon = SfIcons.Trash,
                 label = stringResource(R.string.delete_from_device),
+                accent = palette.accent,
+                onClick = it,
+            )
+        }
+        onAnalyzeBpm?.let {
+            ActionRow(
+                icon = SfIcons.Metronome,
+                label = stringResource(R.string.analyze_bpm),
                 accent = palette.accent,
                 onClick = it,
             )

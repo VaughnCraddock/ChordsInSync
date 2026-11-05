@@ -1513,4 +1513,35 @@
     <string name="bit_perfect_status_inexact">%1$s · nicht exakt: Diese Quelle ist kein verlustfreies PCM</string>
     <string name="bit_perfect_status_waiting">Warte auf einen verlustfreien Titel an einem unterstützten Ausgang</string>
     <string name="bit_perfect_status_unavailable">Für diesen Titel nicht verfügbar (%1$s)</string>
+    <!-- Fork (ChordsInSync) strings: BPM analyzer and tag writing -->
+    <string name="bpm">BPM</string>
+    <string name="analyze_bpm">BPM analysieren</string>
+    <string name="analyze_bpm_in_folder">BPM im Ordner analysieren</string>
+    <string name="bpm_channel_name">BPM-Analyse</string>
+    <string name="bpm_notification_title">BPM wird analysiert</string>
+    <string name="bpm_notification_progress">%1$d von %2$d Dateien analysiert</string>
+    <string name="bpm_analyzing">Analysieren…</string>
+    <string name="bpm_existing_tag">Getaggte BPM: %1$s</string>
+    <string name="bpm_detected">Erkannt: %1$s BPM</string>
+    <string name="bpm_confidence">Sicherheit %1$d%%</string>
+    <string name="bpm_no_tempo_found">In dieser Datei konnte kein Tempo erkannt werden</string>
+    <string name="bpm_field_label">BPM</string>
+    <string name="bpm_tap">TAP</string>
+    <string name="bpm_tap_hint">Im Takt mittippen</string>
+    <string name="bpm_tap_use">%1$s verwenden</string>
+    <string name="bpm_save_to_tags">In Tags speichern</string>
+    <string name="bpm_saved">BPM gespeichert: %1$s</string>
+    <string name="bpm_invalid_value">Geben Sie eine BPM zwischen 20 und 400 ein</string>
+    <string name="bpm_failure_unsupported">Dieses Format unterstützt keine BPM-Tags</string>
+    <string name="bpm_failure_unrecognized">Tag-Struktur nicht erkannt</string>
+    <string name="bpm_failure_too_large">Datei zu groß zum erneuten Taggen</string>
+    <string name="bpm_failure_permission">Keine Berechtigung, diese Datei zu ändern</string>
+    <string name="bpm_failure_unreadable">Datei konnte nicht gelesen werden</string>
+    <string name="bpm_failure_verify">Das Schreiben konnte nicht überprüft werden</string>
+    <string name="bpm_failure_io">Speicherfehler</string>
+    <string name="bpm_batch_include_tagged">Bereits getaggte Dateien einbeziehen</string>
+    <string name="bpm_batch_save_all">Alle speichern</string>
+    <string name="bpm_status_tagged">Bereits getaggt</string>
+    <string name="bpm_status_saved">Gespeichert</string>
+    <string name="bpm_status_unsupported">Nicht unterstütztes Format</string>
 </resources>
