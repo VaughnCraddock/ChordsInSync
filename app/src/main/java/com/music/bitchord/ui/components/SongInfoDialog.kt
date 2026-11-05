@@ -26,8 +26,11 @@ import androidx.compose.ui.window.DialogProperties
 import com.music.bitchord.R
 import com.music.bitchord.data.SongInfo
 import com.music.bitchord.data.SongInfoRepository
+import com.music.bitchord.data.bpm.BpmTagStore
+import com.music.bitchord.data.bpm.BpmTags
 import com.music.bitchord.data.compactCount
 import com.music.bitchord.data.model.Song
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 
@@ -52,6 +55,17 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
         value = SongInfoRepository.load(song)
     }
     val creditsScroll = rememberScrollState()
+    // A local file's own BPM tag, read fresh each time this opens — which is
+    // also what makes a tag written moments ago show here without a restart.
+    val context = LocalContext.current
+    var tagBpm by remember(song) { mutableStateOf<Double?>(null) }
+    var tagLoaded by remember(song) { mutableStateOf(song.localUri == null) }
+    LaunchedEffect(song) {
+        song.localUri?.let { uri ->
+            tagBpm = BpmTagStore.readBpm(context, uri)
+            tagLoaded = true
+        }
+    }
     val onSurface = MaterialTheme.colorScheme.onSurface
 
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
@@ -97,7 +111,7 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
             AlertRule()
             val surface = MaterialTheme.colorScheme.surface
             SubcomposeLayout(Modifier.fillMaxWidth()) { constraints ->
-                val rowsHeight = subcompose("rows") { SongInfoStandardRows(info, song) }
+                val rowsHeight = subcompose("rows") { SongInfoStandardRows(info, song, tagBpm, tagLoaded) }
                     .first().measure(constraints).height
                 val body = subcompose("content") {
                     Box(Modifier.fillMaxWidth().height(rowsHeight.toDp())) {
@@ -119,7 +133,7 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
                                     }
                                 },
                         ) {
-                            SongInfoStandardRows(info, song)
+                            SongInfoStandardRows(info, song, tagBpm, tagLoaded)
                             info?.credits?.takeIf { it.isNotEmpty() }?.forEach { credit ->
                                 AlertRule(Modifier.padding(start = 16.dp))
                                 SongInfoCreditRow(role = credit.role, names = credit.text)
@@ -157,15 +171,27 @@ internal fun SongInfoDialog(song: Song, onDismiss: () -> Unit) {
 }
 
 @Composable
-private fun SongInfoStandardRows(info: SongInfo?, song: Song) {
+private fun SongInfoStandardRows(info: SongInfo?, song: Song, tagBpm: Double? = null, tagLoaded: Boolean = true) {
     val unavailable = stringResource(R.string.song_info_unavailable)
-    val rows = listOf(
-        R.string.song_info_album to (info?.album ?: song.albumName),
-        R.string.song_info_release_date to (info?.releaseDate ?: info?.releaseYear),
-        R.string.song_info_views to info?.views?.let(::compactCount),
-        R.string.song_info_likes to info?.likes,
-        R.string.song_info_comments to info?.comments,
-    )
+    val rows = buildList {
+        add(R.string.song_info_album to (info?.album ?: song.albumName))
+        add(R.string.song_info_release_date to (info?.releaseDate ?: info?.releaseYear))
+        add(R.string.song_info_views to info?.views?.let(::compactCount))
+        add(R.string.song_info_likes to info?.likes)
+        add(R.string.song_info_comments to info?.comments)
+        // The tag BPM row exists only for a local file; while the tag is
+        // being read the row shows the loading state like the others, and
+        // an untagged file gets a dash.
+        if (song.localUri != null) {
+            add(
+                R.string.bpm to when {
+                    !tagLoaded -> null
+                    tagBpm != null -> BpmTags.formatBpmText(tagBpm!!)
+                    else -> "—"
+                },
+            )
+        }
+    }
     Column {
         rows.forEachIndexed { index, (label, value) ->
             if (index > 0) AlertRule(Modifier.padding(start = 16.dp))
