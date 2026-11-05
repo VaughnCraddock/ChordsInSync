@@ -680,6 +680,17 @@
             android:foregroundServiceType="dataSync" />
 
         <!--
+          Batch BPM analysis. Same shape again: started only by the app,
+          foreground because a folder of tracks takes longer than a screen
+          timeout, and it only ever reads — tag writes happen later, from
+          the results screen, under the user's confirmation.
+        -->
+        <service
+            android:name=".data.bpm.BpmBatchService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!--
           Home-screen widgets. Two providers so the picker lists a 2×2 and a 4×2,
           both of which are the same widget resized — see MediaWidget.
 
