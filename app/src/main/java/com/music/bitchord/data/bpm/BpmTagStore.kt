@@ -35,6 +35,12 @@ enum class BpmFailure {
 
     /** Anything else the storage layer answered with. */
     IO_ERROR,
+
+    /** Analysis decoded the file but found no measurable tempo in it. */
+    NO_TEMPO_DETECTED,
+
+    /** The file could not be decoded into audio at all, so no tempo could be measured. */
+    DECODE_FAILED,
 }
 
 /** The outcome of one [BpmTagStore.writeBpm] — every file ends in exactly one of these. */

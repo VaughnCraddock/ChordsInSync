@@ -1439,6 +1439,7 @@
     <string name="bpm_failure_unreadable">無法讀取檔案</string>
     <string name="bpm_failure_verify">無法驗證寫入</string>
     <string name="bpm_failure_io">儲存錯誤</string>
+    <string name="bpm_failure_decode">無法解碼此檔案，因此無法測量節奏</string>
     <string name="bpm_batch_include_tagged">包括已標記的檔案</string>
     <string name="bpm_batch_save_all">全部儲存</string>
     <string name="bpm_status_tagged">已標記</string>

@@ -1539,6 +1539,7 @@
     <string name="bpm_failure_unreadable">फ़ाइल पढ़ी नहीं जा सकी</string>
     <string name="bpm_failure_verify">लेखन सत्यापित नहीं हो सका</string>
     <string name="bpm_failure_io">संग्रहण त्रुटि</string>
+    <string name="bpm_failure_decode">इस फ़ाइल को डिकोड नहीं किया जा सका, इसलिए कोई टेम्पो नहीं मापा जा सका</string>
     <string name="bpm_batch_include_tagged">पहले से टैग की गई फ़ाइलें शामिल करें</string>
     <string name="bpm_batch_save_all">सभी सहेजें</string>
     <string name="bpm_status_tagged">पहले से टैग है</string>

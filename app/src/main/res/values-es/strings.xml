@@ -1511,6 +1511,7 @@
     <string name="bpm_failure_unreadable">No se pudo leer el archivo</string>
     <string name="bpm_failure_verify">No se pudo verificar la escritura</string>
     <string name="bpm_failure_io">Error de almacenamiento</string>
+    <string name="bpm_failure_decode">Este archivo no se pudo decodificar, por lo que no se pudo medir el tempo</string>
     <string name="bpm_batch_include_tagged">Incluir archivos ya etiquetados</string>
     <string name="bpm_batch_save_all">Guardar todo</string>
     <string name="bpm_status_tagged">Ya etiquetado</string>

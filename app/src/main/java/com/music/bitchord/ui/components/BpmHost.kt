@@ -139,6 +139,8 @@ private fun failureText(failure: BpmFailure): String = stringResource(
         BpmFailure.UNREADABLE -> R.string.bpm_failure_unreadable
         BpmFailure.VERIFY_FAILED -> R.string.bpm_failure_verify
         BpmFailure.IO_ERROR -> R.string.bpm_failure_io
+        BpmFailure.NO_TEMPO_DETECTED -> R.string.bpm_no_tempo_found
+        BpmFailure.DECODE_FAILED -> R.string.bpm_failure_decode
     },
 )
 
@@ -163,20 +165,36 @@ private fun SingleBpmDialog(
     var userEdited by remember { mutableStateOf(false) }
     var saving by remember { mutableStateOf(false) }
     var failure by remember { mutableStateOf<BpmFailure?>(null) }
+    var analysisFailure by remember { mutableStateOf<BpmFailure?>(null) }
 
     fun analyze() {
         analyzing = true
         scope.launch {
-            val estimate = BpmAnalyzer.analyze(context, uriString)
+            val outcome = BpmAnalyzer.analyze(context, uriString)
             analyzing = false
             attempted = true
-            if (estimate != null) {
-                detected = estimate.bpm
-                confidence = estimate.confidence
-                // The detected value fills the field only while the field is
-                // still the app's to fill: no existing tag, and no typing yet.
-                if (!userEdited && existing == null) {
-                    fieldText = BpmTags.formatBpmText(estimate.bpm)
+            analysisFailure = null
+            when (outcome) {
+                is BpmAnalyzer.Outcome.Found -> {
+                    detected = outcome.estimate.bpm
+                    confidence = outcome.estimate.confidence
+                    // The detected value fills the field only while the field is
+                    // still the app's to fill: no existing tag, and no typing yet.
+                    if (!userEdited && existing == null) {
+                        fieldText = BpmTags.formatBpmText(outcome.estimate.bpm)
+                    }
+                }
+                BpmAnalyzer.Outcome.NoTempo -> {
+                    detected = null
+                    confidence = null
+                }
+                BpmAnalyzer.Outcome.Unreadable -> {
+                    // Not "no tempo": the file never became audio at all.
+                    // The failure line below says so plainly instead of
+                    // blaming the music for a decode fault.
+                    detected = null
+                    confidence = null
+                    analysisFailure = BpmFailure.DECODE_FAILED
                 }
             }
         }
@@ -233,11 +251,11 @@ private fun SingleBpmDialog(
                     detectedBpm = detected,
                     confidence = confidence,
                     analyzing = analyzing,
-                    showNoTempo = attempted && detected == null,
+                    showNoTempo = attempted && detected == null && analysisFailure == null,
                     onAnalyze = { analyze() },
                     fieldText = fieldText,
                     onFieldChange = { fieldText = it; userEdited = true },
-                    failure = failure,
+                    failure = failure ?: analysisFailure,
                 )
             }
         },
@@ -533,18 +551,31 @@ private fun BpmRowEditorDialog(
     var attempted by remember { mutableStateOf(row.detectedBpm != null) }
     var fieldText by remember { mutableStateOf(row.fieldText) }
     var userEdited by remember { mutableStateOf(false) }
+    var analysisFailure by remember { mutableStateOf<BpmFailure?>(null) }
 
     fun analyze() {
         val uriString = row.uriString ?: return
         analyzing = true
         scope.launch {
-            val estimate = BpmAnalyzer.analyze(context, uriString)
+            val outcome = BpmAnalyzer.analyze(context, uriString)
             analyzing = false
             attempted = true
-            if (estimate != null) {
-                detected = estimate.bpm
-                confidence = estimate.confidence
-                if (!userEdited) fieldText = BpmTags.formatBpmText(estimate.bpm)
+            analysisFailure = null
+            when (outcome) {
+                is BpmAnalyzer.Outcome.Found -> {
+                    detected = outcome.estimate.bpm
+                    confidence = outcome.estimate.confidence
+                    if (!userEdited) fieldText = BpmTags.formatBpmText(outcome.estimate.bpm)
+                }
+                BpmAnalyzer.Outcome.NoTempo -> {
+                    detected = null
+                    confidence = null
+                }
+                BpmAnalyzer.Outcome.Unreadable -> {
+                    detected = null
+                    confidence = null
+                    analysisFailure = BpmFailure.DECODE_FAILED
+                }
             }
         }
     }
@@ -567,11 +598,11 @@ private fun BpmRowEditorDialog(
                     detectedBpm = detected,
                     confidence = confidence,
                     analyzing = analyzing,
-                    showNoTempo = attempted && detected == null,
+                    showNoTempo = attempted && detected == null && analysisFailure == null,
                     onAnalyze = { analyze() },
                     fieldText = fieldText,
                     onFieldChange = { fieldText = it; userEdited = true },
-                    failure = row.failure?.takeIf { row.status == BpmRowStatus.FAILED },
+                    failure = analysisFailure ?: row.failure?.takeIf { row.status == BpmRowStatus.FAILED },
                 )
             }
         },

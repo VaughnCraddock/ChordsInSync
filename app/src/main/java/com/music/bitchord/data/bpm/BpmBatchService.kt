@@ -71,19 +71,26 @@ class BpmBatchService : Service() {
                             )
                         }
                     } else {
-                        val estimate = BpmAnalyzer.analyze(this@BpmBatchService, uriString)
-                        if (estimate != null) {
-                            BpmJobs.updateAt(index) {
+                        val outcome = BpmAnalyzer.analyze(this@BpmBatchService, uriString)
+                        // The three endings get three different rows: a
+                        // measurement, a decoded file with no tempo in it,
+                        // and a file that never became audio — the last two
+                        // used to share one "unreadable" label, which hid a
+                        // decode fault behind the music's name.
+                        when (outcome) {
+                            is BpmAnalyzer.Outcome.Found -> BpmJobs.updateAt(index) {
                                 it.copy(
                                     status = BpmRowStatus.READY,
-                                    detectedBpm = estimate.bpm,
-                                    confidence = estimate.confidence,
-                                    fieldText = BpmTags.formatBpmText(estimate.bpm),
+                                    detectedBpm = outcome.estimate.bpm,
+                                    confidence = outcome.estimate.confidence,
+                                    fieldText = BpmTags.formatBpmText(outcome.estimate.bpm),
                                 )
                             }
-                        } else {
-                            BpmJobs.updateAt(index) {
-                                it.copy(status = BpmRowStatus.FAILED, failure = BpmFailure.UNREADABLE)
+                            BpmAnalyzer.Outcome.NoTempo -> BpmJobs.updateAt(index) {
+                                it.copy(status = BpmRowStatus.FAILED, failure = BpmFailure.NO_TEMPO_DETECTED)
+                            }
+                            BpmAnalyzer.Outcome.Unreadable -> BpmJobs.updateAt(index) {
+                                it.copy(status = BpmRowStatus.FAILED, failure = BpmFailure.DECODE_FAILED)
                             }
                         }
                     }

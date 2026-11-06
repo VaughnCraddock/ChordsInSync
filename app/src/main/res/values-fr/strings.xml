@@ -1540,6 +1540,7 @@
     <string name="bpm_failure_unreadable">Lecture du fichier impossible</string>
     <string name="bpm_failure_verify">Écriture impossible à vérifier</string>
     <string name="bpm_failure_io">Erreur de stockage</string>
+    <string name="bpm_failure_decode">Ce fichier n\'a pas pu être décodé, aucun tempo n\'a donc pu être mesuré</string>
     <string name="bpm_batch_include_tagged">Inclure les fichiers déjà étiquetés</string>
     <string name="bpm_batch_save_all">Tout enregistrer</string>
     <string name="bpm_status_tagged">Déjà étiqueté</string>

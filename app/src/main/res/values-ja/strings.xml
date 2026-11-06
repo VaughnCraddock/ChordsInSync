@@ -1517,6 +1517,7 @@
     <string name="bpm_failure_unreadable">ファイルを読み取れませんでした</string>
     <string name="bpm_failure_verify">書き込みを確認できませんでした</string>
     <string name="bpm_failure_io">ストレージエラー</string>
+    <string name="bpm_failure_decode">このファイルをデコードできなかったため、テンポを測定できませんでした</string>
     <string name="bpm_batch_include_tagged">タグ付け済みのファイルも含める</string>
     <string name="bpm_batch_save_all">すべて保存</string>
     <string name="bpm_status_tagged">タグ付け済み</string>

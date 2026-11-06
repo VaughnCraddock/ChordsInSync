@@ -1456,6 +1456,7 @@
     <string name="bpm_failure_unreadable">Không đọc được tệp</string>
     <string name="bpm_failure_verify">Không xác minh được việc ghi</string>
     <string name="bpm_failure_io">Lỗi lưu trữ</string>
+    <string name="bpm_failure_decode">Không thể giải mã tệp này nên không thể đo nhịp</string>
     <string name="bpm_batch_include_tagged">Bao gồm tệp đã gắn thẻ</string>
     <string name="bpm_batch_save_all">Lưu tất cả</string>
     <string name="bpm_status_tagged">Đã gắn thẻ</string>

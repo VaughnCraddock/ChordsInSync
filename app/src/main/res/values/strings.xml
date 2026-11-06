@@ -1403,6 +1403,7 @@
     <string name="bpm_failure_unreadable">File could not be read</string>
     <string name="bpm_failure_verify">The write could not be verified</string>
     <string name="bpm_failure_io">Storage error</string>
+    <string name="bpm_failure_decode">This file could not be decoded, so no tempo could be measured</string>
     <string name="bpm_batch_include_tagged">Include already-tagged files</string>
     <string name="bpm_batch_save_all">Save all</string>
     <string name="bpm_status_tagged">Already tagged</string>

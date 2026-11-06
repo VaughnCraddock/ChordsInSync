@@ -1516,6 +1516,7 @@
     <string name="bpm_failure_unreadable">File tidak dapat dibaca</string>
     <string name="bpm_failure_verify">Penulisan tidak dapat diverifikasi</string>
     <string name="bpm_failure_io">Kesalahan penyimpanan</string>
+    <string name="bpm_failure_decode">File ini tidak dapat didekode, jadi tempo tidak dapat diukur</string>
     <string name="bpm_batch_include_tagged">Sertakan file yang sudah bertanda</string>
     <string name="bpm_batch_save_all">Simpan semua</string>
     <string name="bpm_status_tagged">Sudah bertanda</string>

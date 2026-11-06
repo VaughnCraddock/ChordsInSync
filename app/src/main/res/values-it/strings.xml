@@ -1478,6 +1478,7 @@
     <string name="bpm_failure_unreadable">Impossibile leggere il file</string>
     <string name="bpm_failure_verify">Impossibile verificare la scrittura</string>
     <string name="bpm_failure_io">Errore di archiviazione</string>
+    <string name="bpm_failure_decode">Questo file non può essere decodificato, quindi non è stato possibile misurare il tempo</string>
     <string name="bpm_batch_include_tagged">Includi i file già taggati</string>
     <string name="bpm_batch_save_all">Salva tutto</string>
     <string name="bpm_status_tagged">Già taggato</string>

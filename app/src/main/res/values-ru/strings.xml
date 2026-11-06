@@ -1571,6 +1571,7 @@
     <string name="bpm_failure_unreadable">Не удалось прочитать файл</string>
     <string name="bpm_failure_verify">Не удалось проверить запись</string>
     <string name="bpm_failure_io">Ошибка хранилища</string>
+    <string name="bpm_failure_decode">Не удалось декодировать этот файл, поэтому темп измерить не удалось</string>
     <string name="bpm_batch_include_tagged">Включить файлы, уже имеющие тег</string>
     <string name="bpm_batch_save_all">Сохранить все</string>
     <string name="bpm_status_tagged">Тег уже есть</string>

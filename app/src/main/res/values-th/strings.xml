@@ -1522,6 +1522,7 @@
     <string name="bpm_failure_unreadable">อ่านไฟล์ไม่ได้</string>
     <string name="bpm_failure_verify">ยืนยันการเขียนไม่ได้</string>
     <string name="bpm_failure_io">ข้อผิดพลาดของพื้นที่จัดเก็บ</string>
+    <string name="bpm_failure_decode">ไฟล์นี้ไม่สามารถถอดรหัสได้ จึงไม่สามารถวัดจังหวะได้</string>
     <string name="bpm_batch_include_tagged">รวมไฟล์ที่แท็กแล้ว</string>
     <string name="bpm_batch_save_all">บันทึกทั้งหมด</string>
     <string name="bpm_status_tagged">แท็กแล้ว</string>

@@ -1544,6 +1544,7 @@
     <string name="bpm_failure_unreadable">לא ניתן היה לקרוא את הקובץ</string>
     <string name="bpm_failure_verify">לא ניתן היה לאמת את הכתיבה</string>
     <string name="bpm_failure_io">שגיאת אחסון</string>
+    <string name="bpm_failure_decode">לא ניתן לפענח קובץ זה, לכן לא ניתן היה למדוד קצב</string>
     <string name="bpm_batch_include_tagged">כלילת קבצים שכבר מתויגים</string>
     <string name="bpm_batch_save_all">שמירת הכל</string>
     <string name="bpm_status_tagged">כבר מתויג</string>

@@ -1539,6 +1539,7 @@
     <string name="bpm_failure_unreadable">Datei konnte nicht gelesen werden</string>
     <string name="bpm_failure_verify">Das Schreiben konnte nicht überprüft werden</string>
     <string name="bpm_failure_io">Speicherfehler</string>
+    <string name="bpm_failure_decode">Diese Datei konnte nicht dekodiert werden, daher konnte kein Tempo gemessen werden</string>
     <string name="bpm_batch_include_tagged">Bereits getaggte Dateien einbeziehen</string>
     <string name="bpm_batch_save_all">Alle speichern</string>
     <string name="bpm_status_tagged">Bereits getaggt</string>

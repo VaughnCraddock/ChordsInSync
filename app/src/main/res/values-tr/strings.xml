@@ -1496,6 +1496,7 @@
     <string name="bpm_failure_unreadable">Dosya okunamadı</string>
     <string name="bpm_failure_verify">Yazma doğrulanamadı</string>
     <string name="bpm_failure_io">Depolama hatası</string>
+    <string name="bpm_failure_decode">Bu dosya çözülemedi, bu nedenle tempo ölçülemedi</string>
     <string name="bpm_batch_include_tagged">Zaten etiketli dosyaları dahil et</string>
     <string name="bpm_batch_save_all">Tümünü kaydet</string>
     <string name="bpm_status_tagged">Zaten etiketli</string>
