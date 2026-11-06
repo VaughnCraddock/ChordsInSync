@@ -51,6 +51,19 @@ class TempoEstimatorTest {
         assertTrue("expected within 2% of 120 BPM at 44.1kHz, got ${estimate.bpm}", error <= 0.02)
     }
 
+    @Test
+    fun hotMastered_122bpm() {
+        // The 2026-11-05 field case as a synthetic analog: a steady 122 BPM
+        // house track, mastered hot — bursts driven into hard clipping, the
+        // way loudness-compressed dance music actually arrives. (The real
+        // file measured 121.97 BPM @ 0.487 confidence through this exact
+        // estimator on decoded PCM; the on-device failure that day was in
+        // the decode, not here — this test pins the estimator side so a
+        // future change cannot quietly break loud real-world audio.)
+        val pcm = clickTrack(122.0, seconds = 20).map { (it * 1.8f).coerceIn(-1f, 1f) }.toFloatArray()
+        assertTempo(122.0, pcm)
+    }
+
     private fun assertTempo(expected: Double, pcm: FloatArray) {
         val estimate = TempoEstimator.estimate(pcm, rate)
         assertNotNull("no tempo found for a $expected BPM track", estimate)
