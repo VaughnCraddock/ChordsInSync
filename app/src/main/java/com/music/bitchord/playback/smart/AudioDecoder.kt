@@ -23,14 +23,13 @@
 
 package com.music.bitchord.playback.smart
 
+import android.media.AudioFormat
 import android.media.MediaCodec
 import android.media.MediaDataSource
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.util.Log
 import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import kotlin.math.max
 
 /**
  * Decodes a region of a cached track to mono float PCM, for [TrackAnalyzer].
@@ -114,8 +113,8 @@ object AudioDecoder {
         abort: () -> Boolean = { false },
     ): Pair<Pcm, Double>? {
         val chunks = ArrayList<FloatArray>()
-        val decoded = decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, _ ->
-            chunks += toMono(buffer, info, channels)
+        val decoded = decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, _, encoding ->
+            chunks += toMono(buffer, info, channels, encoding)
         } ?: return null
         return Pcm(flatten(chunks), decoded.first) to decoded.second
     }
@@ -136,8 +135,8 @@ object AudioDecoder {
     ): Pair<StereoPcm, Double>? {
         val left = ArrayList<FloatArray>()
         val right = ArrayList<FloatArray>()
-        val decoded = decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, _ ->
-            toStereo(buffer, info, channels, left, right)
+        val decoded = decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, _, encoding ->
+            toStereo(buffer, info, channels, encoding, left, right)
         } ?: return null
         return StereoPcm(flatten(left), flatten(right), decoded.first) to decoded.second
     }
@@ -154,8 +153,8 @@ object AudioDecoder {
         abort: () -> Boolean = { false },
         onChunk: (samples: FloatArray, atSeconds: Double, sampleRate: Int) -> Unit,
     ): Pair<Double, Double>? =
-        decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, rate ->
-            onChunk(toMono(buffer, info, channels), info.presentationTimeUs / 1_000_000.0, rate)
+        decodeRaw(source, startSeconds, endSeconds, abort) { buffer, info, channels, rate, encoding ->
+            onChunk(toMono(buffer, info, channels, encoding), info.presentationTimeUs / 1_000_000.0, rate)
         }
 
     /** Concatenates the decoded chunks into one contiguous buffer. */
@@ -182,7 +181,7 @@ object AudioDecoder {
         startSeconds: Double,
         endSeconds: Double,
         abort: () -> Boolean,
-        onBuffer: (ByteBuffer, MediaCodec.BufferInfo, Int, Int) -> Unit,
+        onBuffer: (ByteBuffer, MediaCodec.BufferInfo, Int, Int, Int) -> Unit,
     ): Pair<Double, Double>? {
         if (endSeconds <= startSeconds) return null
         val extractor = MediaExtractor()
@@ -209,6 +208,17 @@ object AudioDecoder {
             val bufferInfo = MediaCodec.BufferInfo()
             var outputChannels = format.intOrNull(MediaFormat.KEY_CHANNEL_COUNT) ?: 1
             var outputRate = format.intOrNull(MediaFormat.KEY_SAMPLE_RATE) ?: 0
+            // The decoder's output encoding is a device property, not a
+            // constant: the track format rarely names it, so this starts at
+            // the 16-bit default and the format-change event below corrects
+            // it before any buffer is converted (a decoder whose real output
+            // differs from the configured format must announce the change
+            // first — the same guarantee the playback pipeline relies on).
+            var outputEncoding = format.intOrNull(MediaFormat.KEY_PCM_ENCODING) ?: AudioFormat.ENCODING_PCM_16BIT
+            // One line per analysis decode: when a field report says
+            // analysis found nothing, this is the line that says what the
+            // decoder actually handed over (rate, channels, PCM encoding).
+            Log.i(TAG, "Decoding $mime: rate=$outputRate channels=$outputChannels pcmEncoding=$outputEncoding")
             var actualStartSeconds = -1.0
             var sawFirstSample = false
             var inputDone = false
@@ -254,6 +264,7 @@ object AudioDecoder {
                             val newFormat = codec.outputFormat
                             outputRate = newFormat.intOrNull(MediaFormat.KEY_SAMPLE_RATE) ?: outputRate
                             outputChannels = newFormat.intOrNull(MediaFormat.KEY_CHANNEL_COUNT) ?: outputChannels
+                            outputEncoding = newFormat.intOrNull(MediaFormat.KEY_PCM_ENCODING) ?: outputEncoding
                         }
                         MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED -> Unit
                         else -> if (outputIndex >= 0) {
@@ -261,12 +272,22 @@ object AudioDecoder {
                                 outputDone = true
                             }
                             if (bufferInfo.size > 0) {
+                                if (!PcmConvert.isSupported(outputEncoding)) {
+                                    // Better no analysis than analysis of
+                                    // misread bytes: an unrecognised encoding
+                                    // converted as if it were 16-bit is
+                                    // garbage with no structure in it, and
+                                    // every downstream consumer would draw
+                                    // confident conclusions from noise.
+                                    Log.w(TAG, "Decoder for $mime outputs unsupported PCM encoding $outputEncoding")
+                                    return null
+                                }
                                 if (!sawFirstSample) {
                                     actualStartSeconds = bufferInfo.presentationTimeUs / 1_000_000.0
                                     sawFirstSample = true
                                 }
                                 codec.getOutputBuffer(outputIndex)?.let { output ->
-                                    onBuffer(output, bufferInfo, outputChannels, outputRate)
+                                    onBuffer(output, bufferInfo, outputChannels, outputRate, outputEncoding)
                                 }
                                 if (bufferInfo.presentationTimeUs > endUs) outputDone = true
                             }
@@ -288,29 +309,18 @@ object AudioDecoder {
         }
     }
 
-    /** Downmixes one 16-bit PCM output buffer to mono float in [-1, 1]. */
-    private fun toMono(buffer: ByteBuffer, info: MediaCodec.BufferInfo, channels: Int): FloatArray {
-        val safeChannels = max(1, channels)
-        val shorts = buffer.duplicate().apply {
-            order(ByteOrder.LITTLE_ENDIAN)
-            position(info.offset)
-            limit(info.offset + info.size)
-        }.asShortBuffer()
-        val frames = shorts.remaining() / safeChannels
-        val mono = FloatArray(frames)
-        val frame = ShortArray(safeChannels)
-        for (index in 0 until frames) {
-            shorts.get(frame, 0, safeChannels)
-            var sum = 0
-            for (value in frame) sum += value
-            mono[index] = (sum / safeChannels.toFloat()) / 32768f
-        }
-        return mono
-    }
+    /**
+     * Downmixes one decoder output buffer to mono float in [-1, 1] — or past
+     * it, when the decoder's float output overshoots, which mastered audio
+     * does. The byte interpretation follows the encoding the decoder
+     * declared ([PcmConvert]); it is not assumed to be 16-bit.
+     */
+    private fun toMono(buffer: ByteBuffer, info: MediaCodec.BufferInfo, channels: Int, encoding: Int): FloatArray =
+        PcmConvert.toMono(buffer, info.offset, info.size, channels, encoding)
 
     /**
-     * Splits one 16-bit PCM output buffer into planar left/right float in
-     * [-1, 1], appending each to its own accumulator.
+     * Splits one decoder output buffer into planar left/right float,
+     * appending each to its own accumulator.
      *
      * A mono source is widened by giving both sides the same samples, and
      * anything above two channels keeps only the first two: the model's input
@@ -322,26 +332,11 @@ object AudioDecoder {
         buffer: ByteBuffer,
         info: MediaCodec.BufferInfo,
         channels: Int,
+        encoding: Int,
         left: MutableList<FloatArray>,
         right: MutableList<FloatArray>,
     ) {
-        val safeChannels = max(1, channels)
-        val shorts = buffer.duplicate().apply {
-            order(ByteOrder.LITTLE_ENDIAN)
-            position(info.offset)
-            limit(info.offset + info.size)
-        }.asShortBuffer()
-        val frames = shorts.remaining() / safeChannels
-        val leftChunk = FloatArray(frames)
-        val rightChunk = FloatArray(frames)
-        val frame = ShortArray(safeChannels)
-        for (index in 0 until frames) {
-            shorts.get(frame, 0, safeChannels)
-            leftChunk[index] = frame[0] / 32768f
-            rightChunk[index] = (if (safeChannels > 1) frame[1] else frame[0]) / 32768f
-        }
-        left += leftChunk
-        right += rightChunk
+        PcmConvert.toStereo(buffer, info.offset, info.size, channels, encoding, left, right)
     }
 
     private fun MediaFormat.intOrNull(key: String): Int? = if (containsKey(key)) getInteger(key) else null
