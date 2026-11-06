@@ -1695,4 +1695,5 @@
 <string name="bpm_status_tagged">Já etiquetado</string>
 <string name="bpm_status_saved">Salvo</string>
 <string name="bpm_status_unsupported">Formato não suportado</string>
+<string name="bpm_failure_decode">Este arquivo não pôde ser decodificado, portanto nenhum tempo pôde ser medido</string>
 </resources>

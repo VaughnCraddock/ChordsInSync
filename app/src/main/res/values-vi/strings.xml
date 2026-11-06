@@ -1606,4 +1606,5 @@
 <string name="bpm_status_tagged">Đã gắn thẻ</string>
 <string name="bpm_status_saved">Đã lưu</string>
 <string name="bpm_status_unsupported">Định dạng không được hỗ trợ</string>
+<string name="bpm_failure_decode">Không thể giải mã tệp này nên không thể đo nhịp</string>
 </resources>

@@ -1647,4 +1647,5 @@
 <string name="bpm_status_tagged">Zaten etiketli</string>
 <string name="bpm_status_saved">Kaydedildi</string>
 <string name="bpm_status_unsupported">Desteklenmeyen biçim</string>
+<string name="bpm_failure_decode">Bu dosya çözülemedi, bu nedenle tempo ölçülemedi</string>
 </resources>

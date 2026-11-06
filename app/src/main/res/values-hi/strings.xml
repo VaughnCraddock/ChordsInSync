@@ -1690,4 +1690,5 @@
 <string name="bpm_status_tagged">पहले से टैग है</string>
 <string name="bpm_status_saved">सहेजा गया</string>
 <string name="bpm_status_unsupported">असमर्थित प्रारूप</string>
+<string name="bpm_failure_decode">इस फ़ाइल को डिकोड नहीं किया जा सका, इसलिए कोई टेम्पो नहीं मापा जा सका</string>
 </resources>

@@ -1666,4 +1666,5 @@
 <string name="bpm_status_tagged">Sudah bertanda</string>
 <string name="bpm_status_saved">Disimpan</string>
 <string name="bpm_status_unsupported">Format tidak didukung</string>
+<string name="bpm_failure_decode">File ini tidak dapat didekode, jadi tempo tidak dapat diukur</string>
 </resources>

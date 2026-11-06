@@ -1732,4 +1732,5 @@
 <string name="bpm_status_tagged">Już otagowany</string>
 <string name="bpm_status_saved">Zapisano</string>
 <string name="bpm_status_unsupported">Nieobsługiwany format</string>
+<string name="bpm_failure_decode">Nie udało się zdekodować tego pliku, więc nie można było zmierzyć tempa</string>
 </resources>

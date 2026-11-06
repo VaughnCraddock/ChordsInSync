@@ -1631,4 +1631,5 @@
 <string name="bpm_status_tagged">Already tagged</string>
 <string name="bpm_status_saved">Saved</string>
 <string name="bpm_status_unsupported">Unsupported format</string>
+<string name="bpm_failure_decode">This file could not be decoded, so no tempo could be measured</string>
 </resources>

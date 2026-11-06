@@ -1724,4 +1724,5 @@
 <string name="bpm_status_tagged">Тег уже есть</string>
 <string name="bpm_status_saved">Сохранено</string>
 <string name="bpm_status_unsupported">Неподдерживаемый формат</string>
+<string name="bpm_failure_decode">Не удалось декодировать этот файл, поэтому темп измерить не удалось</string>
 </resources>

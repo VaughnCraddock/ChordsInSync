@@ -1672,4 +1672,5 @@
 <string name="bpm_status_tagged">แท็กแล้ว</string>
 <string name="bpm_status_saved">บันทึกแล้ว</string>
 <string name="bpm_status_unsupported">รูปแบบไม่รองรับ</string>
+<string name="bpm_failure_decode">ไฟล์นี้ไม่สามารถถอดรหัสได้ จึงไม่สามารถวัดจังหวะได้</string>
 </resources>

@@ -1566,4 +1566,5 @@
 <string name="bpm_status_tagged">已標記</string>
 <string name="bpm_status_saved">已儲存</string>
 <string name="bpm_status_unsupported">不支援的格式</string>
+<string name="bpm_failure_decode">無法解碼此檔案，因此無法測量節奏</string>
 </resources>
