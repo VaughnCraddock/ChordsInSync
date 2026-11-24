@@ -148,6 +148,15 @@ fun SongActionsMenu(
      * sheet's — see BpmHost.
      */
     onAnalyzeBpm: (() -> Unit)? = null,
+    /**
+     * Converts this track from Opus to an AAC sibling (the original is
+     * kept), then analyzes the copy — the same editor as [onAnalyzeBpm],
+     * which converts first anyway; this row names the conversion because
+     * for an Opus file that is the point of asking. Null hides the row —
+     * the caller passes one only when the file's name makes it an Opus
+     * candidate (see OpusFiles).
+     */
+    onConvertOpus: (() -> Unit)? = null,
     showSleepTimer: Boolean = false,
     /**
      * Sends the playing track back to YouTube's own upload, and keeps it there.
@@ -360,6 +369,14 @@ fun SongActionsMenu(
             ActionRow(
                 icon = SfIcons.Metronome,
                 label = stringResource(R.string.analyze_bpm),
+                accent = palette.accent,
+                onClick = it,
+            )
+        }
+        onConvertOpus?.let {
+            ActionRow(
+                icon = SfIcons.Metronome,
+                label = stringResource(R.string.convert_opus_to_aac),
                 accent = palette.accent,
                 onClick = it,
             )

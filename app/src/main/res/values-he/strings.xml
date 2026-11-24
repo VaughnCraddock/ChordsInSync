@@ -1550,4 +1550,11 @@
     <string name="bpm_status_tagged">כבר מתויג</string>
     <string name="bpm_status_saved">נשמר</string>
     <string name="bpm_status_unsupported">פורמט לא נתמך</string>
+    <string name="convert_opus_to_aac">המרת Opus ל-AAC</string>
+    <string name="convert_opus_in_folder">המרת Opus ל-AAC בתיקייה</string>
+    <string name="bpm_converting">ממיר ל-AAC…</string>
+    <string name="bpm_converted_note">הומר ל-AAC: %1$s (המקור נשמר)</string>
+    <string name="bpm_failure_convert">ההמרה ל-AAC נכשלה</string>
+    <string name="bpm_failure_not_opus">זהו אינו קובץ Opus</string>
+    <string name="bpm_status_skipped">דולג</string>
 </resources>

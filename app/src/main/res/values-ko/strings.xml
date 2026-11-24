@@ -1394,4 +1394,11 @@
     <string name="bpm_status_tagged">Already tagged</string>
     <string name="bpm_status_saved">Saved</string>
     <string name="bpm_status_unsupported">Unsupported format</string>
+    <string name="convert_opus_to_aac">Convert Opus to AAC</string>
+    <string name="convert_opus_in_folder">Convert Opus to AAC in folder</string>
+    <string name="bpm_converting">Converting to AAC…</string>
+    <string name="bpm_converted_note">Converted to AAC: %1$s (original kept)</string>
+    <string name="bpm_failure_convert">Conversion to AAC failed</string>
+    <string name="bpm_failure_not_opus">Not an Opus file</string>
+    <string name="bpm_status_skipped">Skipped</string>
 </resources>

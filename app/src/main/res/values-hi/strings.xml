@@ -1545,4 +1545,11 @@
     <string name="bpm_status_tagged">पहले से टैग है</string>
     <string name="bpm_status_saved">सहेजा गया</string>
     <string name="bpm_status_unsupported">असमर्थित प्रारूप</string>
+    <string name="convert_opus_to_aac">Opus को AAC में बदलें</string>
+    <string name="convert_opus_in_folder">फ़ोल्डर में Opus को AAC में बदलें</string>
+    <string name="bpm_converting">AAC में बदला जा रहा है…</string>
+    <string name="bpm_converted_note">AAC में बदला गया: %1$s (मूल रखा गया)</string>
+    <string name="bpm_failure_convert">AAC में बदलाव विफल रहा</string>
+    <string name="bpm_failure_not_opus">Opus फ़ाइल नहीं है</string>
+    <string name="bpm_status_skipped">छोड़ा गया</string>
 </resources>

@@ -1528,4 +1528,11 @@
     <string name="bpm_status_tagged">แท็กแล้ว</string>
     <string name="bpm_status_saved">บันทึกแล้ว</string>
     <string name="bpm_status_unsupported">รูปแบบไม่รองรับ</string>
+    <string name="convert_opus_to_aac">แปลง Opus เป็น AAC</string>
+    <string name="convert_opus_in_folder">แปลง Opus เป็น AAC ในโฟลเดอร์</string>
+    <string name="bpm_converting">กำลังแปลงเป็น AAC…</string>
+    <string name="bpm_converted_note">แปลงเป็น AAC แล้ว: %1$s (เก็บต้นฉบับไว้)</string>
+    <string name="bpm_failure_convert">แปลงเป็น AAC ไม่สำเร็จ</string>
+    <string name="bpm_failure_not_opus">ไม่ใช่ไฟล์ Opus</string>
+    <string name="bpm_status_skipped">ข้ามไป</string>
 </resources>

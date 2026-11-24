@@ -1517,4 +1517,11 @@
     <string name="bpm_status_tagged">Ya etiquetado</string>
     <string name="bpm_status_saved">Guardado</string>
     <string name="bpm_status_unsupported">Formato no compatible</string>
+    <string name="convert_opus_to_aac">Convertir Opus a AAC</string>
+    <string name="convert_opus_in_folder">Convertir Opus a AAC en la carpeta</string>
+    <string name="bpm_converting">Convirtiendo a AAC…</string>
+    <string name="bpm_converted_note">Convertido a AAC: %1$s (original conservado)</string>
+    <string name="bpm_failure_convert">La conversión a AAC falló</string>
+    <string name="bpm_failure_not_opus">No es un archivo Opus</string>
+    <string name="bpm_status_skipped">Omitido</string>
 </resources>

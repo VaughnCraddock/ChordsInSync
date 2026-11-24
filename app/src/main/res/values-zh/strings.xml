@@ -1522,4 +1522,11 @@
     <string name="bpm_status_tagged">已标记</string>
     <string name="bpm_status_saved">已保存</string>
     <string name="bpm_status_unsupported">不支持的格式</string>
+    <string name="convert_opus_to_aac">将 Opus 转换为 AAC</string>
+    <string name="convert_opus_in_folder">将文件夹中的 Opus 转换为 AAC</string>
+    <string name="bpm_converting">正在转换为 AAC…</string>
+    <string name="bpm_converted_note">已转换为 AAC：%1$s（已保留原始文件）</string>
+    <string name="bpm_failure_convert">转换为 AAC 失败</string>
+    <string name="bpm_failure_not_opus">不是 Opus 文件</string>
+    <string name="bpm_status_skipped">已跳过</string>
 </resources>

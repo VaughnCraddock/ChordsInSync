@@ -4521,6 +4521,22 @@ private fun BitChordApp(
                 } else {
                     null
                 },
+                // The conversion-led door to the same editor, offered when
+                // the file's name makes it an Opus candidate: the editor
+                // converts first (as it does for Analyze BPM on an Opus
+                // file), and this row exists so the conversion is something
+                // the user can ask for by name. A content:// row's name is
+                // an id, not a file name, so candidacy can only be judged
+                // here for path-backed files — the editor re-checks by
+                // display name either way.
+                onConvertOpus = song.localUri?.takeIf {
+                    com.music.bitchord.data.bpm.OpusFiles.isCandidate(it.substringAfterLast('/'))
+                }?.let {
+                    {
+                        songActions = null
+                        BpmRequests.ask(BpmRequest.Single(song))
+                    }
+                },
                 onOpenAlbum = { id ->
                     openPage(
                         id,
@@ -5256,6 +5272,23 @@ private fun BitChordApp(
                                 BpmRequest.Batch(
                                     songs = LocalDelete.folderSongs(songs, folderPath),
                                     folderName = target.title,
+                                ),
+                            )
+                        }
+                    }
+                },
+                // The conversion-led folder run: Opus tracks become AAC
+                // siblings (originals kept) and are analyzed; everything
+                // else is skipped with its reason in the results.
+                onConvertOpusFolder = LocalGroups.folderPathOf(target.browseId)?.let { folderPath ->
+                    {
+                        browseActions = null
+                        withBrowseSongs(target) { songs ->
+                            BpmRequests.ask(
+                                BpmRequest.Batch(
+                                    songs = LocalDelete.folderSongs(songs, folderPath),
+                                    folderName = target.title,
+                                    convertOnly = true,
                                 ),
                             )
                         }

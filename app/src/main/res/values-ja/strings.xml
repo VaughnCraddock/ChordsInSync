@@ -1523,4 +1523,11 @@
     <string name="bpm_status_tagged">タグ付け済み</string>
     <string name="bpm_status_saved">保存済み</string>
     <string name="bpm_status_unsupported">未対応の形式</string>
+    <string name="convert_opus_to_aac">OpusをAACに変換</string>
+    <string name="convert_opus_in_folder">フォルダ内のOpusをAACに変換</string>
+    <string name="bpm_converting">AACに変換中…</string>
+    <string name="bpm_converted_note">AACに変換しました: %1$s (元のファイルは保持)</string>
+    <string name="bpm_failure_convert">AACへの変換に失敗しました</string>
+    <string name="bpm_failure_not_opus">Opusファイルではありません</string>
+    <string name="bpm_status_skipped">スキップ済み</string>
 </resources>

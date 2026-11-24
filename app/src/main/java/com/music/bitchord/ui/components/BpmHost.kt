@@ -2,6 +2,7 @@ package com.music.bitchord.ui.components
 
 import android.app.Activity
 import android.content.IntentSender
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
@@ -55,6 +56,8 @@ import com.music.bitchord.data.bpm.BpmRowStatus
 import com.music.bitchord.data.bpm.BpmTagStore
 import com.music.bitchord.data.bpm.BpmTags
 import com.music.bitchord.data.bpm.BpmWriteOutcome
+import com.music.bitchord.data.bpm.OpusAacConverter
+import com.music.bitchord.data.bpm.OpusFiles
 import com.music.bitchord.data.bpm.TapTempo
 import com.music.bitchord.data.model.Song
 import kotlinx.coroutines.launch
@@ -141,6 +144,8 @@ private fun failureText(failure: BpmFailure): String = stringResource(
         BpmFailure.IO_ERROR -> R.string.bpm_failure_io
         BpmFailure.NO_TEMPO_DETECTED -> R.string.bpm_no_tempo_found
         BpmFailure.DECODE_FAILED -> R.string.bpm_failure_decode
+        BpmFailure.CONVERT_FAILED -> R.string.bpm_failure_convert
+        BpmFailure.NOT_OPUS_FILE -> R.string.bpm_failure_not_opus
     },
 )
 
@@ -166,11 +171,17 @@ private fun SingleBpmDialog(
     var saving by remember { mutableStateOf(false) }
     var failure by remember { mutableStateOf<BpmFailure?>(null) }
     var analysisFailure by remember { mutableStateOf<BpmFailure?>(null) }
+    // An Opus song is converted before anything else happens to it: the
+    // AAC sibling becomes the target for the tag read, the analysis and
+    // the save, because the Opus original cannot hold a BPM tag at all.
+    var targetUri by remember { mutableStateOf(uriString) }
+    var convertedName by remember { mutableStateOf<String?>(null) }
+    var converting by remember { mutableStateOf(false) }
 
     fun analyze() {
         analyzing = true
         scope.launch {
-            val outcome = BpmAnalyzer.analyze(context, uriString)
+            val outcome = BpmAnalyzer.analyze(context, targetUri)
             analyzing = false
             attempted = true
             analysisFailure = null
@@ -201,9 +212,33 @@ private fun SingleBpmDialog(
     }
 
     LaunchedEffect(uriString) {
-        existing = BpmTagStore.readBpm(context, uriString)
+        val displayName = OpusAacConverter.displayNameOf(context, Uri.parse(uriString))
+        if (OpusFiles.isCandidate(displayName)) {
+            converting = true
+            when (val conversion = OpusAacConverter.convert(
+                context,
+                uriString,
+                title = song.title,
+                artist = song.artist,
+                album = song.albumName,
+            )) {
+                is OpusAacConverter.Outcome.Converted -> {
+                    targetUri = conversion.uriString
+                    convertedName = conversion.displayName
+                }
+                OpusAacConverter.Outcome.NotOpus -> Unit // Only a suspicion by name: carry on with the file itself.
+                is OpusAacConverter.Outcome.Failed -> analysisFailure = conversion.reason
+            }
+            converting = false
+        }
+        existing = BpmTagStore.readBpm(context, targetUri)
         existing?.let { fieldText = BpmTags.formatBpmText(it) }
-        analyze()
+        if (analysisFailure == null) {
+            analyze()
+        } else {
+            analyzing = false
+            attempted = true
+        }
     }
 
     fun save() {
@@ -211,7 +246,7 @@ private fun SingleBpmDialog(
         saving = true
         failure = null
         scope.launch {
-            when (val outcome = BpmTagStore.writeBpm(context, uriString, value)) {
+            when (val outcome = BpmTagStore.writeBpm(context, targetUri, value)) {
                 is BpmWriteOutcome.Written -> {
                     Toast.makeText(
                         context,
@@ -246,6 +281,23 @@ private fun SingleBpmDialog(
                     overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(Modifier.height(12.dp))
+                if (converting) {
+                    Text(
+                        text = stringResource(R.string.bpm_converting),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                } else {
+                    convertedName?.let { name ->
+                        Text(
+                            text = stringResource(R.string.bpm_converted_note, name),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Spacer(Modifier.height(8.dp))
+                    }
+                }
                 BpmEditorBody(
                     existingBpm = existing,
                     detectedBpm = detected,
@@ -288,7 +340,7 @@ private fun BatchBpmDialog(
 
     LaunchedEffect(request) {
         val songs = request.songs.filter { !it.localUri.isNullOrBlank() }
-        BpmJobs.begin(songs, request.folderName)
+        BpmJobs.begin(songs, request.folderName, request.convertOnly)
         if (songs.isNotEmpty()) {
             BpmBatchService.start(context)
         } else {
@@ -312,12 +364,16 @@ private fun BatchBpmDialog(
 
     suspend fun saveRow(row: BpmRowState, value: Double) {
         val uriString = row.uriString ?: return
+        // The write aims at the row's target: a converted row's BPM goes
+        // into the AAC sibling, never into the Opus original (which could
+        // not hold it anyway). Row bookkeeping still keys on the original.
+        val targetUriString = row.targetUriString ?: return
         BpmJobs.update(uriString) { it.copy(status = BpmRowStatus.SAVING, failure = null) }
-        var outcome = BpmTagStore.writeBpm(context, uriString, value)
+        var outcome = BpmTagStore.writeBpm(context, targetUriString, value)
         if (outcome is BpmWriteOutcome.NeedsConsent) {
             val approved = awaitConsent(outcome.sender)
             outcome = if (approved) {
-                BpmTagStore.writeBpm(context, uriString, value)
+                BpmTagStore.writeBpm(context, targetUriString, value)
             } else {
                 BpmWriteOutcome.Failed(BpmFailure.PERMISSION_DENIED)
             }
@@ -352,7 +408,12 @@ private fun BatchBpmDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.analyze_bpm_in_folder), color = MaterialTheme.colorScheme.onSurface) },
+        title = {
+            Text(
+                stringResource(if (request.convertOnly) R.string.convert_opus_in_folder else R.string.analyze_bpm_in_folder),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        },
         text = {
             Column {
                 request.folderName?.let { name ->
@@ -487,7 +548,22 @@ private fun BpmBatchRow(
             }
         }
         Spacer(Modifier.height(2.dp))
+        row.convertedName?.let { name ->
+            Text(
+                text = stringResource(R.string.bpm_converted_note, name),
+                style = MaterialTheme.typography.bodySmall,
+                color = variant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
         when (row.status) {
+            BpmRowStatus.SKIPPED -> Text(
+                text = stringResource(R.string.bpm_status_skipped) +
+                    ": " + failureText(row.failure ?: BpmFailure.NOT_OPUS_FILE),
+                style = MaterialTheme.typography.bodySmall,
+                color = variant,
+            )
             BpmRowStatus.QUEUED, BpmRowStatus.ANALYZING -> Row(verticalAlignment = Alignment.CenterVertically) {
                 CircularProgressIndicator(modifier = Modifier.size(12.dp), strokeWidth = 1.5.dp)
                 Spacer(Modifier.width(8.dp))
@@ -554,7 +630,7 @@ private fun BpmRowEditorDialog(
     var analysisFailure by remember { mutableStateOf<BpmFailure?>(null) }
 
     fun analyze() {
-        val uriString = row.uriString ?: return
+        val uriString = row.targetUriString ?: return
         analyzing = true
         scope.launch {
             val outcome = BpmAnalyzer.analyze(context, uriString)

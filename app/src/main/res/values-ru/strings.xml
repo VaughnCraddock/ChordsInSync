@@ -1577,4 +1577,11 @@
     <string name="bpm_status_tagged">Тег уже есть</string>
     <string name="bpm_status_saved">Сохранено</string>
     <string name="bpm_status_unsupported">Неподдерживаемый формат</string>
+    <string name="convert_opus_to_aac">Конвертировать Opus в AAC</string>
+    <string name="convert_opus_in_folder">Конвертировать Opus в AAC в папке</string>
+    <string name="bpm_converting">Конвертация в AAC…</string>
+    <string name="bpm_converted_note">Конвертировано в AAC: %1$s (оригинал сохранён)</string>
+    <string name="bpm_failure_convert">Не удалось конвертировать в AAC</string>
+    <string name="bpm_failure_not_opus">Это не файл Opus</string>
+    <string name="bpm_status_skipped">Пропущено</string>
 </resources>

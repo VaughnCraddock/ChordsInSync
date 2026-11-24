@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
@@ -31,6 +32,15 @@ import kotlinx.coroutines.launch
  * is the results screen's include-tagged switch, not this service's call.
  * Nothing is written here at all — writes happen only when the user
  * confirms the results in the host dialog.
+ *
+ * **Opus files are converted first.** An Opus track cannot hold a BPM tag
+ * at all, so a row whose file might be Opus (by name — [OpusFiles]) goes
+ * through [OpusAacConverter] before anything else: the converted AAC
+ * sibling becomes the row's target for the tag read, the analysis and the
+ * eventual save, and the original is never touched. A candidate that
+ * turns out not to be Opus is simply analyzed as-is. In a conversion-led
+ * run ([BpmJobs.convertOnly]) non-Opus rows are SKIPPED with their reason
+ * instead — converting was the whole point of asking.
  */
 class BpmBatchService : Service() {
 
@@ -61,7 +71,57 @@ class BpmBatchService : Service() {
                         return@forEachIndexed
                     }
                     BpmJobs.updateAt(index) { it.copy(status = BpmRowStatus.ANALYZING) }
-                    val existing = BpmTagStore.readBpm(this@BpmBatchService, uriString)
+                    // Conversion before everything: an Opus row's target
+                    // becomes its AAC sibling, and the rest of the row's
+                    // work (tag read, analysis, the save the host runs)
+                    // aims at the sibling. The original is never a target.
+                    var targetUriString = uriString
+                    val displayName = OpusAacConverter.displayNameOf(this@BpmBatchService, Uri.parse(uriString))
+                    val candidate = OpusFiles.isCandidate(displayName)
+                    if (BpmJobs.convertOnly.value && !candidate) {
+                        BpmJobs.updateAt(index) {
+                            it.copy(status = BpmRowStatus.SKIPPED, failure = BpmFailure.NOT_OPUS_FILE)
+                        }
+                        startForegroundWith(done = index + 1, total = queue.size)
+                        return@forEachIndexed
+                    }
+                    if (candidate) {
+                        when (val conversion = OpusAacConverter.convert(
+                            this@BpmBatchService,
+                            uriString,
+                            title = row.song.title,
+                            artist = row.song.artist,
+                            album = row.song.albumName,
+                        )) {
+                            is OpusAacConverter.Outcome.Converted -> {
+                                targetUriString = conversion.uriString
+                                BpmJobs.updateAt(index) {
+                                    it.copy(
+                                        convertedUriString = conversion.uriString,
+                                        convertedName = conversion.displayName,
+                                    )
+                                }
+                            }
+                            OpusAacConverter.Outcome.NotOpus -> {
+                                if (BpmJobs.convertOnly.value) {
+                                    BpmJobs.updateAt(index) {
+                                        it.copy(status = BpmRowStatus.SKIPPED, failure = BpmFailure.NOT_OPUS_FILE)
+                                    }
+                                    startForegroundWith(done = index + 1, total = queue.size)
+                                    return@forEachIndexed
+                                }
+                                // Only a suspicion by name: analyze the file itself.
+                            }
+                            is OpusAacConverter.Outcome.Failed -> {
+                                BpmJobs.updateAt(index) {
+                                    it.copy(status = BpmRowStatus.FAILED, failure = conversion.reason)
+                                }
+                                startForegroundWith(done = index + 1, total = queue.size)
+                                return@forEachIndexed
+                            }
+                        }
+                    }
+                    val existing = BpmTagStore.readBpm(this@BpmBatchService, targetUriString)
                     if (existing != null) {
                         BpmJobs.updateAt(index) {
                             it.copy(
@@ -71,7 +131,7 @@ class BpmBatchService : Service() {
                             )
                         }
                     } else {
-                        val outcome = BpmAnalyzer.analyze(this@BpmBatchService, uriString)
+                        val outcome = BpmAnalyzer.analyze(this@BpmBatchService, targetUriString)
                         // The three endings get three different rows: a
                         // measurement, a decoded file with no tempo in it,
                         // and a file that never became audio — the last two
