@@ -167,6 +167,13 @@ fun BrowseActionsMenu(
      */
     onAnalyzeBpmFolder: (() -> Unit)? = null,
     /**
+     * Converts every Opus track in a device folder to an AAC sibling
+     * (originals kept) and analyzes the copies — a conversion-led batch
+     * run, set under the same conditions as [onAnalyzeBpmFolder]. Rows
+     * that are not Opus are skipped with their reason shown.
+     */
+    onConvertOpusFolder: (() -> Unit)? = null,
+    /**
      * Rename in the popup: a text field and its keyboard have no place on a
      * menu floating over the page, so the popup hands the job to the sheet,
      * which then opens straight on the form via [startRenaming].
@@ -333,6 +340,13 @@ fun BrowseActionsMenu(
                     icon = SfIcons.Metronome,
                     label = stringResource(R.string.analyze_bpm_in_folder),
                     onClick = onAnalyzeBpmFolder,
+                )
+            }
+            if (onConvertOpusFolder != null) {
+                ActionRow(
+                    icon = SfIcons.Metronome,
+                    label = stringResource(R.string.convert_opus_in_folder),
+                    onClick = onConvertOpusFolder,
                 )
             }
         }

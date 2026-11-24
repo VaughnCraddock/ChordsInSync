@@ -1692,4 +1692,11 @@
 <string name="bpm_status_saved">Enregistré</string>
 <string name="bpm_status_unsupported">Format non pris en charge</string>
 <string name="bpm_failure_decode">Ce fichier n\'a pas pu être décodé, aucun tempo n\'a donc pu être mesuré</string>
+<string name="convert_opus_to_aac">Convertir l\'Opus en AAC</string>
+<string name="convert_opus_in_folder">Convertir l\'Opus en AAC dans le dossier</string>
+<string name="bpm_converting">Conversion en AAC…</string>
+<string name="bpm_converted_note">Converti en AAC : %1$s (original conservé)</string>
+<string name="bpm_failure_convert">Échec de la conversion en AAC</string>
+<string name="bpm_failure_not_opus">Ce n\'est pas un fichier Opus</string>
+<string name="bpm_status_skipped">Ignoré</string>
 </resources>

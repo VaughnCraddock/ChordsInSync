@@ -1607,4 +1607,11 @@
 <string name="bpm_status_saved">Đã lưu</string>
 <string name="bpm_status_unsupported">Định dạng không được hỗ trợ</string>
 <string name="bpm_failure_decode">Không thể giải mã tệp này nên không thể đo nhịp</string>
+<string name="convert_opus_to_aac">Chuyển đổi Opus sang AAC</string>
+<string name="convert_opus_in_folder">Chuyển đổi Opus sang AAC trong thư mục</string>
+<string name="bpm_converting">Đang chuyển đổi sang AAC…</string>
+<string name="bpm_converted_note">Đã chuyển đổi sang AAC: %1$s (giữ bản gốc)</string>
+<string name="bpm_failure_convert">Chuyển đổi sang AAC thất bại</string>
+<string name="bpm_failure_not_opus">Không phải tệp Opus</string>
+<string name="bpm_status_skipped">Đã bỏ qua</string>
 </resources>

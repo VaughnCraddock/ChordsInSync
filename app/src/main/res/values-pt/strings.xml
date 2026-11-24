@@ -1696,4 +1696,11 @@
 <string name="bpm_status_saved">Salvo</string>
 <string name="bpm_status_unsupported">Formato não suportado</string>
 <string name="bpm_failure_decode">Este arquivo não pôde ser decodificado, portanto nenhum tempo pôde ser medido</string>
+<string name="convert_opus_to_aac">Converter Opus para AAC</string>
+<string name="convert_opus_in_folder">Converter Opus para AAC na pasta</string>
+<string name="bpm_converting">Convertendo para AAC…</string>
+<string name="bpm_converted_note">Convertido para AAC: %1$s (original mantido)</string>
+<string name="bpm_failure_convert">Falha na conversão para AAC</string>
+<string name="bpm_failure_not_opus">Não é um arquivo Opus</string>
+<string name="bpm_status_skipped">Ignorado</string>
 </resources>

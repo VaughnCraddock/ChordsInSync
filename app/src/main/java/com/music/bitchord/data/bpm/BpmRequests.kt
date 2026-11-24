@@ -12,7 +12,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 sealed interface BpmRequest {
     data class Single(val song: Song) : BpmRequest
-    data class Batch(val songs: List<Song>, val folderName: String? = null) : BpmRequest
+
+    /**
+     * A folder run. [convertOnly] marks a conversion-led run (the folder
+     * menu's "Convert Opus to AAC in folder"): rows that are not Opus are
+     * skipped with their reason instead of analyzed, and Opus rows are
+     * converted before anything else happens to them.
+     */
+    data class Batch(val songs: List<Song>, val folderName: String? = null, val convertOnly: Boolean = false) : BpmRequest
 }
 
 /** The one pending [BpmRequest], if any. Written by menus, read and cleared by the BPM host. */
@@ -46,6 +53,9 @@ enum class BpmRowStatus {
     /** Analysis (or the tag read) failed; [BpmRowState.failure] says why. A hand-entered value can still be saved. */
     FAILED,
 
+    /** A conversion-led run had nothing to do for this file; [BpmRowState.failure] says why. Never saved. */
+    SKIPPED,
+
     SAVING,
 
     /** Written and verified; [BpmRowState.savedValue] is what the file now holds. */
@@ -71,8 +81,15 @@ data class BpmRowState(
     val fieldText: String = "",
     val failure: BpmFailure? = null,
     val savedValue: Double? = null,
+    /** The AAC sibling this row's Opus source was converted to, when it was: analysis and saving aim at it, never at the Opus original. */
+    val convertedUriString: String? = null,
+    /** The converted sibling's display name, for the row's "Converted to AAC" note. */
+    val convertedName: String? = null,
 ) {
     val uriString: String? get() = song.localUri?.takeIf { it.isNotBlank() }
+
+    /** Where reads, analysis and tag writes should aim: the converted AAC when there is one, else the file itself. */
+    val targetUriString: String? get() = convertedUriString ?: uriString
 }
 
 /**
@@ -93,10 +110,14 @@ object BpmJobs {
     /** Whether already-tagged files take part in saving. Off by default: the run skips them unless asked. */
     val includeTagged = MutableStateFlow(false)
 
-    fun begin(songs: List<Song>, name: String?) {
+    /** Whether the current run is conversion-led (see [BpmRequest.Batch.convertOnly]). */
+    val convertOnly = MutableStateFlow(false)
+
+    fun begin(songs: List<Song>, name: String?, convertOnlyRun: Boolean = false) {
         runId.value++
         folderName.value = name
         includeTagged.value = false
+        convertOnly.value = convertOnlyRun
         rows.value = songs.map { BpmRowState(song = it) }
         running.value = true
     }
@@ -119,6 +140,7 @@ object BpmJobs {
     fun clear() {
         rows.value = emptyList()
         folderName.value = null
+        convertOnly.value = false
         running.value = false
     }
 }

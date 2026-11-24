@@ -1648,4 +1648,11 @@
 <string name="bpm_status_saved">Kaydedildi</string>
 <string name="bpm_status_unsupported">Desteklenmeyen biçim</string>
 <string name="bpm_failure_decode">Bu dosya çözülemedi, bu nedenle tempo ölçülemedi</string>
+<string name="convert_opus_to_aac">Opus\'u AAC\'ye dönüştür</string>
+<string name="convert_opus_in_folder">Klasördeki Opus\'u AAC\'ye dönüştür</string>
+<string name="bpm_converting">AAC\'ye dönüştürülüyor…</string>
+<string name="bpm_converted_note">AAC\'ye dönüştürüldü: %1$s (orijinal korundu)</string>
+<string name="bpm_failure_convert">AAC\'ye dönüştürme başarısız oldu</string>
+<string name="bpm_failure_not_opus">Opus dosyası değil</string>
+<string name="bpm_status_skipped">Atlandı</string>
 </resources>

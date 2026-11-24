@@ -1667,4 +1667,11 @@
 <string name="bpm_status_saved">已儲存</string>
 <string name="bpm_status_unsupported">不支援的格式</string>
 <string name="bpm_failure_decode">無法解碼此檔案，因此無法測量節奏</string>
+<string name="convert_opus_to_aac">將 Opus 轉換為 AAC</string>
+<string name="convert_opus_in_folder">將資料夾中的 Opus 轉換為 AAC</string>
+<string name="bpm_converting">正在轉換為 AAC…</string>
+<string name="bpm_converted_note">已轉換為 AAC：%1$s（已保留原始檔案）</string>
+<string name="bpm_failure_convert">轉換為 AAC 失敗</string>
+<string name="bpm_failure_not_opus">不是 Opus 檔案</string>
+<string name="bpm_status_skipped">已略過</string>
 </resources>

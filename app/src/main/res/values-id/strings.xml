@@ -1667,4 +1667,11 @@
 <string name="bpm_status_saved">Disimpan</string>
 <string name="bpm_status_unsupported">Format tidak didukung</string>
 <string name="bpm_failure_decode">File ini tidak dapat didekode, jadi tempo tidak dapat diukur</string>
+<string name="convert_opus_to_aac">Konversi Opus ke AAC</string>
+<string name="convert_opus_in_folder">Konversi Opus ke AAC di folder</string>
+<string name="bpm_converting">Mengonversi ke AAC…</string>
+<string name="bpm_converted_note">Dikonversi ke AAC: %1$s (asli disimpan)</string>
+<string name="bpm_failure_convert">Konversi ke AAC gagal</string>
+<string name="bpm_failure_not_opus">Bukan file Opus</string>
+<string name="bpm_status_skipped">Dilewati</string>
 </resources>
