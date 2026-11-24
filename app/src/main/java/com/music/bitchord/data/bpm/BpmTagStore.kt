@@ -41,6 +41,12 @@ enum class BpmFailure {
 
     /** The file could not be decoded into audio at all, so no tempo could be measured. */
     DECODE_FAILED,
+
+    /** An Opus file's conversion to AAC failed, so there was no converted file to analyze or tag. */
+    CONVERT_FAILED,
+
+    /** A conversion-led run reached a file that is not Opus; there was nothing to convert. */
+    NOT_OPUS_FILE,
 }
 
 /** The outcome of one [BpmTagStore.writeBpm] — every file ends in exactly one of these. */

@@ -456,9 +456,20 @@ object BpmTags {
         value.toDouble().takeIf { it in 1.0..999.0 }
     }.getOrNull()
 
-    private fun withMp4Bpm(bytes: ByteArray, bpm: Double): ByteArray? = runCatching {
+    private fun withMp4Bpm(bytes: ByteArray, bpm: Double): ByteArray? =
+        withMp4Items(bytes, listOf(mp4TmpoItem(bpm)))
+
+    /**
+     * A copy of [bytes] whose `ilst` holds [items] (each a complete item
+     * atom), replacing any existing items of the same types and preserving
+     * every other item byte-for-byte — or null when the layout isn't
+     * recognised. The one splice both MP4 writers share: BPM's `tmpo`, and
+     * the text atoms the Opus converter carries over from the source file.
+     */
+    fun withMp4Items(bytes: ByteArray, items: List<ByteArray>): ByteArray? = runCatching {
+        if (items.isEmpty()) return bytes
         val moov = parseMp4Boxes(bytes, 0, bytes.size).firstOrNull { it.type == "moov" } ?: return null
-        val tmpoItem = mp4TmpoItem(bpm)
+        val newTypes = items.map { itemType(it) }.toSet()
         // Locate meta and remember whether it sits inside udta: ancestors
         // that wrap the edit must grow, and "is meta inside udta" cannot be
         // re-derived after the splice by comparing offsets — meta is often
@@ -473,16 +484,16 @@ object BpmTags {
         if (meta == null || ilst == null) {
             // No metadata chain to edit: append a whole one as moov's last
             // child — the insertion Mp4Tagger proved, offsets patched.
-            val udta = mp4Box("udta", mp4MetaAtom(mp4IlstAtom(listOf(tmpoItem))))
+            val udta = mp4Box("udta", mp4MetaAtom(mp4IlstAtom(items)))
             return insertIntoMoov(bytes, moov, udta)
         }
-        // Rebuild ilst with every existing item except tmpo, plus the new
-        // tmpo — then grow the four ancestors by the same delta and shift
-        // every chunk offset that pointed past the old ilst.
+        // Rebuild ilst with every existing item whose type isn't being
+        // replaced, plus the new items — then grow the ancestors by the
+        // same delta and shift every chunk offset past the old ilst.
         val kept = parseMp4Boxes(bytes, ilst.contentOffset, ilst.end)
-            .filter { it.type != "tmpo" }
+            .filter { it.type !in newTypes }
             .map { bytes.copyOfRange(it.offset, it.end) }
-        val newIlst = mp4IlstAtom(kept + tmpoItem)
+        val newIlst = mp4IlstAtom(kept + items)
         val delta = newIlst.size - ilst.size
         val working = bytes.copyOf()
         patchChunkOffsets(working, moov, threshold = ilst.end.toLong(), delta = delta)
@@ -556,6 +567,48 @@ object BpmTags {
         type.toByteArray(Charsets.ISO_8859_1).copyInto(out, 4)
         payload.copyInto(out, 8)
         return out
+    }
+
+    /** The four-character type of a complete `ilst` item atom. */
+    private fun itemType(item: ByteArray): String =
+        if (item.size >= 8) String(item, 4, 4, Charsets.ISO_8859_1) else ""
+
+    /**
+     * A copy of [bytes] with the iTunes text atoms for [title], [artist]
+     * and [album] set (blank ones skipped, existing ones replaced, all
+     * other items preserved) — the tag carry-over the Opus→AAC converter
+     * applies to its output, so a converted file keeps the identity its
+     * source had. Null when the layout isn't recognised.
+     */
+    fun withMp4TextTags(bytes: ByteArray, title: String?, artist: String?, album: String?): ByteArray? {
+        val items = mutableListOf<ByteArray>()
+        if (!title.isNullOrBlank()) items += mp4TextItem("©nam", title)
+        if (!artist.isNullOrBlank()) items += mp4TextItem("©ART", artist)
+        if (!album.isNullOrBlank()) items += mp4TextItem("©alb", album)
+        if (items.isEmpty()) return bytes
+        return withMp4Items(bytes, items)
+    }
+
+    /** The text of the `ilst` item [fourCc] (©nam/©ART/©alb/…), or null when absent or unreadable. */
+    fun readMp4Text(bytes: ByteArray, fourCc: String): String? = runCatching {
+        val moov = parseMp4Boxes(bytes, 0, bytes.size).firstOrNull { it.type == "moov" } ?: return null
+        val meta = findMeta(bytes, moov) ?: return null
+        val ilst = metaChildren(bytes, meta).firstOrNull { it.type == "ilst" } ?: return null
+        val item = parseMp4Boxes(bytes, ilst.contentOffset, ilst.end)
+            .firstOrNull { it.type == fourCc } ?: return null
+        val data = parseMp4Boxes(bytes, item.contentOffset, item.end)
+            .firstOrNull { it.type == "data" } ?: return null
+        // data content: 4 bytes of version/type + 4 of locale, then UTF-8 text.
+        val start = data.contentOffset + 8
+        if (data.end <= start) return null
+        String(bytes, start, data.end - start, Charsets.UTF_8).trim('\u0000')
+    }.getOrNull()
+
+    /** An iTunes text item: a `data` atom of type 1 (UTF-8) holding [text]. */
+    private fun mp4TextItem(fourCc: String, text: String): ByteArray {
+        val body = ByteArray(8) + text.toByteArray(Charsets.UTF_8)
+        writeU32(body, 0, 1)
+        return mp4Box(fourCc, mp4Box("data", body))
     }
 
     /** iTunes `data` atom body: version/type word + locale word, then the value. 21 = unsigned integer. */

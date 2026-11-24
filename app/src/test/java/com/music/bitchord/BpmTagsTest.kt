@@ -133,6 +133,37 @@ class BpmTagsTest {
         assertEquals(oldEntry + (written.size - fixture.bytes.size), newEntry)
     }
 
+    @Test
+    fun mp4_textTags_roundTrip_replaceExisting_andCoexistWithTmpo() {
+        // The Opus converter's carry-over: identity atoms land in the
+        // converted file, an existing ©nam is replaced (not duplicated),
+        // and the tmpo write that follows leaves the texts standing.
+        val fixture = mp4WithMeta()
+        val tagged = BpmTags.withMp4TextTags(fixture, "New Title", "The Artist", "The Album")!!
+        assertEquals("New Title", BpmTags.readMp4Text(tagged, "©nam"))
+        assertEquals("The Artist", BpmTags.readMp4Text(tagged, "©ART"))
+        assertEquals("The Album", BpmTags.readMp4Text(tagged, "©alb"))
+        val withBpm = BpmTags.withBpm(tagged, 128.0, "song.m4a")!!
+        assertEquals(128.0, BpmTags.readBpm(withBpm, "song.m4a")!!, 0.001)
+        assertEquals("New Title", BpmTags.readMp4Text(withBpm, "©nam"))
+        assertEquals("The Artist", BpmTags.readMp4Text(withBpm, "©ART"))
+    }
+
+    @Test
+    fun mp4_textTags_onBareFile_createTheChain() {
+        val fixture = mp4Bare()
+        val tagged = BpmTags.withMp4TextTags(fixture.bytes, "T", null, null)!!
+        assertEquals("T", BpmTags.readMp4Text(tagged, "©nam"))
+        assertNull(BpmTags.readMp4Text(tagged, "©ART"))
+    }
+
+    @Test
+    fun mp4_textTags_blankOnesChangeNothing() {
+        val fixture = mp4WithMeta()
+        val same = BpmTags.withMp4TextTags(fixture, "  ", null, "")!!
+        assertTrue(fixture.contentEquals(same))
+    }
+
     // -------------------------------------------------------------- refusals
 
     @Test

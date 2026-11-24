@@ -1,6 +1,8 @@
 package com.music.bitchord
 
+import com.music.bitchord.data.bpm.BpmTags
 import com.music.bitchord.data.bpm.TempoEstimator
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -125,6 +127,30 @@ class TempoEstimatorCorpusTest {
         assertNotNull("no tempo found for a steady 122 BPM house track", estimate)
         val error = kotlin.math.abs(estimate!!.bpm - 122.0)
         assertTrue("expected within 1 BPM of 122, got ${estimate.bpm}", error <= 1.0)
+    }
+
+    @Test
+    fun opusConvertedToAac_analyzesAtSourceTempo_andTakesTmpo() {
+        // The conversion pipeline's proof, minus the device codecs: the
+        // corpus's house120.opus, transcoded to AAC-LC 256 kb/s by a
+        // reference encoder (the same transcode the phone's MediaCodec
+        // pump performs — Opus decode, AAC encode, MP4 mux), must still
+        // analyze at its source tempo, and the resulting real-world .m4a
+        // must accept a tmpo write that reads back. The decoded PCM of
+        // the converted file sits beside it in the corpus.
+        val dir = File("/home/hatch/workspace/bpm-corpus/opus-test")
+        val m4a = File(dir, "house120.m4a")
+        val decoded = File(dir, "house120-from-m4a.f32")
+        assumeTrue("converted corpus files not present", m4a.isFile && decoded.isFile)
+        val estimate = TempoEstimator.estimate(loadF32(decoded), rate)
+        assertNotNull("no tempo found after Opus→AAC conversion", estimate)
+        assertTrue(
+            "expected within 1 BPM of 120 after conversion, got ${estimate!!.bpm}",
+            kotlin.math.abs(estimate.bpm - 120.0) <= 1.0,
+        )
+        val written = BpmTags.withBpm(m4a.readBytes(), 120.0, "house120.m4a")
+        assertNotNull("a real muxed .m4a must take a tmpo write", written)
+        assertEquals(120.0, BpmTags.readBpm(written!!, "house120.m4a")!!, 0.001)
     }
 
     @Test
